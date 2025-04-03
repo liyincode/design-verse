@@ -8,7 +8,7 @@ DesignVerse is a showcase of contemporary web design styles. Browse different st
 
 > **Note**: 
 > - All webpages in this showcase were generated in a single context conversation, so they share similar structure and content patterns.
-> - Based on testing, Claude 3.7 produces better results compared to other versions.
+> - Based on testing, Claude 3.7, DeepSeek-V3, Gemini 2.5Pro produces better results compared to other versions.
 
 ## Included Design Styles
 
