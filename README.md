@@ -4,15 +4,7 @@
 
 ## Project Overview
 
-DesignVerse is an interactive repository showcasing contemporary design styles, created to help designers, developers, and enthusiasts understand the characteristics, applications, and implementation methods of different design movements. Each style is demonstrated through actual web design examples using the same content structure but different visual languages.
-
-## Features
-
-- **Diverse Design Styles**: Includes multiple popular design styles, from classic Swiss International Style to modern Glassmorphism
-- **Consistent Content Structure**: All design style pages present identical content, facilitating intuitive comparison of visual expression differences
-- **Responsive Design**: All pages adapt to different device sizes
-- **Code Implementation**: Each design style has complete HTML and CSS implementation for learning reference
-- **Scalability**: The project architecture supports continuous addition of new design styles
+DesignVerse is a showcase of contemporary web design styles. Browse different style examples and copy the provided prompts to generate similar websites using Claude or DeepSeek AI tools.
 
 ## Included Design Styles
 
@@ -34,21 +26,10 @@ The project currently includes the following design styles:
 
 ## How to Use
 
-1. Clone or download this repository
-2. Open `index.html` to access the homepage
-3. Click on any design style card to view the detailed page
-4. View the source code to understand specific implementations of each style
-
-## Tech Stack
-
-- HTML5
-- CSS3 (including various modern CSS techniques)
-- JavaScript (basic interaction functionality)
-- Responsive design principles
-
-## Contributing
-
-Contributions of new design styles or improvements to existing ones are welcome. Please submit your contributions via Pull Request.
+1. Visit [DesignVerse website](https://liyincode.github.io/design-verse/)
+2. Click the "Copy Prompt" button in the bottom-right corner of any card to copy the design style prompt
+3. Paste the copied prompt into Claude, DeepSeek or other AI assistants and press Enter
+4. Alternatively, you can find all prompts collected in the [prompt.md](prompt.md) file in this repository
 
 ## License
 
@@ -56,6 +37,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgements
 
+- Thanks to [汗青 AITalk](https://mp.weixin.qq.com/s/UX_GaRlepP8GGxKFyh5rSA) for providing prompts and inspiration
 - Special thanks to all designers and developers who have contributed to the design field
 - Project inspiration comes from style explorations across design communities and platforms
 

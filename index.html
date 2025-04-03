@@ -6,13 +6,13 @@
     <title>设计风格主页 | Design Styles Showcase</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&family=Press+Start+2P&family=VT323&family=Work+Sans:wght@400;600&family=Roboto+Mono&display=swap');
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         :root {
             --dark-bg: #121212;
             --light-bg: #f5f5f5;
@@ -21,14 +21,14 @@
             --shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
             --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.25);
         }
-        
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--light-bg);
             color: #333;
             line-height: 1.6;
         }
-        
+
         header {
             padding: 3rem 2rem;
             text-align: center;
@@ -36,32 +36,32 @@
             margin: 0 auto;
             position: relative;
         }
-        
+
         h1 {
             font-size: 3.5rem;
             margin-bottom: 1rem;
             font-weight: 700;
         }
-        
+
         .subtitle {
             font-size: 1.25rem;
             color: #666;
             max-width: 700px;
             margin: 0 auto 3rem auto;
         }
-        
+
         main {
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 2rem 5rem 2rem;
         }
-        
+
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 2.5rem;
         }
-        
+
         .card {
             background: white;
             border-radius: 8px;
@@ -74,12 +74,12 @@
             display: flex;
             flex-direction: column;
         }
-        
+
         .card:hover {
             transform: translateY(-10px);
             box-shadow: var(--shadow-hover);
         }
-        
+
         .card-inner {
             flex: 1;
             display: flex;
@@ -88,7 +88,7 @@
             position: relative;
             z-index: 1;
         }
-        
+
         .card-title {
             font-size: 1.25rem;
             font-weight: 600;
@@ -96,14 +96,73 @@
             position: relative;
             z-index: 1;
         }
-        
+
         .card-subtitle {
             font-size: 0.875rem;
             line-height: 1.5;
             position: relative;
             z-index: 1;
         }
-        
+
+        /* Tooltip for copy success */
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            bottom: 60px;
+            right: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .card:hover .copy-prompt-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .copy-prompt-btn:hover {
+            background-color: var(--highlight-magenta);
+            color: #fff;
+        }
+
+        /* Copy prompt button */
+        .copy-prompt-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--highlight-cyan);
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.2s ease;
+            z-index: 10;
+        }
+
+        /* For card link */
+        .card-link {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+
+        .copy-prompt-btn {
+            z-index: 3;
+        }
+
         /* GitHub corner */
         .github-corner {
             position: fixed;
@@ -111,18 +170,18 @@
             right: 0;
             z-index: 10;
         }
-        
+
         .github-corner svg {
             fill: #151513;
             color: var(--light-bg);
             width: 60px;
             height: 60px;
         }
-        
+
         .github-corner:hover .octo-arm {
             animation: octocat-wave 560ms ease-in-out;
         }
-        
+
         @keyframes octocat-wave {
             0%, 100% { transform: rotate(0); }
             20%, 60% { transform: rotate(-25deg); }
@@ -137,36 +196,36 @@
                 animation: octocat-wave 560ms ease-in-out;
             }
         }
-        
+
         /* Specific styles for each card */
-        
+
         /* 1. TheVerge Style */
         .card.theverge {
             background-color: #121212;
         }
-        
+
         .card.theverge .card-inner {
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-image:
+                    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 20px 20px;
         }
-        
+
         .card.theverge .card-title {
             color: white;
             font-family: 'Inter', sans-serif;
             font-weight: 700;
             text-transform: uppercase;
         }
-        
+
         .card.theverge .card-title span {
             color: var(--highlight-cyan);
         }
-        
+
         .card.theverge .card-subtitle {
             color: rgba(255, 255, 255, 0.7);
         }
-        
+
         .card.theverge::after {
             content: "";
             position: absolute;
@@ -178,30 +237,30 @@
             right: -50px;
             box-shadow: 0 0 80px rgba(3, 252, 144, 0.3);
         }
-        
+
         /* 2. Swiss/International Style */
         .card.swiss {
             background-color: white;
         }
-        
+
         .card.swiss .card-inner {
-            background-image: 
-                linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+            background-image:
+                    linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
             background-size: 20px 20px;
         }
-        
+
         .card.swiss .card-title {
             color: black;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        
+
         .card.swiss .card-subtitle {
             color: #333;
         }
-        
+
         .card.swiss::after {
             content: "";
             position: absolute;
@@ -212,29 +271,29 @@
             right: 20px;
             z-index: 0;
         }
-        
+
         /* 3. Cyberpunk Style */
         .card.cyberpunk {
             background-color: #0a0a12;
         }
-        
+
         .card.cyberpunk .card-inner {
-            background-image: 
-                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 0, 255, 0.1) 1px, transparent 1px);
+            background-image:
+                    linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255, 0, 255, 0.1) 1px, transparent 1px);
             background-size: 20px 20px;
         }
-        
+
         .card.cyberpunk .card-title {
             color: #00f0ff;
             font-family: 'Roboto Mono', monospace;
             text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
         }
-        
+
         .card.cyberpunk .card-subtitle {
             color: rgba(255, 255, 255, 0.7);
         }
-        
+
         .card.cyberpunk::before {
             content: "";
             position: absolute;
@@ -243,7 +302,7 @@
             background: linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 95%, rgba(255, 0, 255, 0.3) 100%);
             z-index: 1;
         }
-        
+
         /* 4. Glassmorphism Style */
         .card.glassmorphism {
             background: rgba(255, 255, 255, 0.1);
@@ -252,25 +311,25 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             background-image: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
         }
-        
+
         .card.glassmorphism .card-inner {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 8px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             margin: 10px;
         }
-        
+
         .card.glassmorphism .card-title {
             color: white;
             background: linear-gradient(90deg, #ffffff, #e0e0e0);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        
+
         .card.glassmorphism .card-subtitle {
             color: rgba(255, 255, 255, 0.8);
         }
-        
+
         .card.glassmorphism::after {
             content: "";
             position: absolute;
@@ -282,7 +341,7 @@
             right: -40px;
             box-shadow: 0 0 30px rgba(3, 252, 144, 0.3);
         }
-        
+
         /* 5. Brutalist Style */
         .card.brutalist {
             background-color: white;
@@ -292,27 +351,27 @@
             transform-origin: top left;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        
+
         .card.brutalist:hover {
             transform: translate(-5px, -5px);
             box-shadow: 13px 13px 0px black;
         }
-        
+
         .card.brutalist .card-title {
             font-family: monospace;
             font-weight: bold;
             margin-bottom: 1rem;
             font-size: 1.5rem;
         }
-        
+
         .card.brutalist .card-subtitle {
             font-family: monospace;
         }
-        
+
         .card.brutalist .card-inner {
             border-top: 2px solid black;
         }
-        
+
         .card.brutalist::after {
             content: "01";
             position: absolute;
@@ -322,22 +381,22 @@
             font-weight: bold;
             opacity: 0.1;
         }
-        
+
         /* 6. Vaporwave Style */
         .card.vaporwave {
             background-color: #000033;
         }
-        
+
         .card.vaporwave .card-inner {
-            background-image: 
-                linear-gradient(to bottom, rgba(255, 105, 180, 0.3) 1px, transparent 1px),
-                linear-gradient(to right, rgba(0, 255, 255, 0.3) 1px, transparent 1px);
+            background-image:
+                    linear-gradient(to bottom, rgba(255, 105, 180, 0.3) 1px, transparent 1px),
+                    linear-gradient(to right, rgba(0, 255, 255, 0.3) 1px, transparent 1px);
             background-size: 20px 20px;
             perspective: 500px;
             transform-style: preserve-3d;
             transform: rotateX(15deg);
         }
-        
+
         .card.vaporwave .card-title {
             color: white;
             font-family: 'VT323', monospace;
@@ -345,12 +404,12 @@
             text-shadow: 2px 2px 0px #ff00ff, -2px -2px 0px #00ffff;
             transform: skew(-5deg);
         }
-        
+
         .card.vaporwave .card-subtitle {
             color: #00ffff;
             font-family: 'VT323', monospace;
         }
-        
+
         .card.vaporwave::after {
             content: "";
             position: absolute;
@@ -362,27 +421,27 @@
             border-radius: 0;
             transform: scaleX(1.5);
         }
-        
+
         /* 7. Material Design Style */
         .card.material {
             background-color: white;
             border-radius: 8px;
         }
-        
+
         .card.material .card-inner {
             padding: 1.5rem;
         }
-        
+
         .card.material .card-title {
             color: #6200ee;
             font-size: 1.25rem;
             font-weight: 500;
         }
-        
+
         .card.material .card-subtitle {
             color: rgba(0, 0, 0, 0.6);
         }
-        
+
         .card.material::after {
             content: "";
             position: absolute;
@@ -394,24 +453,24 @@
             right: 20px;
             opacity: 0.1;
         }
-        
+
         /* 8. Neumorphism Style */
         .card.neumorphism {
             background: #e0e5ec;
             border-radius: 20px;
-            box-shadow: 
-                8px 8px 16px #a3b1c6,
-                -8px -8px 16px #ffffff;
+            box-shadow:
+                    8px 8px 16px #a3b1c6,
+                    -8px -8px 16px #ffffff;
             transform: translateY(0);
         }
-        
+
         .card.neumorphism:hover {
-            box-shadow: 
-                10px 10px 20px #a3b1c6,
-                -10px -10px 20px #ffffff;
+            box-shadow:
+                    10px 10px 20px #a3b1c6,
+                    -10px -10px 20px #ffffff;
             transform: translateY(-10px);
         }
-        
+
         .card.neumorphism .card-inner {
             display: flex;
             flex-direction: column;
@@ -419,17 +478,17 @@
             align-items: center;
             text-align: center;
         }
-        
+
         .card.neumorphism .card-title {
             color: #555;
             font-weight: 600;
             margin-bottom: 1rem;
         }
-        
+
         .card.neumorphism .card-subtitle {
             color: #666;
         }
-        
+
         .card.neumorphism::after {
             content: "";
             position: absolute;
@@ -437,30 +496,30 @@
             height: 80px;
             border-radius: 50%;
             background: #e0e5ec;
-            box-shadow: 
-                inset 3px 3px 6px #a3b1c6,
-                inset -3px -3px 6px #ffffff;
+            box-shadow:
+                    inset 3px 3px 6px #a3b1c6,
+                    inset -3px -3px 6px #ffffff;
             bottom: 30px;
             right: 30px;
         }
-        
+
         /* 9. Anti-Design Style */
         .card.antidesign {
             background-color: #ffff00;
             transform: rotate(-1deg);
             border-radius: 0;
         }
-        
+
         .card.antidesign:hover {
             transform: rotate(1deg) translateY(-10px);
         }
-        
+
         .card.antidesign .card-inner {
             transform: rotate(2deg);
             background-color: rgba(255, 255, 255, 0.7);
             border: 3px dashed #0000ff;
         }
-        
+
         .card.antidesign .card-title {
             font-family: 'Comic Sans MS', cursive;
             color: #ff0000;
@@ -468,12 +527,12 @@
             font-size: 1.5rem;
             text-decoration: underline wavy #0000ff;
         }
-        
+
         .card.antidesign .card-subtitle {
             font-family: 'Comic Sans MS', cursive;
             transform: rotate(-1deg);
         }
-        
+
         .card.antidesign::after {
             content: "🔥";
             position: absolute;
@@ -482,12 +541,12 @@
             right: 20px;
             animation: float 2s infinite alternate;
         }
-        
+
         @keyframes float {
             0% { transform: translateY(0) rotate(0); }
             100% { transform: translateY(-10px) rotate(10deg); }
         }
-        
+
         /* 10. Minimalist Style */
         .card.minimalist {
             background-color: white;
@@ -495,26 +554,26 @@
             box-shadow: none;
             border: 1px solid #e0e0e0;
         }
-        
+
         .card.minimalist:hover {
             box-shadow: var(--shadow);
         }
-        
+
         .card.minimalist .card-inner {
             padding: 2rem;
         }
-        
+
         .card.minimalist .card-title {
             font-weight: 300;
             font-size: 1.5rem;
             margin-bottom: 1rem;
         }
-        
+
         .card.minimalist .card-subtitle {
             color: #999;
             font-weight: 300;
         }
-        
+
         .card.minimalist::after {
             content: "";
             position: absolute;
@@ -524,7 +583,7 @@
             bottom: 80px;
             left: 0;
         }
-        
+
         /* 11. Neo-Retro Style */
         .card.neoretro {
             background-color: #000;
@@ -533,16 +592,16 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .card.neoretro .card-inner {
-            background-image: 
-                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+            background-image:
+                    linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
             background-size: 20px 20px;
             transform: perspective(500px) rotateX(15deg);
             transform-origin: center bottom;
         }
-        
+
         .card.neoretro .card-title {
             font-family: 'Press Start 2P', cursive;
             color: #fff;
@@ -550,13 +609,13 @@
             text-shadow: 2px 2px 0 #ff00ff;
             margin-bottom: 1.5rem;
         }
-        
+
         .card.neoretro .card-subtitle {
             font-family: 'VT323', monospace;
             color: #00ffff;
             font-size: 1.1rem;
         }
-        
+
         .card.neoretro::before {
             content: "";
             position: absolute;
@@ -570,7 +629,7 @@
             pointer-events: none;
             opacity: 0.15;
         }
-        
+
         /* 12. Memphis Style */
         .card.memphis {
             background-color: #ffd166;
@@ -578,7 +637,7 @@
             border-radius: 0;
             overflow: visible;
         }
-        
+
         .card.memphis .card-inner {
             margin: 10px;
             background-color: white;
@@ -587,14 +646,14 @@
             position: relative;
             z-index: 1;
         }
-        
+
         .card.memphis .card-title {
             font-family: 'Work Sans', sans-serif;
             font-weight: 600;
             position: relative;
             display: inline-block;
         }
-        
+
         .card.memphis .card-title::after {
             content: "";
             position: absolute;
@@ -605,11 +664,11 @@
             left: -10%;
             z-index: -1;
         }
-        
+
         .card.memphis .card-subtitle {
             font-family: 'Work Sans', sans-serif;
         }
-        
+
         .card.memphis::before {
             content: "";
             position: absolute;
@@ -621,7 +680,7 @@
             right: -15px;
             z-index: 0;
         }
-        
+
         .card.memphis::after {
             content: "";
             position: absolute;
@@ -633,28 +692,28 @@
             left: 30px;
             z-index: 0;
         }
-        
+
         /* 13. Flat Design 2.0 Style */
         .card.flat2 {
             background-color: white;
             border-radius: 10px;
         }
-        
+
         .card.flat2 .card-inner {
             position: relative;
             z-index: 1;
         }
-        
+
         .card.flat2 .card-title {
             color: #4361ee;
             font-weight: 600;
             margin-bottom: 1rem;
         }
-        
+
         .card.flat2 .card-subtitle {
             color: #6c757d;
         }
-        
+
         .card.flat2::before {
             content: "";
             position: absolute;
@@ -668,7 +727,7 @@
             transform: rotate(15deg);
             z-index: 0;
         }
-        
+
         /* Footer styles */
         footer {
             text-align: center;
@@ -677,14 +736,14 @@
             color: #666;
             font-size: 0.875rem;
         }
-        
+
         /* Media Queries */
         @media (max-width: 768px) {
             .grid {
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
                 gap: 1.5rem;
             }
-            
+
             h1 {
                 font-size: 2.5rem;
             }
@@ -692,138 +751,358 @@
     </style>
 </head>
 <body>
-    <header>
-        <a href="https://github.com/liyincode/design-verse" class="github-corner" aria-label="View source on GitHub">
-            <svg width="60" height="60" viewBox="0 0 250 250" style="fill:#151513; color:var(--light-bg); position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
-                <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
-                <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
-                <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
-            </svg>
-        </a>
-        <h1>设计风格展示 <span style="color: var(--highlight-cyan);">|</span> <span style="color: var(--highlight-magenta);">Design</span> Styles</h1>
-        <p class="subtitle">探索不同的设计风格，点击卡片查看完整演示</p>
-    </header>
-    
-    <main>
-        <div class="grid">
-            <!-- TheVerge Style -->
-            <a href="theverge-style-ad.html" class="card theverge">
-                <div class="card-inner">
-                    <h2 class="card-title">The<span>Verge</span> Style</h2>
-                    <p class="card-subtitle">科技媒体网站风格，特点是使用深色背景与霓虹色高亮、大胆的排版和几何元素，营造高科技氛围。</p>
-                </div>
-            </a>
-            
-            <!-- Swiss/International Style -->
-            <a href="swiss-style-ad.html" class="card swiss">
-                <div class="card-inner">
-                    <h2 class="card-title">Swiss/International Style <br>瑞士国际风格</h2>
-                    <p class="card-subtitle">现代主义设计风格，强调清晰、客观的视觉传达，使用网格系统、无衬线字体和不对称布局。</p>
-                </div>
-            </a>
-            
-            <!-- Cyberpunk Style -->
-            <a href="cyberpunk-style-ad.html" class="card cyberpunk">
-                <div class="card-inner">
-                    <h2 class="card-title">赛博朋克风格 | Cyberpunk</h2>
-                    <p class="card-subtitle">未来派反乌托邦美学，霓虹灯效果、故障艺术和高科技与低生活的对比，呈现数字化未来。</p>
-                </div>
-            </a>
-            
-            <!-- Glassmorphism Style -->
-            <a href="glassmorphism-style-ad.html" class="card glassmorphism">
-                <div class="card-inner">
-                    <h2 class="card-title">玻璃拟态 | Glassmorphism</h2>
-                    <p class="card-subtitle">使用半透明磨砂玻璃效果，创造层次感和深度，常见于现代UI设计中的窗口和卡片元素。</p>
-                </div>
-            </a>
-            
-            <!-- Brutalist Style -->
-            <a href="brutalist-style-ad.html" class="card brutalist">
-                <div class="card-inner">
-                    <h2 class="card-title">BRUTALIST STYLE<br>野兽派风格</h2>
-                    <p class="card-subtitle">极简主义的数字表达，特点是原始HTML样式、无装饰元素、粗犷的排版和功能性优先的设计。</p>
-                </div>
-            </a>
-            
-            <!-- Vaporwave Style -->
-            <a href="vaporwave-style-ad.html" class="card vaporwave">
-                <div class="card-inner">
-                    <h2 class="card-title">Vaporwave 蒸汽波</h2>
-                    <p class="card-subtitle">结合80-90年代怀旧元素，特点是粉色和蓝色调、复古电脑界面、罗马雕塑和网格图案的互联网亚文化。</p>
-                </div>
-            </a>
-            
-            <!-- Material Design Style -->
-            <a href="material-design-ad.html" class="card material">
-                <div class="card-inner">
-                    <h2 class="card-title">Material Design 材料设计</h2>
-                    <p class="card-subtitle">由Google开发的设计语言，基于纸张和墨水的隐喻，强调表面、边缘、阴影和光线效果。</p>
-                </div>
-            </a>
-            
-            <!-- Neumorphism Style -->
-            <a href="neumorphism-style-ad.html" class="card neumorphism">
-                <div class="card-inner">
-                    <h2 class="card-title">新拟态 | Neumorphism</h2>
-                    <p class="card-subtitle">介于平面设计和拟物化之间的风格，使用微妙的阴影创造软UI效果，给人感觉元素是从背景中"挤压"出来的。</p>
-                </div>
-            </a>
-            
-            <!-- Anti-Design Style -->
-            <a href="anti-design-style-ad.html" class="card antidesign">
-                <div class="card-inner">
-                    <h2 class="card-title">反设计 Anti-Design</h2>
-                    <p class="card-subtitle">挑战传统美学规则的风格，特点是不协调的色彩、非传统布局和实验性排版，故意打破设计规范。</p>
-                </div>
-            </a>
-            
-            <!-- Minimalist Style -->
-            <a href="minimalist-style-ad.html" class="card minimalist">
-                <div class="card-inner">
-                    <h2 class="card-title">极简主义 | Minimalism</h2>
-                    <p class="card-subtitle">专注于必要元素，大量留白，有限的调色板和简约的排版，代表有苹果公司产品和北欧设计。</p>
-                </div>
-            </a>
-            
-            <!-- Neo-Retro Style -->
-            <a href="neo-retro-style-ad.html" class="card neoretro">
-                <div class="card-inner">
-                    <h2 class="card-title">Neo-Retro 新复古</h2>
-                    <p class="card-subtitle">结合现代设计技术与复古审美，包括像素艺术、复古游戏UI和老式电脑界面元素的现代重新诠释。</p>
-                </div>
-            </a>
-            
-            <!-- Memphis Design Style -->
-            <a href="memphis-style-ad.html" class="card memphis">
-                <div class="card-inner">
-                    <h2 class="card-title">Memphis Design 孟菲斯设计</h2>
-                    <p class="card-subtitle">起源于80年代意大利设计团体，特点是大胆几何形状、明亮对比色和不对称图案，近年来在设计中复兴。</p>
-                </div>
-            </a>
-            
-            <!-- Flat Design 2.0 Style -->
-            <a href="flat-design-2-style-ad.html" class="card flat2">
-                <div class="card-inner">
-                    <h2 class="card-title">扁平化设计2.0 | Flat Design 2.0</h2>
-                    <p class="card-subtitle">扁平化设计的进化版，增加了微妙的阴影、渐变和深度暗示，同时保持整体简约美学。</p>
-                </div>
-            </a>
+<header>
+    <a href="https://github.com/YourUsername/DesignVerse" class="github-corner" aria-label="View source on GitHub">
+        <svg width="60" height="60" viewBox="0 0 250 250" style="fill:#151513; color:var(--light-bg); position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
+            <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+            <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+            <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
+        </svg>
+    </a>
+    <h1>设计风格展示 <span style="color: var(--highlight-cyan);">|</span> <span style="color: var(--highlight-magenta);">Design</span> Styles</h1>
+    <p class="subtitle">探索不同的设计风格，点击卡片查看完整演示</p>
+</header>
+
+<main>
+    <div class="grid">
+        <!-- TheVerge Style -->
+        <div class="card theverge">
+            <div class="card-inner">
+                <h2 class="card-title">The<span>Verge</span> Style</h2>
+                <p class="card-subtitle">科技媒体网站风格，特点是使用深色背景与霓虹色高亮、大胆的排版和几何元素，营造高科技氛围。</p>
+            </div>
+            <button class="copy-prompt-btn" data-style="theverge">复制Prompt</button>
+            <div class="tooltip">已复制到剪贴板！</div>
+            <a href="theverge-style-ad.html" class="card-link"></a>
         </div>
-    </main>
-    
-    <footer>
-        <p>© 2025 设计风格展示 | Design Styles Showcase</p>
-    </footer>
-    
-    <script>
-        // Simple hover effect for cards
-        document.querySelectorAll('.card').forEach(card => {
-            card.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
+
+        <!-- Swiss/International Style -->
+        <div class="card swiss">
+            <div class="card-inner">
+                <h2 class="card-title">Swiss/International Style <br>瑞士国际风格</h2>
+                <p class="card-subtitle">现代主义设计风格，强调清晰、客观的视觉传达，使用网格系统、无衬线字体和不对称布局。</p>
+            </div>
+            <button class="copy-prompt-btn" data-style="swiss">复制Prompt</button>
+            <div class="tooltip">已复制到剪贴板！</div>
+            <a href="swiss-style-ad.html" class="card-link"></a>
+        </div>
+
+        <!-- Cyberpunk Style -->
+        <div class="card cyberpunk">
+            <div class="card-inner">
+                <h2 class="card-title">赛博朋克风格 | Cyberpunk</h2>
+                <p class="card-subtitle">未来派反乌托邦美学，霓虹灯效果、故障艺术和高科技与低生活的对比，呈现数字化未来。</p>
+            </div>
+            <button class="copy-prompt-btn" data-style="cyberpunk">复制Prompt</button>
+            <div class="tooltip">已复制到剪贴板！</div>
+            <a href="cyberpunk-style-ad.html" class="card-link"></a>
+        </div>
+
+        <!-- Glassmorphism Style -->
+        <div class="card glassmorphism">
+            <div class="card-inner">
+                <h2 class="card-title">玻璃拟态 | Glassmorphism</h2>
+                <p class="card-subtitle">使用半透明磨砂玻璃效果，创造层次感和深度，常见于现代UI设计中的窗口和卡片元素。</p>
+            </div>
+            <button class="copy-prompt-btn" data-style="glassmorphism">复制Prompt</button>
+            <div class="tooltip">已复制到剪贴板！</div>
+            <a href="glassmorphism-style-ad.html" class="card-link"></a>
+        </div>
+
+        <!-- Brutalist Style -->
+        <div class="card brutalist">
+            <div class="card-inner">
+                <h2 class="card-title">BRUTALIST STYLE<br>野兽派风格</h2>
+                <p class="card-subtitle">极简主义的数字表达，特点是原始HTML样式、无装饰元素、粗犷的排版和功能性优先的设计。</p>
+            </div>
+            <button class="copy-prompt-btn" data-style="brutalist">复制Prompt</button>
+            <div class="tooltip">已复制到剪贴板！</div>
+            <a href="brutalist-style-ad.html" class="card-link"></a>
+        </div>
+
+        <!-- Vaporwave Style -->
+        <div class="card vaporwave">
+            <div class="card-inner">
+                <h2 class="card-title">Vaporwave 蒸汽波</h2>
+                <p class="card-subtitle">结合80-90年代怀旧元素，特点是粉色和蓝色调、复古电脑界面、罗马雕塑和网格图案的互联网亚文化。</p>
+            </div>
+            <button class="copy-prompt-btn" data-style="vaporwave">复制Prompt</button>
+            <div class="tooltip">已复制到剪贴板！</div>
+            <a href="vaporwave-style-ad.html" class="card-link"></a>
+        </div>
+
+        <!-- Material Design Style -->
+        <div class="card material">
+            <div class="card-inner">
+                <h2 class="card-title">Material Design 材料设计</h2>
+                <p class="card-subtitle">由Google开发的设计语言，基于纸张和墨水的隐喻，强调表面、边缘、阴影和光线效果。</p>
+            </div>
+            <button class="copy-prompt-btn" data-style="material">复制Prompt</button>
+            <div class="tooltip">已复制到剪贴板！</div>
+            <a href="material-design-ad.html" class="card-link"></a>
+        </div>
+
+        <!-- Neumorphism Style -->
+        <div class="card neumorphism">
+            <div class="card-inner">
+                <h2 class="card-title">新拟态 | Neumorphism</h2>
+                <p class="card-subtitle">介于平面设计和拟物化之间的风格，使用微妙的阴影创造软UI效果，给人感觉元素是从背景中"挤压"出来的。</p>
+            </div>
+            <button class="copy-prompt-btn" data-style="neumorphism">复制Prompt</button>
+            <div class="tooltip">已复制到剪贴板！</div>
+            <a href="neumorphism-style-ad.html" class="card-link"></a>
+        </div>
+
+        <!-- Anti-Design Style -->
+        <div class="card antidesign">
+            <div class="card-inner">
+                <h2 class="card-title">反设计 Anti-Design</h2>
+                <p class="card-subtitle">挑战传统美学规则的风格，特点是不协调的色彩、非传统布局和实验性排版，故意打破设计规范。</p>
+            </div>
+            <button class="copy-prompt-btn" data-style="antidesign">复制Prompt</button>
+            <div class="tooltip">已复制到剪贴板！</div>
+            <a href="anti-design-style-ad.html" class="card-link"></a>
+        </div>
+
+        <!-- Minimalist Style -->
+        <div class="card minimalist">
+            <div class="card-inner">
+                <h2 class="card-title">极简主义 | Minimalism</h2>
+                <p class="card-subtitle">专注于必要元素，大量留白，有限的调色板和简约的排版，代表有苹果公司产品和北欧设计。</p>
+            </div>
+            <button class="copy-prompt-btn" data-style="minimalist">复制Prompt</button>
+            <div class="tooltip">已复制到剪贴板！</div>
+            <a href="minimalist-style-ad.html" class="card-link"></a>
+        </div>
+
+        <!-- Neo-Retro Style -->
+        <div class="card neoretro">
+            <div class="card-inner">
+                <h2 class="card-title">Neo-Retro 新复古</h2>
+                <p class="card-subtitle">结合现代设计技术与复古审美，包括像素艺术、复古游戏UI和老式电脑界面元素的现代重新诠释。</p>
+            </div>
+            <button class="copy-prompt-btn" data-style="neoretro">复制Prompt</button>
+            <div class="tooltip">已复制到剪贴板！</div>
+            <a href="neo-retro-style-ad.html" class="card-link"></a>
+        </div>
+
+        <!-- Memphis Design Style -->
+        <div class="card memphis">
+            <div class="card-inner">
+                <h2 class="card-title">Memphis Design 孟菲斯设计</h2>
+                <p class="card-subtitle">起源于80年代意大利设计团体，特点是大胆几何形状、明亮对比色和不对称图案，近年来在设计中复兴。</p>
+            </div>
+            <button class="copy-prompt-btn" data-style="memphis">复制Prompt</button>
+            <div class="tooltip">已复制到剪贴板！</div>
+            <a href="memphis-style-ad.html" class="card-link"></a>
+        </div>
+
+        <!-- Flat Design 2.0 Style -->
+        <div class="card flat2">
+            <div class="card-inner">
+                <h2 class="card-title">扁平化设计2.0 | Flat Design 2.0</h2>
+                <p class="card-subtitle">扁平化设计的进化版，增加了微妙的阴影、渐变和深度暗示，同时保持整体简约美学。</p>
+            </div>
+            <button class="copy-prompt-btn" data-style="flat2">复制Prompt</button>
+            <div class="tooltip">已复制到剪贴板！</div>
+            <a href="flat-design-2-style-ad.html" class="card-link"></a>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>© 2025 设计风格展示 | Design Styles Showcase</p>
+</footer>
+
+<script>
+    // Simple hover effect for cards
+    document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('click', function(e) {
+            // Only navigate if it's not the copy button being clicked
+            if (!e.target.classList.contains('copy-prompt-btn') && 
+                !e.target.closest('.copy-prompt-btn')) {
+                const href = this.querySelector('.card-link').getAttribute('href');
                 window.location.href = href;
+            }
+        });
+    });
+    
+    // Prompt content for each style
+    const prompts = {
+        theverge: `根据以下设计原则设计 TheVerge 风格的网站：
+1. 使用 TheVerge 风格的视觉设计，深色底配合与#03fc90和#fc03f8相近的颜色作为高亮
+2. 淡淡的网格线在背景中制造科技感
+3. 强调超大字体或数字突出核心要点，画面中有超大视觉元素强调重点，与小元素的比例形成反差
+4. 中英文混用，中文大字体粗体，英文小字作为点缀
+5. 简洁的勾线图形化作为数据可视化或者配图元素
+6. 运用高亮色自身透明度渐变制造科技感，但是不同高亮色不要互相渐变
+7. 模仿 apple 官网的动效，向下滚动鼠标配合动效`,
+        
+        swiss: `根据以下设计原则设计瑞士国际风格的网站：
+1. 使用简洁、客观的布局
+2. 采用基于网格系统的排版
+3. 以无衬线字体为主，如Helvetica
+4. 黑白为主色调，辅以红色和蓝色等基本色
+5. 注重负空间的使用
+6. 对称与不对称的平衡
+7. 使用大胆的标题排版
+8. 信息层次分明`,
+        
+        cyberpunk: `根据以下设计原则设计赛博朋克风格的网站：
+1. 霓虹色调，以#00f0ff青色和#ff00ff品红为主要强调色
+2. 深色背景，优选黑色或深蓝色
+3. 故障艺术效果(Glitch effects)和画面扭曲
+4. 全息投影和扫描线效果
+5. 像素化元素或CRT屏幕模拟
+6. 网格线背景有透视效果，带动感
+7. 未来主义界面元素，如编码终端、数字雨
+8. 霓虹文字效果，包含文本阴影和发光效果
+9. 向下滚动时有动态故障和闪烁效果`,
+        
+        glassmorphism: `根据以下设计原则设计玻璃拟态风格的网站：
+1. 半透明磨砂玻璃效果的卡片和UI元素
+2. 背景使用渐变色和模糊效果
+3. 应用backdrop-filter: blur()效果
+4. 轻微阴影效果增强深度感
+5. 边缘细微高亮以增强玻璃感
+6. 使用#03fc90和#fc03f8作为强调色，但通过透明度制造层次
+7. 背景中加入漂浮的彩色形状或光晕
+8. 鼠标悬停时有细微的光影变化
+9. 保持整体轻盈通透的视觉效果`,
+        
+        brutalist: `根据以下设计原则设计野兽派(Brutalist)风格的网站：
+1. 原始HTML风格的界面元素
+2. 无装饰的排版，使用等宽字体
+3. 高对比度的颜色组合
+4. 粗犷、直接的视觉语言
+5. 明确的元素边框，优先使用黑色
+6. 最小化装饰，强调功能性
+7. 大胆使用网格和区块，不追求圆角或柔和过渡
+8. 字体使用粗体，尺寸有明显差异
+9. 简单粗暴的交互反馈
+10. 布局元素使用简单几何形状`,
+        
+        vaporwave: `根据以下设计原则设计蒸汽波(Vaporwave)风格的网站：
+1. 使用粉色(#ff6ec7)和青色(#00ffff)为主色调
+2. 复古网格背景，带透视效果
+3. 添加古典雕塑、棋盘格和复古计算机元素
+4. 8-90年代复古计算机界面元素
+5. 使用VT323或类似复古电脑字体
+6. 模拟CRT显示器效果
+7. 复古风格图标和符号
+8. 使用霓虹色文字阴影效果
+9. 在背景中加入棕榈树和夕阳等复古元素
+10. 动画元素使用缓慢、梦幻的效果`,
+        
+        material: `根据以下设计原则设计 Material Design 风格的网站：
+1. 基于纸张隐喻的表面和阴影效果
+2. 使用Google的Material色彩系统，主色为#6200ee
+3. 圆角矩形卡片布局
+4. 微妙的阴影效果指示层级
+5. 简洁的排版，使用Roboto字体
+6. 明确的间距和网格系统
+7. 交互元素有水波纹效果
+8. 悬浮操作按钮(FAB)
+9. 符合Material Design图标规范
+10. 应用动态动画和过渡效果`,
+        
+        neumorphism: `根据以下设计原则设计新拟态(Neumorphism)风格的网站：
+1. 使用柔和的浅色背景，优选#e0e5ec
+2. 应用软UI效果，阴影使用双向阴影(亮色+暗色)
+3. 元素看起来像是从背景"挤出"而非"附着"
+4. 使用微妙的色调变化而非鲜明对比色
+5. 按钮和控件有内凹和凸起两种状态
+6. 避免使用传统阴影，而是采用同色系内的阴影
+7. 圆角设计，增加柔和感
+8. 交互时有细微的状态变化
+9. 配色方案保持单一和谐，避免过多色彩
+10. 图标和文字颜色与背景保持低对比度关系`,
+        
+        antidesign: `根据以下设计原则设计反设计(Anti-Design)风格的网站：
+1. 故意打破传统设计规则
+2. 使用不协调的色彩组合，如明亮的黄色背景
+3. 故意使用Comic Sans等非设计类字体
+4. 元素错位、重叠或透明度部分遮挡
+5. 混搭不同视觉语言和样式
+6. 故意使用扭曲或旋转的文字和元素
+7. 加入随机表情符号和不规则动画效果
+8. 忽略传统网格系统，采用混乱布局
+9. 交互元素有夸张或不协调的反馈
+10. 复古网络元素与现代设计混搭`,
+        
+        minimalist: `根据以下设计原则设计极简主义(Minimalism)风格的网站：
+1. 大量白色空间
+2. 单色或极简配色方案
+3. 使用轻量级无衬线字体
+4. 内容减至最少，仅保留核心信息
+5. 微妙的间距和比例关系
+6. 避免使用装饰性元素
+7. 简约的线条和形状
+8. 细微的交互反馈
+9. 文字层次分明但保持克制
+10. 可选的细微动画，不干扰主体内容`,
+        
+        neoretro: `根据以下设计原则设计新复古(Neo-Retro)风格的网站：
+1. 像素艺术和8-bit风格视觉元素
+2. CRT屏幕效果，包含扫描线和微弱闪烁
+3. 使用Press Start 2P等像素字体
+4. 复古计算机界面元素，如命令行提示符
+5. 像素化图标和插图
+6. 使用有限的色彩，模拟早期电脑色彩限制
+7. 加入传统游戏界面元素
+8. 背景网格带有透视效果
+9. 霓虹色彩的文字和强调
+10. 故障艺术和像素化转场效果`,
+        
+        memphis: `根据以下设计原则设计孟菲斯(Memphis Design)风格的网站：
+1. 使用明亮、大胆的颜色组合，如#ffd166, #06d6a0, #ef476f
+2. 加入几何图形装饰元素，如点、线、波浪和锯齿形
+3. 不对称和不规则的布局
+4. 使用不同尺寸和位置的几何形状
+5. 自由组合圆形、方形、三角形等元素
+6. 可加入简单的图案和条纹
+7. 元素间使用重叠和叠加效果
+8. 字体使用粗体或半粗体无衬线字体
+9. 元素有细微的旋转或倾斜
+10. 视觉上活泼、有趣和不拘一格`,
+        
+        flat2: `根据以下设计原则设计扁平化设计2.0(Flat Design 2.0)风格的网站：
+1. 基于扁平设计，但增加微妙的深度暗示
+2. 使用轻微的阴影和渐变增加层次感
+3. 保持简洁的界面但增加细微的立体感
+4. 使用鲜明但不过多的色彩，主色为#4361ee
+5. 无衬线字体，清晰可读
+6. 简单的图标和界面元素
+7. 微妙的悬停和点击效果
+8. 增强的材质感和表面处理
+9. 几何形状作为装饰元素
+10. 保持整体轻量级的视觉效果`
+    };
+    
+    // Handle copy button clicks
+    document.querySelectorAll('.copy-prompt-btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const style = this.getAttribute('data-style');
+            const prompt = prompts[style];
+            
+            // Copy to clipboard
+            navigator.clipboard.writeText(prompt).then(() => {
+                // Show tooltip
+                const tooltip = this.nextElementSibling;
+                tooltip.style.opacity = 1;
+                
+                // Hide tooltip after 2 seconds
+                setTimeout(() => {
+                    tooltip.style.opacity = 0;
+                }, 2000);
+            }).catch(err => {
+                console.error('无法复制到剪贴板:', err);
             });
         });
-    </script>
+    });
+</script>
 </body>
 </html>
