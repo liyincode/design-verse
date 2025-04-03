@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swiss/International Style Advertisement</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            overflow-x: hidden;
+        }
+
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 2rem 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .accent-color-1 {
+            color: #E20000; /* Swiss red */
+        }
+
+        .accent-color-2 {
+            color: #0047AB; /* Swiss blue */
+        }
+
+        .bg-accent-1 {
+            background-color: #E20000;
+            color: white;
+        }
+
+        .bg-accent-2 {
+            background-color: #0047AB;
+            color: white;
+        }
+
+        .mega-text {
+            font-size: 10vw;
+            font-weight: 700;
+            line-height: 0.9;
+            letter-spacing: -0.02em;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 1.2s ease;
+        }
+
+        .english-caption {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 1s ease;
+            transition-delay: 0.2s;
+        }
+
+        .description {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 1s ease;
+            transition-delay: 0.4s;
+        }
+
+        .visual-element {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%) scale(0.8);
+            height: 70vh;
+            width: 40vw;
+            opacity: 0;
+            transition: opacity 1.2s ease, transform 1.5s ease;
+            transition-delay: 0.6s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .active .mega-text,
+        .active .english-caption,
+        .active .description,
+        .active .visual-element {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .active .visual-element {
+            transform: translateY(-50%) scale(1);
+        }
+
+        .data-viz {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+            height: 200px;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 1s ease;
+            transition-delay: 0.8s;
+        }
+
+        .active .data-viz {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .bar {
+            background-color: #E20000;
+            align-self: end;
+        }
+
+        .bar:nth-child(even) {
+            background-color: #0047AB;
+        }
+
+        .content-container {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .text-content {
+            width: 50%;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background-color: #000000;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 1s ease;
+            transition-delay: 1s;
+            border: none;
+        }
+
+        .active .cta-button {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cta-button:hover {
+            background-color: #333333;
+        }
+
+        .cta-button.accent-1 {
+            background-color: #E20000;
+        }
+
+        .cta-button.accent-1:hover {
+            background-color: #c00000;
+        }
+
+        .cta-button.accent-2 {
+            background-color: #0047AB;
+        }
+
+        .cta-button.accent-2:hover {
+            background-color: #003d91;
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-background"></div>
+
+    <section class="section" id="section1">
+        <div class="content-container">
+            <div class="text-content">
+                <div class="english-caption">The Future Is Now</div>
+                <h1 class="mega-text">科技<span class="accent-color-1">创新</span></h1>
+                <p class="description">突破性能边界，<span class="accent-color-2">颠覆</span>传统思维。INNOVATION WITHOUT LIMITS.</p>
+                <a href="#section2" class="cta-button">探索更多</a>
+            </div>
+            <div class="visual-element">
+                <svg viewBox="0 0 300 500" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="50" y="100" width="200" height="200" fill="none" stroke="#E20000" stroke-width="8"/>
+                    <circle cx="150" cy="200" r="80" fill="none" stroke="#0047AB" stroke-width="8"/>
+                    <line x1="150" y1="50" x2="150" y2="350" stroke="#000000" stroke-width="8"/>
+                    <line x1="50" y1="200" x2="250" y2="200" stroke="#000000" stroke-width="8"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <section class="section bg-accent-1" id="section2">
+        <div class="content-container">
+            <div class="text-content">
+                <div class="english-caption">Breakthrough Performance</div>
+                <h1 class="mega-text">200%<br>性能提升</h1>
+                <p class="description">全新架构设计，REVOLUTIONARY TECHNOLOGY 为您带来前所未有的体验。</p>
+                <div class="data-viz">
+                    <div class="bar" style="height: 40%;"></div>
+                    <div class="bar" style="height: 60%;"></div>
+                    <div class="bar" style="height: 80%;"></div>
+                    <div class="bar" style="height: 100%;"></div>
+                    <div class="bar" style="height: 90%;"></div>
+                    <div class="bar" style="height: 120%;"></div>
+                </div>
+                <a href="#section3" class="cta-button">了解技术</a>
+            </div>
+            <div class="visual-element">
+                <svg viewBox="0 0 300 500" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="75" y="100" width="150" height="300" fill="none" stroke="#FFFFFF" stroke-width="8"/>
+                    <line x1="75" y1="250" x2="225" y2="250" stroke="#FFFFFF" stroke-width="8"/>
+                    <line x1="150" y1="100" x2="150" y2="400" stroke="#FFFFFF" stroke-width="8"/>
+                    <circle cx="150" cy="250" r="50" fill="none" stroke="#FFFFFF" stroke-width="8"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="section3">
+        <div class="content-container">
+            <div class="text-content">
+                <div class="english-caption">Seamless Integration</div>
+                <h1 class="mega-text">智能<span class="accent-color-2">生态</span></h1>
+                <p class="description">连接一切可能，ECOSYSTEM OF THE FUTURE 打造无缝体验。</p>
+                <a href="#section1" class="cta-button accent-2">立即体验</a>
+            </div>
+            <div class="visual-element">
+                <svg viewBox="0 0 300 500" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="150" cy="200" r="100" fill="none" stroke="#0047AB" stroke-width="8"/>
+                    <circle cx="150" cy="200" r="50" fill="none" stroke="#E20000" stroke-width="8"/>
+                    <line x1="50" y1="200" x2="250" y2="200" stroke="#000000" stroke-width="8"/>
+                    <line x1="150" y1="100" x2="150" y2="300" stroke="#000000" stroke-width="8"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Observer for section animation
+        const sections = document.querySelectorAll('.section');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                } else {
+                    entry.target.classList.remove('active');
+                }
+            });
+        }, {
+            threshold: 0.3
+        });
+        
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Dynamic bar animation on scroll
+        window.addEventListener('scroll', () => {
+            const bars = document.querySelectorAll('.bar');
+            const scrollPosition = window.scrollY;
+            
+            bars.forEach((bar, index) => {
+                const baseHeight = parseInt(bar.style.height);
+                const fluctuation = Math.sin(scrollPosition / 100 + index) * 20;
+                bar.style.height = `${baseHeight + fluctuation}%`;
+            });
+        });
+    </script>
+</body>
+</html>

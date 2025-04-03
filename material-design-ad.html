@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material Design Style</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #6200ee;
+            --primary-variant: #3700b3;
+            --secondary-color: #03dac6;
+            --secondary-variant: #018786;
+            --background: #ffffff;
+            --surface: #ffffff;
+            --error: #b00020;
+            --on-primary: #ffffff;
+            --on-secondary: #000000;
+            --on-background: #000000;
+            --on-surface: #000000;
+            --on-error: #ffffff;
+            --highlight-cyan: #03fc90;
+            --highlight-magenta: #fc03f8;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--on-background);
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .card {
+            background-color: var(--surface);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 500;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .mega-text {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--on-surface);
+        }
+
+        .highlight-cyan {
+            color: var(--highlight-cyan);
+        }
+
+        .highlight-magenta {
+            color: var(--highlight-magenta);
+        }
+
+        .description {
+            font-size: 1rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            color: rgba(0, 0, 0, 0.87);
+        }
+
+        .fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+            color: var(--on-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 10;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .fab:hover {
+            background-color: var(--secondary-variant);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .button {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background-color: var(--primary-color);
+            color: var(--on-primary);
+            border-radius: 4px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1.25px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: var(--primary-variant);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .button.outlined {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            box-shadow: none;
+        }
+
+        .button.outlined:hover {
+            background-color: rgba(98, 0, 238, 0.08);
+        }
+
+        .chip {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background-color: #e0e0e0;
+            border-radius: 16px;
+            font-size: 0.875rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .visual-container {
+            width: 100%;
+            position: relative;
+            margin: 2rem 0;
+            height: 300px;
+        }
+
+        .shape {
+            position: absolute;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .shape:hover {
+            transform: scale(1.05);
+        }
+
+        .shape.circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: var(--highlight-cyan);
+            top: 50px;
+            left: 100px;
+        }
+
+        .shape.square {
+            width: 120px;
+            height: 120px;
+            background-color: var(--highlight-magenta);
+            top: 120px;
+            left: 300px;
+        }
+
+        .shape.rectangle {
+            width: 200px;
+            height: 100px;
+            background-color: var(--primary-color);
+            top: 30px;
+            left: 500px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .data-viz {
+            width: 100%;
+            height: 200px;
+            display: flex;
+            align-items: flex-end;
+            gap: 16px;
+            margin: 2rem 0;
+        }
+
+        .bar {
+            flex: 1;
+            background-color: var(--highlight-cyan);
+            transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .bar:nth-child(even) {
+            background-color: var(--highlight-magenta);
+        }
+
+        .stats {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--highlight-magenta);
+            margin: 1.5rem 0;
+        }
+
+        .grid-background {
+            background-image: 
+                linear-gradient(rgba(98, 0, 238, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(98, 0, 238, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            padding: 2rem;
+            border-radius: 8px;
+        }
+
+        .grid-line {
+            height: 1px;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.05);
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="fab">→</div>
+
+    <section class="section" id="section1">
+        <div class="container">
+            <div class="grid">
+                <div>
+                    <div class="section-title">The Future Is Now</div>
+                    <h1 class="mega-text">科技<span class="highlight-cyan">创新</span></h1>
+                    <p class="description">突破性能边界，<span class="highlight-magenta">颠覆</span>传统思维。INNOVATION WITHOUT LIMITS.</p>
+                    <div class="chip">创新</div>
+                    <div class="chip">科技</div>
+                    <div class="chip">未来</div>
+                    <div>
+                        <a href="#section2" class="button">探索更多</a>
+                        <a href="#" class="button outlined">了解详情</a>
+                    </div>
+                </div>
+                <div class="visual-container">
+                    <div class="shape circle"></div>
+                    <div class="shape square"></div>
+                    <div class="shape rectangle"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="section2">
+        <div class="container">
+            <div class="card">
+                <div class="card-content">
+                    <div class="section-title">Breakthrough Performance</div>
+                    <h1 class="mega-text">性能<span class="highlight-magenta">提升</span></h1>
+                    <div class="grid">
+                        <div>
+                            <p class="description">全新架构设计，REVOLUTIONARY TECHNOLOGY 为您带来前所未有的体验。</p>
+                            <div class="stats">200%</div>
+                        </div>
+                        <div class="grid-background">
+                            <div class="data-viz">
+                                <div class="bar" style="height: 40%;"></div>
+                                <div class="bar" style="height: 60%;"></div>
+                                <div class="bar" style="height: 80%;"></div>
+                                <div class="bar" style="height: 100%;"></div>
+                                <div class="bar" style="height: 90%;"></div>
+                                <div class="bar" style="height: 120%;"></div>
+                            </div>
+                            <div class="grid-line"></div>
+                        </div>
+                    </div>
+                    <a href="#section3" class="button">了解技术</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="section3">
+        <div class="container">
+            <div class="card">
+                <div class="card-content">
+                    <div class="section-title">Seamless Integration</div>
+                    <h1 class="mega-text">智能<span class="highlight-cyan">生态</span></h1>
+                    <p class="description">连接一切可能，ECOSYSTEM OF THE FUTURE 打造无缝体验。</p>
+                    <div class="visual-container">
+                        <svg width="100%" height="100%" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="150" cy="150" r="80" fill="none" stroke="#03fc90" stroke-width="2"/>
+                            <circle cx="400" cy="150" r="60" fill="none" stroke="#fc03f8" stroke-width="2"/>
+                            <circle cx="650" cy="150" r="70" fill="none" stroke="#03fc90" stroke-width="2"/>
+                            <line x1="230" y1="150" x2="340" y2="150" stroke="#6200ee" stroke-width="2"/>
+                            <line x1="460" y1="150" x2="580" y2="150" stroke="#6200ee" stroke-width="2"/>
+                            <text x="150" y="150" text-anchor="middle" fill="#03fc90" font-size="14">核心科技</text>
+                            <text x="400" y="150" text-anchor="middle" fill="#fc03f8" font-size="14">智能连接</text>
+                            <text x="650" y="150" text-anchor="middle" fill="#03fc90" font-size="14">生态系统</text>
+                        </svg>
+                    </div>
+                    <a href="#section1" class="button">立即体验</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Simple scroll to functionality
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Dynamic bar animation
+        window.addEventListener('scroll', () => {
+            const bars = document.querySelectorAll('.bar');
+            const scrollPosition = window.scrollY;
+            
+            bars.forEach((bar, index) => {
+                const baseHeight = parseInt(bar.style.height);
+                const fluctuation = Math.sin(scrollPosition / 100 + index) * 10;
+                bar.style.height = `${baseHeight + fluctuation}%`;
+            });
+        });
+
+        // Make the FAB navigate to top
+        document.querySelector('.fab').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>

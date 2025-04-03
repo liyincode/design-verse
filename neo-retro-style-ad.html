@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neo-Retro Style</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'VT323', monospace;
+            overflow-x: hidden;
+            line-height: 1.4;
+        }
+
+        .section {
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .grid-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(0deg, rgba(50, 50, 50, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(50, 50, 50, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            z-index: 1;
+            perspective: 1000px;
+            transform-style: preserve-3d;
+            transform: rotateX(60deg);
+            animation: gridMove 30s linear infinite;
+        }
+
+        @keyframes gridMove {
+            from { background-position: 0 0; }
+            to { background-position: 0 1000px; }
+        }
+
+        .crt-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background-size: 100% 4px;
+            z-index: 999;
+            pointer-events: none;
+            opacity: 0.15;
+        }
+
+        .crt-overlay::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(18, 16, 16, 0.1);
+            z-index: 1000;
+        }
+
+        .vhs-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            mix-blend-mode: overlay;
+            pointer-events: none;
+            z-index: 998;
+            opacity: 0.03;
+            background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAANASURBVGhD7Zg9TxtBFIWdBiSgdCRKGoQUkJAoKPMTKKH1LwjQRRRRIBQkFQXpKKGBSqRJFyp+AxTQEUGDhBSJhigNEs7zrN/szpOdZWy8O8aR7pPe3p25u3vf3dmxvZZCoVAoFAqF/5jt7e3XOzs7caibSTlT1P+ytbUVsYq+/5iamnoTiFjd3NycD9dqampK3VQEg+4AmS4q4G18C+r4+PgbvAdbW1u/GB8x9idK+sHq6mqHYl3L/cnJSSsoKe9MZPBCoRDjV5RA/hR+M9GkGGtA1CwMh4eHGb/AeczvvgNc5XdQy94PkQzwkfA+T9T29vZb5BFjSGJIqWMKmbwTyQAcCO/zRN7X17eAPGYMZCZR69RxjZi8E8kAHAjv88RwdXX1I+M4Y9FdQx3TCGZi8k4kA3AgvM8btbe394ExkJlDnVAIN46JyTuRDMCB8D5vDJeXl18xhiSG4+PjcXWcYyYm70QyAAea1NU1MmZ4ePgNm6RRPkNnZ2fvpZ5EzlH9jcfGxj6iZTwgbUDPYGrq3o2Njc+6Vj+xfiFnUW7S9Xzw7v7+/qlsLMppvwVX19fX75eSW03KGKOGSWLWbm5uvjLGq3dI16KmQzzL6Y8MGdwD+Ui9SEzY3QlVd8gHiZXYCmMPDw9/KN+gO9SifpHy2+zs7AM2VWZIYdxJiXX84eFhLb2Dx8fHMzIYJTGcnZ29U83KFhYWHktcqZ2vr69/Ur+T9B0LuZ2/uLioo87Pz6+rFm37+/svVadtdXX1E/kgtbi4+ITxnWrTxqM0lKpd2dLS0mP61JK7fV1BrHwvSlkMh4aGprXzJv+QwIKuILbGp+hdV2tZWVl5pjQGfT3ldj06Ovreiyw/IBmgkCfybre6urru6vpR9OHwkUiMj46OptTPhUgGKMQzh+/u7la01iHRwPi6MKh+LkQywAZ5In9xcdEREp1OZ0XrdXVyEfOZyNXV1bfqoagPKqUbka+vr39RHX3/+I14K9XPMJ+JsO43+LMfVErfEYmFzs/PP1Q/w+O6SObm5h6pThvi6+SZm5OC+CZFHsHuFxYKhUJhQLi7+wsgLOYGzOufUgAAAABJRU5ErkJggg==");
+        }
+
+        .retro-title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1rem;
+            color: #ff00ff;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 0 #0000ff;
+            text-transform: uppercase;
+        }
+
+        .mega-text {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 3rem;
+            line-height: 1.5;
+            margin-bottom: 2rem;
+            text-shadow: 3px 3px 0 #0000ff;
+            color: #ffffff;
+        }
+
+        .highlight-cyan {
+            color: #00ffff;
+            text-shadow: 2px 2px 0 #0000ff;
+        }
+
+        .highlight-magenta {
+            color: #ff00ff;
+            text-shadow: 2px 2px 0 #ff0000;
+        }
+
+        .pixel-description {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin-bottom: 2rem;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 1rem;
+            border: 2px solid #00ffff;
+            box-shadow: 5px 5px 0 #0000ff;
+        }
+
+        .retro-button {
+            display: inline-block;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1rem;
+            padding: 1rem 2rem;
+            background-color: #ff00ff;
+            color: #ffffff;
+            text-decoration: none;
+            border: none;
+            box-shadow: 5px 5px 0 #0000ff;
+            margin-top: 2rem;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.1s ease;
+        }
+
+        .retro-button:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 7px 7px 0 #0000ff;
+        }
+
+        .retro-button:active {
+            transform: translate(2px, 2px);
+            box-shadow: 3px 3px 0 #0000ff;
+        }
+
+        .pixel-art {
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
+        }
+
+        .data-viz {
+            display: flex;
+            align-items: flex-end;
+            height: 200px;
+            margin: 2rem 0;
+            gap: 2px;
+        }
+
+        .bar {
+            flex: 1;
+            background-color: #00ffff;
+            box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.3);
+            border: 2px solid #000000;
+        }
+
+        .bar:nth-child(even) {
+            background-color: #ff00ff;
+        }
+
+        .stats {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 2.5rem;
+            color: #ff00ff;
+            text-shadow: 2px 2px 0 #0000ff;
+            margin: 2rem 0;
+        }
+
+        .pixel-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .pixel-item {
+            text-align: center;
+            border: 2px solid #00ffff;
+            padding: 1.5rem;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .pixel-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .pixel-label {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .scanline {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 2px;
+            background-color: rgba(255, 255, 255, 0.1);
+            opacity: 0.75;
+            z-index: 997;
+            animation: scanline 6s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { top: -10px; }
+            100% { top: 100vh; }
+        }
+
+        .glitch {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 0, 255, 0.03);
+            z-index: 996;
+            mix-blend-mode: overlay;
+            animation: glitch 5s infinite;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        @keyframes glitch {
+            0%, 90%, 100% {
+                opacity: 0;
+                transform: translateX(0);
+            }
+            92% {
+                opacity: 0.5;
+                transform: translateX(5px);
+            }
+            94% {
+                opacity: 0.1;
+                transform: translateX(-5px);
+            }
+            96% {
+                opacity: 0.4;
+                transform: translateX(5px);
+            }
+            98% {
+                opacity: 0.2;
+                transform: translateX(-5px);
+            }
+        }
+
+        .retro-console {
+            font-family: 'VT323', monospace;
+            font-size: 1.25rem;
+            color: #00ff00;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 1rem;
+            border: 2px solid #00ff00;
+            margin-top: 2rem;
+            position: relative;
+        }
+
+        .console-line {
+            margin-bottom: 0.5rem;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1rem;
+            background-color: #00ff00;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+
+        .retro-ui-element {
+            position: absolute;
+            font-family: 'VT323', monospace;
+            color: #00ff00;
+            padding: 0.5rem;
+            border: 1px solid #00ff00;
+            background-color: rgba(0, 0, 0, 0.8);
+            font-size: 0.875rem;
+            z-index: 3;
+        }
+
+        .ui-top-left {
+            top: 1rem;
+            left: 1rem;
+        }
+
+        .ui-top-right {
+            top: 1rem;
+            right: 1rem;
+        }
+
+        .ui-bottom-left {
+            bottom: 1rem;
+            left: 1rem;
+        }
+
+        .ui-bottom-right {
+            bottom: 1rem;
+            right: 1rem;
+        }
+
+        .pixel-logo {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .mega-text {
+                font-size: 2rem;
+            }
+            
+            .pixel-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="crt-overlay"></div>
+    <div class="vhs-effect"></div>
+    <div class="scanline"></div>
+    <div class="glitch"></div>
+
+    <div class="retro-ui-element ui-top-left">SYS:ONLINE</div>
+    <div class="retro-ui-element ui-top-right">MEM: 64K</div>
+    <div class="retro-ui-element ui-bottom-left">v1.0.2</div>
+    <div class="retro-ui-element ui-bottom-right" id="clock">00:00:00</div>
+
+    <section class="section" id="section1">
+        <div class="grid-background"></div>
+        <div class="container">
+            <div class="retro-title">The Future Is Now</div>
+            <h1 class="mega-text">科技<span class="highlight-cyan">创新</span></h1>
+            <div class="pixel-description">
+                突破性能边界，<span class="highlight-magenta">颠覆</span>传统思维。INNOVATION WITHOUT LIMITS.
+            </div>
+            
+            <div class="pixel-logo">
+                <svg width="200" height="150" class="pixel-art">
+                    <rect x="50" y="30" width="100" height="100" fill="none" stroke="#00ffff" stroke-width="4" />
+                    <circle cx="100" cy="80" r="30" fill="none" stroke="#ff00ff" stroke-width="4" />
+                    <line x1="70" y1="80" x2="130" y2="80" stroke="#00ffff" stroke-width="4" />
+                    <line x1="100" y1="50" x2="100" y2="110" stroke="#ff00ff" stroke-width="4" />
+                </svg>
+            </div>
+            
+            <a href="#section2" class="retro-button">探索更多</a>
+            
+            <div class="retro-console">
+                <div class="console-line">> INITIALIZING SYSTEM...</div>
+                <div class="console-line">> LOADING TECH INNOVATIONS...</div>
+                <div class="console-line">> READY.</div>
+                <div class="console-line">> <span class="cursor"></span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="section2">
+        <div class="grid-background"></div>
+        <div class="container">
+            <div class="retro-title">Breakthrough Performance</div>
+            <h1 class="mega-text">性能<span class="highlight-magenta">提升</span></h1>
+            
+            <div class="stats">200%</div>
+            
+            <div class="pixel-description">
+                全新架构设计，REVOLUTIONARY TECHNOLOGY 为您带来前所未有的体验。
+            </div>
+            
+            <div class="data-viz">
+                <div class="bar" style="height: 40%;"></div>
+                <div class="bar" style="height: 60%;"></div>
+                <div class="bar" style="height: 80%;"></div>
+                <div class="bar" style="height: 100%;"></div>
+                <div class="bar" style="height: 90%;"></div>
+                <div class="bar" style="height: 120%;"></div>
+            </div>
+            
+            <div class="retro-console">
+                <div class="console-line">> ANALYZING PERFORMANCE DATA...</div>
+                <div class="console-line">> PREVIOUS SYSTEM: 100%</div>
+                <div class="console-line">> NEW SYSTEM: 200%</div>
+                <div class="console-line">> OPTIMIZATION COMPLETE.</div>
+            </div>
+            
+            <a href="#section3" class="retro-button">了解技术</a>
+        </div>
+    </section>
+
+    <section class="section" id="section3">
+        <div class="grid-background"></div>
+        <div class="container">
+            <div class="retro-title">Seamless Integration</div>
+            <h1 class="mega-text">智能<span class="highlight-cyan">生态</span></h1>
+            
+            <div class="pixel-description">
+                连接一切可能，ECOSYSTEM OF THE FUTURE 打造无缝体验。
+            </div>
+            
+            <div class="pixel-grid">
+                <div class="pixel-item">
+                    <div class="pixel-icon">📱</div>
+                    <div class="pixel-label">移动设备</div>
+                </div>
+                <div class="pixel-item">
+                    <div class="pixel-icon">💻</div>
+                    <div class="pixel-label">电脑</div>
+                </div>
+                <div class="pixel-item">
+                    <div class="pixel-icon">🌐</div>
+                    <div class="pixel-label">互联网</div>
+                </div>
+                <div class="pixel-item">
+                    <div class="pixel-icon">🎮</div>
+                    <div class="pixel-label">游戏</div>
+                </div>
+                <div class="pixel-item">
+                    <div class="pixel-icon">🏠</div>
+                    <div class="pixel-label">家居</div>
+                </div>
+                <div class="pixel-item">
+                    <div class="pixel-icon">🚗</div>
+                    <div class="pixel-label">出行</div>
+                </div>
+            </div>
+            
+            <div class="retro-console">
+                <div class="console-line">> ESTABLISHING CONNECTIONS...</div>
+                <div class="console-line">> DEVICES SYNCHRONIZED</div>
+                <div class="console-line">> ECOSYSTEM ONLINE</div>
+                <div class="console-line">> ALL SYSTEMS GO</div>
+            </div>
+            
+            <div style="text-align: center;">
+                <a href="#section1" class="retro-button">立即体验</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Simple scroll to functionality
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Update clock
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+        
+        setInterval(updateClock, 1000);
+        updateClock();
+        
+        // Create random glitches
+        function randomGlitch() {
+            const glitchElement = document.querySelector('.glitch');
+            glitchElement.style.opacity = '0.5';
+            
+            setTimeout(() => {
+                glitchElement.style.opacity = '0';
+            }, 100);
+        }
+        
+        setInterval(randomGlitch, 5000);
+    </script>
+</body>
+</html>

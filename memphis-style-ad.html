@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memphis Design Style</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            font-family: 'Work Sans', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #section1 {
+            background-color: #ffd166;
+        }
+
+        #section2 {
+            background-color: #06d6a0;
+        }
+
+        #section3 {
+            background-color: #118ab2;
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .memphis-shape {
+            position: absolute;
+            z-index: 1;
+        }
+
+        .shape-1 {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #ef476f;
+            top: 10%;
+            right: 10%;
+        }
+
+        .shape-2 {
+            width: 100px;
+            height: 100px;
+            background-color: #118ab2;
+            transform: rotate(45deg);
+            bottom: 15%;
+            left: 15%;
+        }
+
+        .shape-3 {
+            width: 120px;
+            height: 120px;
+            background-color: #06d6a0;
+            border-radius: 50% 0 50% 50%;
+            top: 20%;
+            left: 10%;
+        }
+
+        .shape-4 {
+            width: 80px;
+            height: 80px;
+            background-color: #ffd166;
+            transform: rotate(15deg);
+            bottom: 20%;
+            right: 20%;
+        }
+
+        .shape-5 {
+            width: 200px;
+            height: 30px;
+            background-color: #ef476f;
+            transform: rotate(-30deg);
+            top: 40%;
+            right: 25%;
+        }
+
+        .shape-6 {
+            width: 30px;
+            height: 200px;
+            background-color: #073b4c;
+            transform: rotate(15deg);
+            bottom: 30%;
+            left: 30%;
+        }
+
+        .shape-pattern-1 {
+            width: 300px;
+            height: 300px;
+            background-image: radial-gradient(#ef476f 10%, transparent 10%),
+                            radial-gradient(#ef476f 10%, transparent 10%);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+            opacity: 0.2;
+            top: -50px;
+            right: -50px;
+            transform: rotate(20deg);
+        }
+
+        .shape-pattern-2 {
+            width: 300px;
+            height: 300px;
+            background-image: linear-gradient(45deg, #073b4c 25%, transparent 25%),
+                            linear-gradient(-45deg, #073b4c 25%, transparent 25%),
+                            linear-gradient(45deg, transparent 75%, #073b4c 75%),
+                            linear-gradient(-45deg, transparent 75%, #073b4c 75%);
+            background-size: 30px 30px;
+            background-position: 0 0, 0 15px, 15px -15px, -15px 0px;
+            opacity: 0.1;
+            bottom: -50px;
+            left: -50px;
+            transform: rotate(-15deg);
+        }
+
+        .shape-zigzag {
+            width: 100%;
+            height: 20px;
+            background-image: linear-gradient(135deg, #ef476f 25%, transparent 25%),
+                            linear-gradient(-135deg, #ef476f 25%, transparent 25%),
+                            linear-gradient(45deg, #ef476f 25%, transparent 25%),
+                            linear-gradient(-45deg, #ef476f 25%, transparent 25%);
+            background-size: 20px 40px;
+            background-position: 0 0, 0 20px, 10px -20px, -10px 0px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+        .title {
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .title::after {
+            content: "";
+            position: absolute;
+            width: 120%;
+            height: 5px;
+            background-color: #ef476f;
+            bottom: -5px;
+            left: -10%;
+            z-index: -1;
+        }
+
+        #section2 .title::after {
+            background-color: #ef476f;
+        }
+
+        #section3 .title::after {
+            background-color: #ffd166;
+        }
+
+        .mega-text {
+            font-size: 5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .highlight-cyan {
+            color: #06d6a0;
+            position: relative;
+        }
+
+        .highlight-cyan::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 10px;
+            background-color: #118ab2;
+            bottom: 10px;
+            left: 0;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        .highlight-magenta {
+            color: #ef476f;
+            position: relative;
+        }
+
+        .highlight-magenta::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 10px;
+            background-color: #ffd166;
+            bottom: 10px;
+            left: 0;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        .description {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 1.5rem;
+            border: 3px solid #073b4c;
+            border-radius: 0 30px 0 30px;
+        }
+
+        #section2 .description {
+            background-color: rgba(255, 255, 255, 0.7);
+            border-color: #ef476f;
+            border-radius: 30px 0 30px 0;
+        }
+
+        #section3 .description {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-color: #ffd166;
+            border-radius: 30px 30px 0 0;
+        }
+
+        .memphis-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: #ef476f;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            position: relative;
+            border: none;
+            z-index: 2;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 0 15px 0 15px;
+        }
+
+        .memphis-button::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #073b4c;
+            top: 8px;
+            left: 8px;
+            z-index: -1;
+            border-radius: 0 15px 0 15px;
+            transition: all 0.3s ease;
+        }
+
+        .memphis-button:hover {
+            transform: translate(4px, 4px);
+        }
+
+        .memphis-button:hover::before {
+            top: 4px;
+            left: 4px;
+        }
+
+        #section2 .memphis-button {
+            background-color: #073b4c;
+            border-radius: 15px 0 15px 0;
+        }
+
+        #section2 .memphis-button::before {
+            background-color: #ef476f;
+            border-radius: 15px 0 15px 0;
+        }
+
+        #section3 .memphis-button {
+            background-color: #ffd166;
+            color: #073b4c;
+            border-radius: 15px 15px 0 0;
+        }
+
+        #section3 .memphis-button::before {
+            background-color: #ef476f;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .stats {
+            font-size: 6rem;
+            font-weight: 800;
+            color: #073b4c;
+            display: inline-block;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stats::before {
+            content: "";
+            position: absolute;
+            width: 120%;
+            height: 30px;
+            background-color: #ffd166;
+            bottom: 15px;
+            left: -10%;
+            z-index: -1;
+            transform: rotate(-2deg);
+        }
+
+        .data-viz {
+            display: flex;
+            align-items: flex-end;
+            height: 250px;
+            gap: 10px;
+            margin: 3rem 0;
+            position: relative;
+        }
+
+        .data-viz::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background-color: #073b4c;
+            bottom: 0;
+            left: 0;
+        }
+
+        .bar {
+            flex: 1;
+            background-color: #ef476f;
+            border-radius: 10px 10px 0 0;
+            position: relative;
+            transition: height 0.3s ease;
+        }
+
+        .bar::before {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #ffd166;
+            top: -10px;
+            right: -10px;
+        }
+
+        .bar:nth-child(even) {
+            background-color: #06d6a0;
+        }
+
+        .bar:nth-child(even)::before {
+            background-color: #073b4c;
+        }
+
+        .memphis-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .grid-item {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 1.5rem;
+            border: 3px solid #ffd166;
+            position: relative;
+            text-align: center;
+        }
+
+        .grid-item:nth-child(odd) {
+            border-radius: 30px 0 30px 0;
+        }
+
+        .grid-item:nth-child(even) {
+            border-radius: 0 30px 0 30px;
+        }
+
+        .grid-item::before {
+            content: "";
+            position: absolute;
+            width: 50px;
+            height: 10px;
+            background-color: #ef476f;
+            top: -5px;
+            right: 30px;
+            transform: rotate(-30deg);
+        }
+
+        .grid-item::after {
+            content: "";
+            position: absolute;
+            width: 10px;
+            height: 50px;
+            background-color: #06d6a0;
+            bottom: 20px;
+            left: -5px;
+            transform: rotate(-30deg);
+        }
+
+        .grid-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .grid-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .grid-desc {
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 768px) {
+            .mega-text {
+                font-size: 3rem;
+            }
+            
+            .memphis-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="section" id="section1">
+        <div class="memphis-shape shape-1"></div>
+        <div class="memphis-shape shape-2"></div>
+        <div class="memphis-shape shape-pattern-1"></div>
+        <div class="memphis-shape shape-zigzag"></div>
+        
+        <div class="container">
+            <div class="title">The Future Is Now</div>
+            <h1 class="mega-text">科技<span class="highlight-cyan">创新</span></h1>
+            <div class="description">
+                突破性能边界，<span class="highlight-magenta">颠覆</span>传统思维。INNOVATION WITHOUT LIMITS.
+            </div>
+            
+            <a href="#section2" class="memphis-button">探索更多</a>
+        </div>
+    </section>
+
+    <section class="section" id="section2">
+        <div class="memphis-shape shape-3"></div>
+        <div class="memphis-shape shape-4"></div>
+        <div class="memphis-shape shape-5"></div>
+        <div class="memphis-shape shape-pattern-2"></div>
+        <div class="memphis-shape shape-zigzag"></div>
+        
+        <div class="container">
+            <div class="title">Breakthrough Performance</div>
+            <h1 class="mega-text">性能<span class="highlight-magenta">提升</span></h1>
+            
+            <div class="stats">200%</div>
+            
+            <div class="description">
+                全新架构设计，REVOLUTIONARY TECHNOLOGY 为您带来前所未有的体验。
+            </div>
+            
+            <div class="data-viz">
+                <div class="bar" style="height: 40%;"></div>
+                <div class="bar" style="height: 60%;"></div>
+                <div class="bar" style="height: 80%;"></div>
+                <div class="bar" style="height: 100%;"></div>
+                <div class="bar" style="height: 90%;"></div>
+                <div class="bar" style="height: 120%;"></div>
+            </div>
+            
+            <a href="#section3" class="memphis-button">了解技术</a>
+        </div>
+    </section>
+
+    <section class="section" id="section3">
+        <div class="memphis-shape shape-6"></div>
+        <div class="memphis-shape shape-1" style="top: 60%; right: 20%;"></div>
+        <div class="memphis-shape shape-pattern-1" style="bottom: -50px; right: -50px; top: auto;"></div>
+        <div class="memphis-shape shape-zigzag"></div>
+        
+        <div class="container">
+            <div class="title">Seamless Integration</div>
+            <h1 class="mega-text">智能<span class="highlight-cyan">生态</span></h1>
+            
+            <div class="description">
+                连接一切可能，ECOSYSTEM OF THE FUTURE 打造无缝体验。
+            </div>
+            
+            <div class="memphis-grid">
+                <div class="grid-item">
+                    <div class="grid-icon">📱</div>
+                    <div class="grid-title">移动设备</div>
+                    <div class="grid-desc">随时随地连接世界</div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-icon">💻</div>
+                    <div class="grid-title">电脑</div>
+                    <div class="grid-desc">强大的办公工具</div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-icon">🌐</div>
+                    <div class="grid-title">互联网</div>
+                    <div class="grid-desc">无边界信息获取</div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-icon">🎮</div>
+                    <div class="grid-title">游戏</div>
+                    <div class="grid-desc">沉浸式娱乐体验</div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-icon">🏠</div>
+                    <div class="grid-title">家居</div>
+                    <div class="grid-desc">智能生活方式</div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-icon">🚗</div>
+                    <div class="grid-title">出行</div>
+                    <div class="grid-desc">便捷交通解决方案</div>
+                </div>
+            </div>
+            
+            <a href="#section1" class="memphis-button">立即体验</a>
+        </div>
+    </section>
+
+    <script>
+        // Simple scroll to functionality
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Add hover effect to bars
+        const bars = document.querySelectorAll('.bar');
+        bars.forEach(bar => {
+            bar.addEventListener('mouseenter', function() {
+                const currentHeight = parseInt(this.style.height);
+                this.style.height = (currentHeight + 10) + '%';
+            });
+            
+            bar.addEventListener('mouseleave', function() {
+                const currentHeight = parseInt(this.style.height);
+                this.style.height = (currentHeight - 10) + '%';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neumorphism Style</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --background: #e0e5ec;
+            --text-color: #4d4d4d;
+            --highlight-cyan: #03fc90;
+            --highlight-magenta: #fc03f8;
+            --shadow-dark: #a3b1c6;
+            --shadow-light: #ffffff;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .neomorphic-card {
+            background: var(--background);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 
+                8px 8px 16px var(--shadow-dark),
+                -8px -8px 16px var(--shadow-light);
+            transition: all 0.3s ease;
+        }
+
+        .neomorphic-card:hover {
+            box-shadow: 
+                10px 10px 20px var(--shadow-dark),
+                -10px -10px 20px var(--shadow-light);
+        }
+
+        .inset-card {
+            background: var(--background);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 
+                inset 5px 5px 10px var(--shadow-dark),
+                inset -5px -5px 10px var(--shadow-light);
+            margin-top: 2rem;
+        }
+
+        .neomorphic-circle {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: var(--background);
+            box-shadow: 
+                8px 8px 16px var(--shadow-dark),
+                -8px -8px 16px var(--shadow-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .inner-circle {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: var(--background);
+            box-shadow: 
+                inset 5px 5px 10px var(--shadow-dark),
+                inset -5px -5px 10px var(--shadow-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .title {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .mega-text {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+        }
+
+        .highlight-cyan {
+            color: var(--highlight-cyan);
+        }
+
+        .highlight-magenta {
+            color: var(--highlight-magenta);
+        }
+
+        .description {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .neomorphic-button {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            background: var(--background);
+            box-shadow: 
+                5px 5px 10px var(--shadow-dark),
+                -5px -5px 10px var(--shadow-light);
+            color: var(--text-color);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+            outline: none;
+        }
+
+        .neomorphic-button:hover {
+            box-shadow: 
+                3px 3px 6px var(--shadow-dark),
+                -3px -3px 6px var(--shadow-light);
+        }
+
+        .neomorphic-button:active {
+            box-shadow: 
+                inset 3px 3px 6px var(--shadow-dark),
+                inset -3px -3px 6px var(--shadow-light);
+        }
+
+        .button-magenta {
+            color: var(--highlight-magenta);
+        }
+
+        .button-cyan {
+            color: var(--highlight-cyan);
+        }
+
+        .stats {
+            font-size: 5rem;
+            font-weight: 700;
+            color: var(--highlight-magenta);
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .data-viz {
+            display: flex;
+            height: 200px;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin: 2rem 0;
+            gap: 15px;
+        }
+
+        .bar {
+            flex: 1;
+            background: linear-gradient(145deg, var(--background), #d0d5dc);
+            box-shadow: 
+                5px 5px 10px var(--shadow-dark),
+                -5px -5px 10px var(--shadow-light);
+            border-radius: 10px 10px 0 0;
+            transition: height 0.5s ease;
+        }
+
+        .bar:nth-child(even) {
+            background: linear-gradient(145deg, var(--background), #d0d5dc);
+            box-shadow: 
+                5px 5px 10px var(--shadow-dark),
+                -5px -5px 10px var(--shadow-light);
+        }
+
+        .bar-1 {
+            height: 40%;
+        }
+
+        .bar-2 {
+            height: 70%;
+        }
+
+        .bar-3 {
+            height: 55%;
+        }
+
+        .bar-4 {
+            height: 90%;
+        }
+
+        .bar-5 {
+            height: 60%;
+        }
+
+        .bar-6 {
+            height: 80%;
+        }
+
+        .neomorphic-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--background);
+            box-shadow: 
+                5px 5px 10px var(--shadow-dark),
+                -5px -5px 10px var(--shadow-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature {
+            text-align: center;
+        }
+
+        .feature-title {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin: 1rem 0;
+        }
+
+        .grid-background {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .grid-line {
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            background: rgba(77, 77, 77, 0.05);
+        }
+
+        .vertical-line {
+            position: absolute;
+            width: 1px;
+            height: 100%;
+            background: rgba(77, 77, 77, 0.05);
+        }
+
+        .svg-container {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        svg {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <section class="section" id="section1">
+        <div class="container">
+            <div class="grid">
+                <div>
+                    <div class="neomorphic-card">
+                        <div class="title">The Future Is Now</div>
+                        <h1 class="mega-text">科技<span class="highlight-cyan">创新</span></h1>
+                        <p class="description">突破性能边界，<span class="highlight-magenta">颠覆</span>传统思维。INNOVATION WITHOUT LIMITS.</p>
+                        <a href="#section2" class="neomorphic-button">探索更多</a>
+                    </div>
+                </div>
+                <div>
+                    <div class="neomorphic-circle">
+                        <div class="inner-circle">
+                            <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="50" cy="50" r="40" stroke="#03fc90" stroke-width="2"/>
+                                <circle cx="50" cy="50" r="20" stroke="#fc03f8" stroke-width="2"/>
+                                <line x1="10" y1="50" x2="90" y2="50" stroke="#03fc90" stroke-width="2"/>
+                                <line x1="50" y1="10" x2="50" y2="90" stroke="#fc03f8" stroke-width="2"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="section2">
+        <div class="container">
+            <div class="neomorphic-card">
+                <div class="title">Breakthrough Performance</div>
+                <h1 class="mega-text">性能<span class="highlight-magenta">提升</span></h1>
+                <div class="grid">
+                    <div>
+                        <p class="description">全新架构设计，REVOLUTIONARY TECHNOLOGY 为您带来前所未有的体验。</p>
+                        <div class="stats">200%</div>
+                        <a href="#section3" class="neomorphic-button button-magenta">了解技术</a>
+                    </div>
+                    <div class="inset-card">
+                        <div class="data-viz">
+                            <div class="bar bar-1"></div>
+                            <div class="bar bar-2"></div>
+                            <div class="bar bar-3"></div>
+                            <div class="bar bar-4"></div>
+                            <div class="bar bar-5"></div>
+                            <div class="bar bar-6"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="section3">
+        <div class="container">
+            <div class="neomorphic-card">
+                <div class="title">Seamless Integration</div>
+                <h1 class="mega-text">智能<span class="highlight-cyan">生态</span></h1>
+                <p class="description">连接一切可能，ECOSYSTEM OF THE FUTURE 打造无缝体验。</p>
+                
+                <div class="svg-container">
+                    <svg width="600" height="300" viewBox="0 0 600 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Central node -->
+                        <circle cx="300" cy="150" r="50" fill="none" stroke="#03fc90" stroke-width="2"/>
+                        <!-- Left node -->
+                        <circle cx="150" cy="150" r="30" fill="none" stroke="#fc03f8" stroke-width="2"/>
+                        <!-- Right node -->
+                        <circle cx="450" cy="150" r="30" fill="none" stroke="#fc03f8" stroke-width="2"/>
+                        <!-- Top node -->
+                        <circle cx="300" cy="50" r="30" fill="none" stroke="#fc03f8" stroke-width="2"/>
+                        <!-- Bottom node -->
+                        <circle cx="300" cy="250" r="30" fill="none" stroke="#fc03f8" stroke-width="2"/>
+                        <!-- Connecting lines -->
+                        <line x1="180" y1="150" x2="250" y2="150" stroke="#03fc90" stroke-width="2"/>
+                        <line x1="350" y1="150" x2="420" y2="150" stroke="#03fc90" stroke-width="2"/>
+                        <line x1="300" y1="80" x2="300" y2="100" stroke="#03fc90" stroke-width="2"/>
+                        <line x1="300" y1="200" x2="300" y2="220" stroke="#03fc90" stroke-width="2"/>
+                    </svg>
+                </div>
+                
+                <div class="feature-grid">
+                    <div class="feature">
+                        <div class="neomorphic-icon">
+                            <svg width="30" height="30" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="25" y="25" width="50" height="50" stroke="#03fc90" stroke-width="3"/>
+                            </svg>
+                        </div>
+                        <div class="feature-title">无缝连接</div>
+                        <p>跨平台数据同步</p>
+                    </div>
+                    <div class="feature">
+                        <div class="neomorphic-icon">
+                            <svg width="30" height="30" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="50" cy="50" r="25" stroke="#fc03f8" stroke-width="3"/>
+                            </svg>
+                        </div>
+                        <div class="feature-title">智能中枢</div>
+                        <p>个性化定制体验</p>
+                    </div>
+                    <div class="feature">
+                        <div class="neomorphic-icon">
+                            <svg width="30" height="30" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <polygon points="50,20 80,65 20,65" stroke="#03fc90" stroke-width="3" fill="none"/>
+                            </svg>
+                        </div>
+                        <div class="feature-title">开放生态</div>
+                        <p>支持第三方扩展</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 2rem;">
+                    <a href="#section1" class="neomorphic-button button-cyan">立即体验</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Simple scroll to functionality
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Add hover effect to bars
+        const bars = document.querySelectorAll('.bar');
+        bars.forEach(bar => {
+            bar.addEventListener('mouseenter', function() {
+                this.style.height = (parseInt(this.style.height) + 10) + '%';
+            });
+            
+            bar.addEventListener('mouseleave', function() {
+                this.style.height = (parseInt(this.style.height) - 10) + '%';
+            });
+        });
+    

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brutalist Web Design</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            font-family: monospace;
+            line-height: 1.2;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .section {
+            min-height: 100vh;
+            border: 3px solid black;
+            margin-bottom: 30px;
+            padding: 20px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 80px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-family: Arial, sans-serif;
+            text-transform: uppercase;
+        }
+
+        .highlight-cyan {
+            background-color: #03fc90;
+            color: black;
+            padding: 0 5px;
+        }
+
+        .highlight-magenta {
+            background-color: #fc03f8;
+            color: white;
+            padding: 0 5px;
+        }
+
+        .caption {
+            font-size: 16px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .description {
+            font-size: 18px;
+            max-width: 600px;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .visual-element {
+            width: 400px;
+            height: 400px;
+            border: 3px solid black;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .grid-cell {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+        }
+
+        .grid-row {
+            height: 40px;
+        }
+
+        .data-viz {
+            height: 300px;
+            width: 500px;
+            border: 3px solid black;
+            position: relative;
+            margin: 30px 0;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .bar {
+            background-color: #03fc90;
+            width: 80px;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .bar:nth-child(even) {
+            background-color: #fc03f8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: black;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: 20px;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .cta-button:hover {
+            background-color: white;
+            color: black;
+            outline: 3px solid black;
+        }
+
+        .stat {
+            font-size: 120px;
+            font-weight: bold;
+            margin: 30px 0;
+        }
+
+        .visual-element svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .grid-background {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .section-number {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 150px;
+            font-weight: bold;
+            opacity: 0.1;
+        }
+    </style>
+</head>
+<body>
+    <section class="section" id="section1">
+        <div class="section-number">01</div>
+        <div class="caption">The Future Is Now</div>
+        <h1>科技<span class="highlight-cyan">创新</span></h1>
+        <p class="description">突破性能边界，<span class="highlight-magenta">颠覆</span>传统思维。INNOVATION WITHOUT LIMITS.</p>
+        <div class="visual-element">
+            <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                <rect x="50" y="50" width="300" height="300" fill="none" stroke="#000" stroke-width="5"/>
+                <circle cx="200" cy="200" r="100" fill="none" stroke="#000" stroke-width="5"/>
+                <line x1="50" y1="50" x2="350" y2="350" stroke="#000" stroke-width="5"/>
+                <line x1="50" y1="350" x2="350" y2="50" stroke="#000" stroke-width="5"/>
+            </svg>
+        </div>
+        <a href="#section2" class="cta-button">探索更多</a>
+    </section>
+
+    <section class="section" id="section2">
+        <div class="section-number">02</div>
+        <div class="caption">Breakthrough Performance</div>
+        <h1>性能<span class="highlight-magenta">提升</span></h1>
+        <p class="description">全新架构设计，REVOLUTIONARY TECHNOLOGY 为您带来前所未有的体验。</p>
+        <div class="stat"><span class="highlight-magenta">200%</span></div>
+        <div class="data-viz">
+            <div class="bar" style="height: 40%;"></div>
+            <div class="bar" style="height: 60%;"></div>
+            <div class="bar" style="height: 80%;"></div>
+            <div class="bar" style="height: 100%;"></div>
+            <div class="bar" style="height: 90%;"></div>
+        </div>
+        <a href="#section3" class="cta-button">了解技术</a>
+    </section>
+
+    <section class="section" id="section3">
+        <div class="section-number">03</div>
+        <div class="caption">Seamless Integration</div>
+        <h1>智能<span class="highlight-cyan">生态</span></h1>
+        <p class="description">连接一切可能，ECOSYSTEM OF THE FUTURE 打造无缝体验。</p>
+        <div class="visual-element">
+            <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="200" cy="200" r="150" fill="none" stroke="#000" stroke-width="5"/>
+                <circle cx="200" cy="200" r="100" fill="none" stroke="#000" stroke-width="5"/>
+                <circle cx="200" cy="200" r="50" fill="none" stroke="#000" stroke-width="5"/>
+                <line x1="50" y1="200" x2="350" y2="200" stroke="#000" stroke-width="5"/>
+                <line x1="200" y1="50" x2="200" y2="350" stroke="#000" stroke-width="5"/>
+            </svg>
+        </div>
+        <a href="#section1" class="cta-button">立即体验</a>
+    </section>
+
+    <script>
+        // Simple scroll to functionality
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

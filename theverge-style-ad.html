@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TheVerge Style Advertisement</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .highlight-cyan {
+            color: #03fc90;
+        }
+
+        .highlight-magenta {
+            color: #fc03f8;
+        }
+
+        .mega-text {
+            font-size: 15vw;
+            font-weight: 900;
+            line-height: 0.9;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 1.2s ease;
+        }
+
+        .english-caption {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 1s ease;
+            transition-delay: 0.2s;
+        }
+
+        .description {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 1s ease;
+            transition-delay: 0.4s;
+        }
+
+        .visual-element {
+            position: absolute;
+            right: -100px;
+            top: 50%;
+            transform: translateY(-50%) scale(0.8);
+            width: 50vw;
+            height: 50vw;
+            opacity: 0;
+            transition: opacity 1.2s ease, transform 1.5s ease;
+            transition-delay: 0.6s;
+        }
+
+        .visual-element.circle {
+            border: 4px solid #03fc90;
+            border-radius: 50%;
+            background: rgba(3, 252, 144, 0.1);
+            box-shadow: 0 0 80px rgba(3, 252, 144, 0.3);
+        }
+
+        .visual-element.square {
+            border: 4px solid #fc03f8;
+            background: rgba(252, 3, 248, 0.1);
+            box-shadow: 0 0 80px rgba(252, 3, 248, 0.3);
+        }
+
+        .visual-element.triangle {
+            width: 0;
+            height: 0;
+            border-left: 25vw solid transparent;
+            border-right: 25vw solid transparent;
+            border-bottom: 43.3vw solid rgba(3, 252, 144, 0.1);
+            box-shadow: 0 0 80px rgba(3, 252, 144, 0.3);
+        }
+
+        .data-viz {
+            display: flex;
+            align-items: flex-end;
+            height: 200px;
+            width: 100%;
+            max-width: 800px;
+            margin-top: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 1s ease;
+            transition-delay: 0.8s;
+        }
+
+        .bar {
+            flex: 1;
+            margin: 0 5px;
+            background: linear-gradient(to top, rgba(3, 252, 144, 0.1), rgba(3, 252, 144, 0.8));
+            transition: height 1s ease;
+        }
+
+        .bar:nth-child(even) {
+            background: linear-gradient(to top, rgba(252, 3, 248, 0.1), rgba(252, 3, 248, 0.8));
+        }
+
+        .active .mega-text,
+        .active .english-caption,
+        .active .description,
+        .active .data-viz,
+        .active .visual-element {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .active .visual-element {
+            transform: translateY(-50%) scale(1);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #03fc90, #03fc90);
+            color: #121212;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            border-radius: 4px;
+            margin-top: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 1s ease, background 0.3s ease;
+            transition-delay: 1s;
+        }
+
+        .active .cta-button {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cta-button:hover {
+            background: linear-gradient(45deg, #03fc90, #03ecfc);
+        }
+
+        .cta-button.magenta {
+            background: linear-gradient(45deg, #fc03f8, #fc03f8);
+        }
+
+        .cta-button.magenta:hover {
+            background: linear-gradient(45deg, #fc03f8, #fc03c4);
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-background"></div>
+
+    <section class="section" id="section1">
+        <div class="english-caption">The Future Is Now</div>
+        <h1 class="mega-text">科技<span class="highlight-cyan">创新</span></h1>
+        <p class="description">突破性能边界，<span class="highlight-magenta">颠覆</span>传统思维。INNOVATION WITHOUT LIMITS.</p>
+        <div class="visual-element circle"></div>
+        <a href="#section2" class="cta-button">探索更多</a>
+    </section>
+
+    <section class="section" id="section2">
+        <div class="english-caption">Breakthrough Performance</div>
+        <h1 class="mega-text"><span class="highlight-magenta">200%</span>性能提升</h1>
+        <p class="description">全新架构设计，REVOLUTIONARY TECHNOLOGY 为您带来前所未有的体验。</p>
+        <div class="data-viz">
+            <div class="bar" style="height: 40%;"></div>
+            <div class="bar" style="height: 60%;"></div>
+            <div class="bar" style="height: 80%;"></div>
+            <div class="bar" style="height: 100%;"></div>
+            <div class="bar" style="height: 90%;"></div>
+            <div class="bar" style="height: 120%;"></div>
+        </div>
+        <div class="visual-element square"></div>
+        <a href="#section3" class="cta-button magenta">了解技术</a>
+    </section>
+
+    <section class="section" id="section3">
+        <div class="english-caption">Seamless Integration</div>
+        <h1 class="mega-text">智能<span class="highlight-cyan">生态</span></h1>
+        <p class="description">连接一切可能，ECOSYSTEM OF THE FUTURE 打造无缝体验。</p>
+        <div class="visual-element triangle"></div>
+        <a href="#section1" class="cta-button">立即体验</a>
+    </section>
+
+    <script>
+        // Observer for section animation
+        const sections = document.querySelectorAll('.section');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                } else {
+                    entry.target.classList.remove('active');
+                }
+            });
+        }, {
+            threshold: 0.3
+        });
+        
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Dynamic bar animation on scroll
+        window.addEventListener('scroll', () => {
+            const bars = document.querySelectorAll('.bar');
+            const scrollPosition = window.scrollY;
+            
+            bars.forEach((bar, index) => {
+                const baseHeight = parseInt(bar.style.height);
+                const fluctuation = Math.sin(scrollPosition / 100 + index) * 20;
+                bar.style.height = `${baseHeight + fluctuation}%`;
+            });
+        });
+    </script>
+</body>
+</html>

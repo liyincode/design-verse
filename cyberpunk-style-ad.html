@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberpunk Style Advertisement</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        body {
+            background-color: #0a0a12;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 0, 255, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+            animation: gridPulse 8s infinite alternate;
+        }
+
+        @keyframes gridPulse {
+            0% {
+                opacity: 0.5;
+                background-size: 40px 40px;
+            }
+            50% {
+                opacity: 0.7;
+                background-size: 42px 42px;
+            }
+            100% {
+                opacity: 0.5;
+                background-size: 40px 40px;
+            }
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .neon-cyan {
+            color: #00f0ff;
+            text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff, 0 0 30px #00f0ff;
+            animation: neonFlicker 2s infinite alternate;
+        }
+
+        .neon-magenta {
+            color: #ff00ff;
+            text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+            animation: neonFlicker 1.5s infinite alternate-reverse;
+        }
+
+        @keyframes neonFlicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff, 0 0 30px #00f0ff;
+            }
+            20%, 24%, 55% {
+                text-shadow: none;
+            }
+        }
+
+        .mega-text {
+            font-size: 15vw;
+            font-weight: 900;
+            line-height: 0.9;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 1.2s ease;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        .mega-text::before {
+            content: attr(data-text);
+            position: absolute;
+            left: 3px;
+            text-shadow: -2px 0 #ff00ff;
+            top: 0;
+            color: transparent;
+            opacity: 0.8;
+        }
+
+        .mega-text::after {
+            content: attr(data-text);
+            position: absolute;
+            left: -3px;
+            text-shadow: 2px 0 #00f0ff;
+            top: 0;
+            color: transparent;
+            opacity: 0.8;
+        }
+
+        .glitch-effect {
+            animation: glitch 1s infinite;
+        }
+
+        @keyframes glitch {
+            0% {
+                transform: translate(0);
+            }
+            20% {
+                transform: translate(-3px, 3px);
+            }
+            40% {
+                transform: translate(-3px, -3px);
+            }
+            60% {
+                transform: translate(3px, 3px);
+            }
+            80% {
+                transform: translate(3px, -3px);
+            }
+            100% {
+                transform: translate(0);
+            }
+        }
+
+        .english-caption {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 1s ease;
+            transition-delay: 0.2s;
+            border-left: 3px solid #00f0ff;
+            padding-left: 10px;
+            background: rgba(0, 240, 255, 0.1);
+            display: inline-block;
+            padding: 5px 10px;
+        }
+
+        .description {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 1s ease;
+            transition-delay: 0.4s;
+            line-height: 1.6;
+            position: relative;
+            font-family: 'Courier New', monospace;
+        }
+
+        .description strong {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .visual-element {
+            position: absolute;
+            right: -50px;
+            top: 50%;
+            transform: translateY(-50%) scale(0.8) rotate(-10deg);
+            width: 40vw;
+            height: 40vw;
+            opacity: 0;
+            transition: opacity 1.2s ease, transform 1.5s ease;
+            transition-delay: 0.6s;
+            filter: drop-shadow(0 0 15px #00f0ff);
+        }
+
+        .hologram {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border: 2px solid #00f0ff;
+            background: rgba(0, 240, 255, 0.05);
+            animation: hologramEffect 3s infinite alternate;
+            overflow: hidden;
+        }
+
+        .hologram::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.3), transparent);
+            animation: hologramScan 3s infinite;
+        }
+
+        @keyframes hologramEffect {
+            0% {
+                opacity: 0.7;
+                box-shadow: 0 0 10px #00f0ff;
+            }
+            100% {
+                opacity: 1;
+                box-shadow: 0 0 20px #00f0ff;
+            }
+        }
+
+        @keyframes hologramScan {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 200%;
+            }
+        }
+
+        .active .mega-text,
+        .active .english-caption,
+        .active .description,
+        .active .data-viz,
+        .active .visual-element {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .active .visual-element {
+            transform: translateY(-50%) scale(1) rotate(0deg);
+        }
+
+        .data-viz {
+            display: flex;
+            align-items: flex-end;
+            height: 200px;
+            width: 100%;
+            max-width: 800px;
+            margin-top: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 1s ease;
+            transition-delay: 0.8s;
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            padding: 10px;
+            background: rgba(10, 10, 18, 0.5);
+            position: relative;
+        }
+
+        .data-viz::before {
+            content: "DATA//ANALYSIS";
+            position: absolute;
+            top: -20px;
+            left: 10px;
+            font-size: 0.7rem;
+            color: #00f0ff;
+            background: #0a0a12;
+            padding: 0 10px;
+        }
+
+        .bar {
+            flex: 1;
+            margin: 0 5px;
+            background: linear-gradient(to top, rgba(0, 240, 255, 0.2), rgba(0, 240, 255, 0.8));
+            transition: height 1s ease;
+            position: relative;
+        }
+
+        .bar:nth-child(even) {
+            background: linear-gradient(to top, rgba(255, 0, 255, 0.2), rgba(255, 0, 255, 0.8));
+        }
+
+        .bar::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(to bottom, transparent, transparent 5px, rgba(0, 0, 0, 0.5) 5px, rgba(0, 0, 0, 0.5) 10px);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: transparent;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 1s ease, box-shadow 0.3s ease;
+            transition-delay: 1s;
+            border: 2px solid #00f0ff;
+            box-shadow: 0 0 10px #00f0ff, inset 0 0 10px #00f0ff;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .active .cta-button {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cta-button:hover {
+            box-shadow: 0 0 20px #00f0ff, inset 0 0 20px #00f0ff;
+        }
+
+        .cta-button:hover::before {
+            left: 200%;
+            transition: left 1s ease;
+        }
+
+        .cta-button.magenta {
+            border: 2px solid #ff00ff;
+            box-shadow: 0 0 10px #ff00ff, inset 0 0 10px #ff00ff;
+        }
+
+        .cta-button.magenta:hover {
+            box-shadow: 0 0 20px #ff00ff, inset 0 0 20px #ff00ff;
+        }
+
+        .cta-button.magenta::before {
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 255, 0.3), transparent);
+        }
+
+        .interface-overlay {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 0.8rem;
+            color: #00f0ff;
+            font-family: 'Courier New', monospace;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        .interface-overlay::before {
+            content: "sys.status: online";
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1));
+            background-size: 100% 3px;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0.2;
+        }
+
+        .glitch-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 9998;
+            pointer-events: none;
+            animation: glitchOverlay 10s infinite;
+            opacity: 0;
+        }
+
+        @keyframes glitchOverlay {
+            0%, 90%, 100% {
+                opacity: 0;
+            }
+            92%, 94%, 96% {
+                opacity: 0.1;
+                background-color: rgba(0, 255, 255, 0.2);
+                transform: translate(5px, 0);
+            }
+            93%, 95%, 97% {
+                opacity: 0.1;
+                background-color: rgba(255, 0, 255, 0.2);
+                transform: translate(-5px, 0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-background"></div>
+    <div class="scanlines"></div>
+    <div class="glitch-overlay"></div>
+    <div class="interface-overlay">
+        system.//init_complete<br>
+        user.profile.//active<br>
+        sec.level: //alpha_clearance<br>
+        <span id="datetime"></span>
+    </div>
+
+    <section class="section" id="section1">
+        <div class="english-caption">The Future Is Now</div>
+        <h1 class="mega-text" data-text="科技创新">科技<span class="neon-cyan">创新</span></h1>
+        <p class="description">突破<strong>性能边界</strong>，<span class="neon-magenta">颠覆</span>传统思维。// <span class="glitch-effect">INNOVATION_WITHOUT_LIMITS</span> //</p>
+        <div class="visual-element">
+            <div class="hologram">
+                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="100" cy="100" r="80" stroke="#00f0ff" stroke-width="2" fill="none" />
+                    <circle cx="100" cy="100" r="40" stroke="#ff00ff" stroke-width="2" fill="none" />
+                    <line x1="20" y1="100" x2="180" y2="100" stroke="#00f0ff" stroke-width="2" />
+                    <line x1="100" y1="20" x2="100" y2="180" stroke="#ff00ff" stroke-width="2" />
+                    <path d="M60,80 Q100,20 140,80" stroke="#00f0ff" stroke-width="2" fill="none" />
+                    <path d="M60,120 Q100,180 140,120" stroke="#ff00ff" stroke-width="2" fill="none" />
+                </svg>
+            </div>
+        </div>
+        <a href="#section2" class="cta-button">探索更多</a>
+    </section>
+
+    <section class="section" id="section2">
+        <div class="english-caption">Breakthrough Performance</div>
+        <h1 class="mega-text" data-text="200%性能提升"><span class="neon-magenta">200%</span>性能提升</h1>
+        <p class="description">全新<strong>架构设计</strong>，// <span class="glitch-effect">REVOLUTIONARY_TECHNOLOGY</span> // 为您带来前所未有的体验。</p>
+        <div class="data-viz">
+            <div class="bar" style="height: 40%;"></div>
+            <div class="bar" style="height: 60%;"></div>
+            <div class="bar" style="height: 80%;"></div>
+            <div class="bar" style="height: 100%;"></div>
+            <div class="bar" style="height: 90%;"></div>
+            <div class="bar" style="height: 120%;"></div>
+        </div>
+        <div class="visual-element">
+            <div class="hologram">
+                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <polygon points="100,20 180,90 100,180 20,90" stroke="#ff00ff" stroke-width="2" fill="none" />
+                    <circle cx="100" cy="100" r="50" stroke="#00f0ff" stroke-width="2" fill="none" />
+                    <line x1="50" y1="50" x2="150" y2="150" stroke="#ff00ff" stroke-width="2" />
+                    <line x1="150" y1="50" x2="50" y2="150" stroke="#00f0ff" stroke-width="2" />
+                    <rect x="75" y="75" width="50" height="50" stroke="#ff00ff" stroke-width="2" fill="none" />
+                </svg>
+            </div>
+        </div>
+        <a href="#section3" class="cta-button magenta">了解技术</a>
+    </section>
+
+    <section class="section" id="section3">
+        <div class="english-caption">Seamless Integration</div>
+        <h1 class="mega-text" data-text="智能生态">智能<span class="neon-cyan">生态</span></h1>
+        <p class="description">连接一切<strong>可能</strong>，// <span class="glitch-effect">ECOSYSTEM_OF_THE_FUTURE</span> // 打造无缝体验。</p>
+        <div class="visual-element">
+            <div class="hologram">
+                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="50" y="50" width="100" height="100" stroke="#00f0ff" stroke-width="2" fill="none" />
+                    <circle cx="70" cy="70" r="10" stroke="#ff00ff" stroke-width="2" fill="none" />
+                    <circle cx="130" cy="70" r="10" stroke="#ff00ff" stroke-width="2" fill="none" />
+                    <circle cx="70" cy="130" r="10" stroke="#ff00ff" stroke-width="2" fill="none" />
+                    <circle cx="130" cy="130" r="10" stroke="#ff00ff" stroke-width="2" fill="none" />
+                    <line x1="70" y1="70" x2="130" y2="130" stroke="#00f0ff" stroke-width="2" />
+                    <line x1="70" y1="130" x2="130" y2="70" stroke="#00f0ff" stroke-width="2" />
+                    <circle cx="100" cy="100" r="20" stroke="#ff00ff" stroke-width="2" fill="none" />
+                </svg>
+            </div>
+        </div>
+        <a href="#section1" class="cta-button">立即体验</a>
+    </section>
+
+    <script>
+        // Observer for section animation
+        const sections = document.querySelectorAll('.section');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                } else {
+                    entry.target.classList.remove('active');
+                }
+            });
+        }, {
+            threshold: 0.3
+        });
+        
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Dynamic bar animation on scroll
+        window.addEventListener('scroll', () => {
+            const bars = document.querySelectorAll('.bar');
+            const scrollPosition = window.scrollY;
+            
+            bars.forEach((bar, index) => {
+                const baseHeight = parseInt(bar.style.height);
+                const fluctuation = Math.sin(scrollPosition / 100 + index) * 20;
+                bar.style.height = `${baseHeight + fluctuation}%`;
+            });
+        });
+
+        // Random glitch effect for text elements
+        function applyRandomGlitch() {
+            const elements = document.querySelectorAll('.mega-text, .english-caption');
+            const randomElement = elements[Math.floor(Math.random() * elements.length)];
+            
+            randomElement.classList.add('glitch-effect');
+            
+            setTimeout(() => {
+                randomElement.classList.remove('glitch-effect');
+            }, 200);
+        }
+        
+        setInterval(applyRandomGlitch, 3000);
+
+        // Update datetime in cyberpunk format
+        function updateDateTime() {
+            const now = new Date();
+            const formattedDate = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')}`;
+            const formattedTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+            
+            document.getElementById('datetime').textContent = `sys.time: //${formattedDate}/${formattedTime}`;
+        }
+        
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+    </script>
+</body>
+</html>

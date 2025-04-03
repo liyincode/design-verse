@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anti-Design Style</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Inconsolata:wght@400;700&family=Space+Mono&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #ffff00;
+            color: #000000;
+            font-family: 'Comic Neue', cursive;
+            overflow-x: hidden;
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #section1 {
+            background-color: #ffff00;
+        }
+
+        #section2 {
+            background-color: #ff6ec7;
+        }
+
+        #section3 {
+            background-color: #00ffff;
+        }
+
+        .title {
+            font-family: 'Space Mono', monospace;
+            font-size: 18px;
+            text-transform: uppercase;
+            color: #ff0000;
+            transform: rotate(-3deg);
+            margin-bottom: 30px;
+            text-decoration: underline wavy #0000ff;
+        }
+
+        .mega-text {
+            font-size: 120px;
+            font-weight: bold;
+            line-height: 0.9;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            transform: skewX(-5deg);
+            text-shadow: 5px 5px 0px #ff6ec7;
+            word-break: break-all;
+            max-width: 800px;
+        }
+
+        #section2 .mega-text {
+            text-shadow: 5px 5px 0px #ffff00;
+        }
+
+        #section3 .mega-text {
+            text-shadow: 5px 5px 0px #ff6ec7;
+        }
+
+        .highlight-cyan {
+            color: #03fc90;
+            background-color: #0000ff;
+            padding: 0 10px;
+            display: inline-block;
+            transform: rotate(3deg);
+        }
+
+        .highlight-magenta {
+            color: #fc03f8;
+            background-color: #00ff00;
+            padding: 0 10px;
+            display: inline-block;
+            transform: rotate(-3deg);
+        }
+
+        .description {
+            font-family: 'Inconsolata', monospace;
+            font-size: 24px;
+            margin-bottom: 40px;
+            max-width: 800px;
+            border: 5px dashed #0000ff;
+            padding: 20px;
+            background-color: #ffffff;
+            transform: rotate(1deg);
+        }
+
+        .floating-element {
+            position: absolute;
+            z-index: 1;
+        }
+
+        .cursor {
+            width: 50px;
+            height: 50px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M5.24 22.51l1.44 1.44 6.75-6.75 3.07 6.07 1.66-13.16-13.15 1.67 6.06 3.07z" fill="black"/></svg>');
+            background-repeat: no-repeat;
+            transform: rotate(45deg);
+            top: 30px;
+            right: 40px;
+        }
+
+        .emoji {
+            font-size: 40px;
+            animation: float 5s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        .emoji-1 {
+            top: 100px;
+            right: 100px;
+        }
+
+        .emoji-2 {
+            bottom: 100px;
+            left: 100px;
+        }
+
+        .emoji-3 {
+            top: 200px;
+            left: 50%;
+        }
+
+        .weird-button {
+            font-family: 'Comic Neue', cursive;
+            font-size: 24px;
+            font-weight: bold;
+            background-color: #ff00ff;
+            color: #ffff00;
+            border: 3px solid #000000;
+            padding: 15px 30px;
+            transform: rotate(-2deg);
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 8px 8px 0px #000000;
+            transition: all 0.2s;
+            margin-top: 20px;
+        }
+
+        .weird-button:hover {
+            transform: rotate(2deg);
+            box-shadow: -8px 8px 0px #000000;
+        }
+
+        .section2-button {
+            background-color: #00ff00;
+            color: #0000ff;
+        }
+
+        .section3-button {
+            background-color: #ff0000;
+            color: #ffffff;
+        }
+
+        .data-viz {
+            margin: 40px 0;
+            height: 300px;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .bar {
+            width: 80px;
+            margin-right: 20px;
+            background-color: #0000ff;
+            border: 3px solid #000000;
+            position: relative;
+            box-shadow: 5px 5px 0px #000000;
+        }
+
+        .bar::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 20px;
+            background-color: #ff0000;
+            top: -20px;
+        }
+
+        .bar:nth-child(odd) {
+            background-color: #ff0000;
+        }
+
+        .bar:nth-child(odd)::after {
+            background-color: #0000ff;
+        }
+
+        .stat {
+            font-size: 150px;
+            font-weight: bold;
+            color: #0000ff;
+            transform: rotate(-5deg);
+            margin: 40px 0;
+            display: inline-block;
+            background-color: #ffffff;
+            padding: 0 20px;
+            border: 5px solid #ff0000;
+        }
+
+        .random-shape {
+            position: absolute;
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        .shape1 {
+            width: 200px;
+            height: 200px;
+            background-color: #ff0000;
+            border-radius: 50% 0 50% 0;
+            top: 100px;
+            right: 100px;
+            transform: rotate(45deg);
+        }
+
+        .shape2 {
+            width: 300px;
+            height: 150px;
+            background-color: #00ff00;
+            bottom: 150px;
+            left: 50px;
+            clip-path: polygon(0% 0%, 100% 0%, 75% 100%, 25% 100%);
+        }
+
+        .shape3 {
+            width: 150px;
+            height: 300px;
+            background-color: #0000ff;
+            top: 200px;
+            right: 200px;
+            transform: skewY(20deg);
+        }
+
+        .random-text {
+            position: absolute;
+            font-family: 'Space Mono', monospace;
+            transform: rotate(90deg);
+            font-size: 14px;
+            opacity: 0.5;
+        }
+
+        .text1 {
+            top: 300px;
+            right: 20px;
+        }
+
+        .text2 {
+            bottom: 100px;
+            left: 20px;
+            transform: rotate(-90deg);
+        }
+
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+            transform: rotate(-1deg);
+        }
+
+        .icon-box {
+            background-color: #ffffff;
+            border: 3px solid #000000;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 5px 5px 0px #000000;
+        }
+
+        .icon-box:nth-child(odd) {
+            transform: rotate(3deg);
+        }
+
+        .icon-box:nth-child(even) {
+            transform: rotate(-3deg);
+        }
+
+        .marquee-text {
+            position: absolute;
+            bottom: 20px;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 100%;
+            font-size: 24px;
+            font-weight: bold;
+            animation: marquee 20s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .warning-label {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px;
+            background-color: #ff0000;
+            color: #ffffff;
+            border: 2px solid #000000;
+            transform: rotate(-5deg);
+            font-size: 14px;
+            font-weight: bold;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <section class="section" id="section1">
+        <div class="warning-label">EXTREME DESIGN ALERT!</div>
+        <div class="floating-element cursor"></div>
+        <div class="floating-element emoji emoji-1">🚀</div>
+        <div class="floating-element emoji emoji-2">💯</div>
+        
+        <div class="random-shape shape1"></div>
+        <div class="random-text text1">SCROLL DOWN IF YOU DARE</div>
+        
+        <div class="title">The Future Is Now</div>
+        <h1 class="mega-text">科技<span class="highlight-cyan">创新</span></h1>
+        <p class="description">突破性能边界，<span class="highlight-magenta">颠覆</span>传统思维。INNOVATION WITHOUT LIMITS.</p>
+        
+        <a href="#section2" class="weird-button">探索更多!!!</a>
+        
+        <div class="marquee-text">科技创新 * TECH INNOVATION * 科技创新 * TECH INNOVATION * 科技创新 * TECH INNOVATION *</div>
+    </section>
+
+    <section class="section" id="section2">
+        <div class="floating-element emoji emoji-3">🔥</div>
+        
+        <div class="random-shape shape2"></div>
+        <div class="random-text text2">PERFORMANCE OVERLOAD</div>
+        
+        <div class="title">Breakthrough Performance</div>
+        <h1 class="mega-text">性能<span class="highlight-magenta">提升</span></h1>
+        
+        <div class="stat">200%</div>
+        
+        <p class="description">全新架构设计，REVOLUTIONARY TECHNOLOGY 为您带来前所未有的体验。</p>
+        
+        <div class="data-viz">
+            <div class="bar" style="height: 40%;"></div>
+            <div class="bar" style="height: 60%;"></div>
+            <div class="bar" style="height: 80%;"></div>
+            <div class="bar" style="height: 100%;"></div>
+            <div class="bar" style="height: 90%;"></div>
+        </div>
+        
+        <a href="#section3" class="weird-button section2-button">了解技术!!!</a>
+    </section>
+
+    <section class="section" id="section3">
+        <div class="floating-element emoji emoji-1">🌐</div>
+        <div class="floating-element emoji emoji-2">✨</div>
+        
+        <div class="random-shape shape3"></div>
+        
+        <div class="title">Seamless Integration</div>
+        <h1 class="mega-text">智能<span class="highlight-cyan">生态</span></h1>
+        <p class="description">连接一切可能，ECOSYSTEM OF THE FUTURE 打造无缝体验。</p>
+        
+        <div class="icon-grid">
+            <div class="icon-box">
+                <div style="font-size: 40px;">📱</div>
+                <div style="margin-top: 10px;">移动设备</div>
+            </div>
+            <div class="icon-box">
+                <div style="font-size: 40px;">💻</div>
+                <div style="margin-top: 10px;">电脑</div>
+            </div>
+            <div class="icon-box">
+                <div style="font-size: 40px;">🌐</div>
+                <div style="margin-top: 10px;">云端</div>
+            </div>
+            <div class="icon-box">
+                <div style="font-size: 40px;">🎮</div>
+                <div style="margin-top: 10px;">游戏</div>
+            </div>
+            <div class="icon-box">
+                <div style="font-size: 40px;">🏠</div>
+                <div style="margin-top: 10px;">智能家居</div>
+            </div>
+            <div class="icon-box">
+                <div style="font-size: 40px;">🚗</div>
+                <div style="margin-top: 10px;">汽车</div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 40px;">
+            <a href="#section1" class="weird-button section3-button">立即体验!!!</a>
+        </div>
+    </section>
+
+    <script>
+        // Simple scroll to functionality
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Random movement of emojis
+        const emojis = document.querySelectorAll('.emoji');
+        emojis.forEach(emoji => {
+            setInterval(() => {
+                const randomX = Math.random() * 20 - 10;
+                const randomY = Math.random() * 20 - 10;
+                emoji.style.transform = `translate(${randomX}px, ${randomY}px) rotate(${Math.random() * 30 - 15}deg)`;
+            }, 500);
+        });
+    </script>
+</body>
+</html>

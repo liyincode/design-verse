@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaporwave Aesthetic Style</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000033;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cpath d='M0 0h100v100H0z' fill='%23000033'/%3E%3Cpath d='M0 0h50v50H0zm50 50h50v50H50z' fill='%23000044'/%3E%3C/svg%3E");
+            color: #ffffff;
+            font-family: 'VT323', monospace;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 105, 180, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.3) 1px, transparent 1px);
+            background-size: 100px 100px;
+            perspective: 500px;
+            transform-style: preserve-3d;
+            transform: rotateX(60deg);
+            z-index: -1;
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-wrapper {
+            max-width: 1200px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .chrome-text {
+            color: white;
+            text-shadow: 
+                2px 2px 0px #ff00ff,
+                -2px -2px 0px #00ffff;
+            font-size: 8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            transform: skew(-5deg);
+            letter-spacing: 5px;
+        }
+
+        .highlight-pink {
+            color: #ff6ec7;
+            text-shadow: 2px 2px 0px #ffffff, 4px 4px 0px #00ffff;
+        }
+
+        .highlight-cyan {
+            color: #00ffff;
+            text-shadow: 2px 2px 0px #ffffff, 4px 4px 0px #ff00ff;
+        }
+
+        .retro-caption {
+            font-size: 1.5rem;
+            background: linear-gradient(to right, #ff00ff, #00ffff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .description {
+            font-size: 1.8rem;
+            max-width: 800px;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 0px #ff00ff, -1px -1px 0px #00ffff;
+            letter-spacing: 1px;
+        }
+
+        .visual-element {
+            width: 500px;
+            height: 500px;
+            position: relative;
+            margin: 2rem auto;
+        }
+
+        .retro-sun {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(to top, #ff00ff, transparent);
+            border-radius: 50% 50% 0 0;
+            transform: scaleX(2);
+            z-index: -1;
+        }
+
+        .retro-mountains {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            z-index: 0;
+        }
+
+        .data-viz {
+            display: flex;
+            align-items: flex-end;
+            height: 200px;
+            width: 100%;
+            max-width: 500px;
+            margin: 2rem auto;
+            position: relative;
+        }
+
+        .bar {
+            flex: 1;
+            margin: 0 5px;
+            background: linear-gradient(to top, #ff00ff, #00ffff);
+            box-shadow: 0 0 20px #ff00ff;
+            animation: neon-pulse 2s infinite alternate;
+        }
+
+        @keyframes neon-pulse {
+            from {
+                box-shadow: 0 0 10px #ff00ff;
+            }
+            to {
+                box-shadow: 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+            }
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(to right, #ff00ff, #00ffff);
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            border: none;
+            text-transform: uppercase;
+            border: 3px solid white;
+            position: relative;
+            transform: skew(-5deg);
+            box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: skew(-5deg) translate(-5px, -5px);
+            box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.5);
+        }
+
+        .statue {
+            position: absolute;
+            bottom: 0;
+            right: 10%;
+            width: 200px;
+            height: 400px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 200'%3E%3Cpath d='M40,200 L40,150 L30,140 L30,100 L40,90 L50,90 L60,100 L60,140 L50,150 L50,200 Z' fill='white'/%3E%3Cpath d='M45,90 L45,60 A15,20 0 1,1 45,20 A15,15 0 1,1 45,60 Z' fill='white'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            filter: drop-shadow(0 0 10px rgba(255, 0, 255, 0.8));
+        }
+
+        .palm-tree {
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            width: 150px;
+            height: 300px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 200'%3E%3Cpath d='M45,200 L45,100 L55,100 L55,200 Z' fill='%23ff00ff'/%3E%3Cpath d='M50,100 C30,70 20,90 10,70 C30,80 40,60 50,40 C60,60 70,80 90,70 C80,90 70,70 50,100 Z' fill='%2300ffff'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.8));
+        }
+
+        .stat {
+            font-size: 10rem;
+            font-weight: bold;
+            color: #ff00ff;
+            text-shadow: 5px 5px 0 #00ffff;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .retro-computer {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .retro-computer-svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.8));
+        }
+
+        .section-decoration {
+            position: absolute;
+            pointer-events: none;
+        }
+
+        .decoration-1 {
+            top: 10%;
+            left: 5%;
+            width: 100px;
+            height: 100px;
+            border: 3px solid #ff00ff;
+            transform: rotate(45deg);
+        }
+
+        .decoration-2 {
+            bottom: 10%;
+            right: 5%;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid #00ffff;
+        }
+
+        .decoration-3 {
+            top: 50%;
+            right: 10%;
+            width: 200px;
+            height: 5px;
+            background: linear-gradient(to right, #ff00ff, #00ffff);
+        }
+
+        .decoration-4 {
+            bottom: 30%;
+            left: 10%;
+            width: 5px;
+            height: 200px;
+            background: linear-gradient(to bottom, #ff00ff, #00ffff);
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-background"></div>
+
+    <section class="section" id="section1">
+        <div class="section-decoration decoration-1"></div>
+        <div class="section-decoration decoration-2"></div>
+        <div class="content-wrapper">
+            <div class="retro-caption">The Future Is Now</div>
+            <h1 class="chrome-text">科技<span class="highlight-cyan">创新</span></h1>
+            <p class="description">突破性能边界，<span class="highlight-pink">颠覆</span>传统思维。INNOVATION WITHOUT LIMITS.</p>
+            <div class="visual-element">
+                <div class="retro-sun"></div>
+                <svg class="retro-mountains" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+                    <polygon points="0,200 150,80 300,200" fill="#ff00ff" />
+                    <polygon points="150,200 350,50 550,200" fill="#00ffff" />
+                    <polygon points="300,200 450,120 600,200" fill="#ff00ff" />
+                </svg>
+                <div class="statue"></div>
+                <div class="palm-tree"></div>
+            </div>
+            <a href="#section2" class="cta-button">探索更多</a>
+        </div>
+    </section>
+
+    <section class="section" id="section2">
+        <div class="section-decoration decoration-3"></div>
+        <div class="section-decoration decoration-4"></div>
+        <div class="content-wrapper">
+            <div class="retro-caption">Breakthrough Performance</div>
+            <h1 class="chrome-text">性能<span class="highlight-pink">提升</span></h1>
+            <div class="stat">200%</div>
+            <p class="description">全新架构设计，REVOLUTIONARY TECHNOLOGY 为您带来前所未有的体验。</p>
+            <div class="data-viz">
+                <div class="bar" style="height: 40%;"></div>
+                <div class="bar" style="height: 60%;"></div>
+                <div class="bar" style="height: 80%;"></div>
+                <div class="bar" style="height: 100%;"></div>
+                <div class="bar" style="height: 90%;"></div>
+                <div class="bar" style="height: 120%;"></div>
+            </div>
+            <a href="#section3" class="cta-button">了解技术</a>
+        </div>
+    </section>
+
+    <section class="section" id="section3">
+        <div class="section-decoration decoration-1"></div>
+        <div class="section-decoration decoration-2"></div>
+        <div class="content-wrapper">
+            <div class="retro-caption">Seamless Integration</div>
+            <h1 class="chrome-text">智能<span class="highlight-cyan">生态</span></h1>
+            <p class="description">连接一切可能，ECOSYSTEM OF THE FUTURE 打造无缝体验。</p>
+            <div class="retro-computer">
+                <svg class="retro-computer-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="50" y="50" width="200" height="150" rx="10" fill="#333" stroke="#00ffff" stroke-width="3"/>
+                    <rect x="70" y="70" width="160" height="110" fill="#000" stroke="#ff00ff" stroke-width="2"/>
+                    <rect x="100" y="200" width="100" height="20" fill="#333" stroke="#00ffff" stroke-width="3"/>
+                    <rect x="75" y="220" width="150" height="30" rx="5" fill="#333" stroke="#00ffff" stroke-width="3"/>
+                    <!-- Retro computer screen content -->
+                    <line x1="80" y1="90" x2="220" y2="90" stroke="#00ffff" stroke-width="2"/>
+                    <line x1="80" y1="110" x2="220" y2="110" stroke="#ff00ff" stroke-width="2"/>
+                    <line x1="80" y1="130" x2="180" y2="130" stroke="#00ffff" stroke-width="2"/>
+                    <line x1="80" y1="150" x2="160" y2="150" stroke="#ff00ff" stroke-width="2"/>
+                </svg>
+            </div>
+            <a href="#section1" class="cta-button">立即体验</a>
+        </div>
+    </section>
+
+    <script>
+        // Simple scroll to functionality
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

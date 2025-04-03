@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flat Design 2.0 Style</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --background: #f8f9fa;
+            --primary: #4361ee;
+            --secondary: #7209b7;
+            --accent-cyan: #03fc90;
+            --accent-magenta: #fc03f8;
+            --text: #212529;
+            --text-light: #6c757d;
+            --white: #ffffff;
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .section-1-bg {
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.05) 0%, rgba(114, 9, 183, 0.05) 100%);
+        }
+
+        .section-2-bg {
+            background: linear-gradient(135deg, rgba(3, 252, 144, 0.05) 0%, rgba(67, 97, 238, 0.05) 100%);
+        }
+
+        .section-3-bg {
+            background: linear-gradient(135deg, rgba(252, 3, 248, 0.05) 0%, rgba(67, 97, 238, 0.05) 100%);
+        }
+
+        .section-header {
+            margin-bottom: 3rem;
+        }
+
+        .subtitle {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .highlight-cyan {
+            color: var(--accent-cyan);
+            position: relative;
+        }
+
+        .highlight-magenta {
+            color: var(--accent-magenta);
+            position: relative;
+        }
+
+        .description {
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+            color: var(--text-light);
+        }
+
+        .card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.875rem 2rem;
+            background-color: var(--primary);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #3651d4;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background-color: #6007a1;
+        }
+
+        .btn-secondary.btn-outline {
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+
+        .btn-secondary.btn-outline:hover {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .stats {
+            font-size: 5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+
+        .stats-label {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        @media (max-width: 992px) {
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .feature-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: rgba(67, 97, 238, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .feature-title {
+            font-weight: 600;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-description {
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        .data-viz {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            height: 300px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+
+        .bar {
+            flex: 1;
+            margin: 0 5px;
+            border-radius: 5px 5px 0 0;
+            background: linear-gradient(to top, rgba(67, 97, 238, 0.5), rgba(67, 97, 238, 0.8));
+            transition: height 0.5s ease;
+        }
+
+        .bar:nth-child(even) {
+            background: linear-gradient(to top, rgba(252, 3, 248, 0.5), rgba(252, 3, 248, 0.8));
+        }
+
+        .floating-shape {
+            position: absolute;
+            border-radius: 10px;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background-color: var(--primary);
+            top: 10%;
+            right: -100px;
+            transform: rotate(15deg);
+        }
+
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            background-color: var(--secondary);
+            bottom: 10%;
+            left: -50px;
+            transform: rotate(30deg);
+            border-radius: 50%;
+        }
+
+        .shape-3 {
+            width: 150px;
+            height: 150px;
+            background-color: var(--accent-cyan);
+            top: 40%;
+            right: 10%;
+            transform: rotate(-15deg);
+        }
+
+        .shape-4 {
+            width: 100px;
+            height: 100px;
+            background-color: var(--accent-magenta);
+            bottom: 20%;
+            right: 20%;
+            transform: rotate(45deg);
+            border-radius: 50%;
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.875rem;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .scroll-down:hover {
+            opacity: 1;
+        }
+
+        .scroll-arrow {
+            margin-top: 0.5rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="section" id="section1">
+        <div class="section-bg section-1-bg"></div>
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        
+        <div class="container">
+            <div class="section-header">
+                <div class="subtitle">The Future Is Now</div>
+                <h1 class="title">科技<span class="highlight-cyan">创新</span></h1>
+                <p class="description">突破性能边界，<span class="highlight-magenta">颠覆</span>传统思维。INNOVATION WITHOUT LIMITS.</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-body">
+                    <svg width="100%" height="200" viewBox="0 0 600 200">
+                        <circle cx="300" cy="100" r="80" fill="none" stroke="rgba(67, 97, 238, 0.7)" stroke-width="4"/>
+                        <circle cx="300" cy="100" r="40" fill="none" stroke="rgba(252, 3, 248, 0.7)" stroke-width="4"/>
+                        <line x1="200" y1="100" x2="400" y2="100" stroke="rgba(67, 97, 238, 0.7)" stroke-width="4"/>
+                        <line x1="300" y1="0" x2="300" y2="200" stroke="rgba(252, 3, 248, 0.7)" stroke-width="4"/>
+                    </svg>
+                </div>
+            </div>
+            
+            <div style="margin-top: 2.5rem;">
+                <a href="#section2" class="btn">探索更多</a>
+                <a href="#" class="btn btn-outline" style="margin-left: 1rem;">了解详情</a>
+            </div>
+            
+            <a href="#section2" class="scroll-down">
+                向下滚动
+                <span class="scroll-arrow">↓</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="section" id="section2">
+        <div class="section-bg section-2-bg"></div>
+        <div class="floating-shape shape-3"></div>
+        <div class="floating-shape shape-4"></div>
+        
+        <div class="container">
+            <div class="section-header">
+                <div class="subtitle">Breakthrough Performance</div>
+                <h1 class="title">性能<span class="highlight-magenta">提升</span></h1>
+                <p class="description">全新架构设计，REVOLUTIONARY TECHNOLOGY 为您带来前所未有的体验。</p>
+            </div>
+            
+            <div class="grid">
+                <div>
+                    <div class="stats">200%</div>
+                    <div class="stats-label">性能提升</div>
+                    
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 style="margin-bottom: 1rem;">性能突破</h3>
+                            <p>采用全新架构，优化系统性能，比同类产品快200%。</p>
+                            <ul style="margin: 1rem 0 0 1.5rem; color: var(--text-light);">
+                                <li>优化核心算法</li>
+                                <li>高效能处理器</li>
+                                <li>智能资源分配</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 2rem;">
+                        <a href="#section3" class="btn btn-secondary">了解技术</a>
+                    </div>
+                </div>
+                
+                <div class="data-viz">
+                    <div class="bar" style="height: 40%;"></div>
+                    <div class="bar" style="height: 60%;"></div>
+                    <div class="bar" style="height: 80%;"></div>
+                    <div class="bar" style="height: 100%;"></div>
+                    <div class="bar" style="height: 90%;"></div>
+                    <div class="bar" style="height: 120%;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="section3">
+        <div class="section-bg section-3-bg"></div>
+        <div class="floating-shape shape-1" style="top: 50%; right: -50px;"></div>
+        <div class="floating-shape shape-2" style="top: 20%; left: -20px;"></div>
+        
+        <div class="container">
+            <div class="section-header">
+                <div class="subtitle">Seamless Integration</div>
+                <h1 class="title">智能<span class="highlight-cyan">生态</span></h1>
+                <p class="description">连接一切可能，ECOSYSTEM OF THE FUTURE 打造无缝体验。</p>
+            </div>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3 class="feature-title">移动设备</h3>
+                    <p class="feature-description">随时随地，实时连接，享受流畅操作体验。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💻</div>
+                    <h3 class="feature-title">电脑</h3>
+                    <p class="feature-description">高效办公，无缝协作，提升工作效率。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3 class="feature-title">互联网</h3>
+                    <p class="feature-description">广域连接，信息共享，打破边界限制。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎮</div>
+                    <h3 class="feature-title">游戏</h3>
+                    <p class="feature-description">沉浸体验，高清画质，畅享游戏乐趣。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🏠</div>
+                    <h3 class="feature-title">家居</h3>
+                    <p class="feature-description">智能控制，便捷生活，打造舒适空间。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🚗</div>
+                    <h3 class="feature-title">出行</h3>
+                    <p class="feature-description">智能导航，安全出行，享受便捷服务。</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="#section1" class="btn">立即体验</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Simple scroll to functionality
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Hover effect for bars
+        document.querySelectorAll('.bar').forEach(bar => {
+            bar.addEventListener('mouseenter', function() {
+                const currentHeight = parseInt(this.style.height);
+                this.style.height = (currentHeight + 10) + '%';
+            });
+            
+            bar.addEventListener('mouseleave', function() {
+                const currentHeight = parseInt(this.style.height);
+                this.style.height = (currentHeight - 10) + '%';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimalist Style</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --background: #fafafa;
+            --text: #121212;
+            --secondary-text: #666666;
+            --highlight-cyan: #03fc90;
+            --highlight-magenta: #fc03f8;
+            --border: #e0e0e0;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-weight: 300;
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .divider {
+            width: 100%;
+            height: 1px;
+            background-color: var(--border);
+            margin: 5rem 0;
+        }
+
+        .caption {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            color: var(--secondary-text);
+            font-weight: 500;
+        }
+
+        .mega-text {
+            font-size: 5rem;
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            max-width: 800px;
+        }
+
+        .highlight-cyan {
+            color: var(--highlight-cyan);
+        }
+
+        .highlight-magenta {
+            color: var(--highlight-magenta);
+        }
+
+        .description {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin-bottom: 3rem;
+            font-weight: 300;
+            color: var(--secondary-text);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            border: 1px solid var(--text);
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.875rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            background-color: transparent;
+            font-weight: 400;
+        }
+
+        .cta-button:hover {
+            background-color: var(--text);
+            color: var(--background);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 5rem;
+            margin: 5rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .stats {
+            font-size: 6rem;
+            font-weight: 200;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .stats-label {
+            font-size: 1rem;
+            color: var(--secondary-text);
+            font-weight: 300;
+        }
+
+        .data-viz {
+            display: flex;
+            height: 250px;
+            align-items: flex-end;
+            gap: 2px;
+        }
+
+        .bar {
+            flex: 1;
+            background-color: var(--text);
+            opacity: 0.1;
+            transition: opacity 0.3s ease;
+        }
+
+        .bar:hover {
+            opacity: 0.2;
+        }
+
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .icon-box {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 1rem;
+        }
+
+        .icon-title {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .icon-description {
+            font-size: 0.875rem;
+            color: var(--secondary-text);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 50px;
+            border: 1px solid var(--text);
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            padding-top: 10px;
+        }
+
+        .scroll-dot {
+            width: 5px;
+            height: 5px;
+            background-color: var(--text);
+            border-radius: 50%;
+            animation: scroll 2s infinite;
+        }
+
+        @keyframes scroll {
+            0%, 100% { transform: translateY(0); opacity: 1; }
+            50% { transform: translateY(15px); opacity: 0.2; }
+        }
+
+        .simple-svg {
+            max-width: 100%;
+            height: auto;
+            margin: 0 auto;
+        }
+
+        .circle-element {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        .inner-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+        }
+    </style>
+</head>
+<body>
+    <section class="section" id="section1">
+        <div class="caption">The Future Is Now</div>
+        <h1 class="mega-text">科技<span class="highlight-cyan">创新</span></h1>
+        <p class="description">突破性能边界，<span class="highlight-magenta">颠覆</span>传统思维。INNOVATION WITHOUT LIMITS.</p>
+        <a href="#section2" class="cta-button">探索更多</a>
+        
+        <div class="scroll-indicator">
+            <div class="scroll-dot"></div>
+        </div>
+    </section>
+    
+    <div class="divider"></div>
+    
+    <section class="section" id="section2">
+        <div class="caption">Breakthrough Performance</div>
+        <h1 class="mega-text">性能<span class="highlight-magenta">提升</span></h1>
+        
+        <div class="grid">
+            <div>
+                <p class="description">全新架构设计，REVOLUTIONARY TECHNOLOGY 为您带来前所未有的体验。</p>
+                <div class="stats"><span class="highlight-magenta">200</span>%</div>
+                <div class="stats-label">性能提升</div>
+                <div style="margin-top: 3rem;">
+                    <a href="#section3" class="cta-button">了解技术</a>
+                </div>
+            </div>
+            
+            <div class="data-viz">
+                <div class="bar" style="height: 40%;"></div>
+                <div class="bar" style="height: 60%;"></div>
+                <div class="bar" style="height: 80%;"></div>
+                <div class="bar" style="height: 100%;"></div>
+                <div class="bar" style="height: 90%;"></div>
+                <div class="bar" style="height: 120%;"></div>
+                <div class="bar" style="height: 80%;"></div>
+                <div class="bar" style="height: 60%;"></div>
+                <div class="bar" style="height: 40%;"></div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="divider"></div>
+    
+    <section class="section" id="section3">
+        <div class="caption">Seamless Integration</div>
+        <h1 class="mega-text">智能<span class="highlight-cyan">生态</span></h1>
+        <p class="description">连接一切可能，ECOSYSTEM OF THE FUTURE 打造无缝体验。</p>
+        
+        <div class="circle-element">
+            <div class="inner-circle"></div>
+        </div>
+        
+        <div class="icon-grid">
+            <div class="icon-box">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="5" y="4" width="14" height="16" stroke="#121212" stroke-width="1"/>
+                    <line x1="9" y1="2" x2="15" y2="2" stroke="#121212" stroke-width="1"/>
+                </svg>
+                <div class="icon-title">设备协同</div>
+                <div class="icon-description">跨平台无缝操作</div>
+            </div>
+            
+            <div class="icon-box">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="6" stroke="#121212" stroke-width="1"/>
+                    <path d="M12 6 L12 12 L16 15" stroke="#121212" stroke-width="1"/>
+                </svg>
+                <div class="icon-title">实时同步</div>
+                <div class="icon-description">数据即时更新</div>
+            </div>
+            
+            <div class="icon-box">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 22 L9 12 L15 12 L15 22" stroke="#121212" stroke-width="1"/>
+                    <path d="M5 12 L12 3 L19 12" stroke="#121212" stroke-width="1"/>
+                </svg>
+                <div class="icon-title">智能家居</div>
+                <div class="icon-description">全屋控制系统</div>
+            </div>
+            
+            <div class="icon-box">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="3" y="6" width="18" height="12" stroke="#121212" stroke-width="1"/>
+                    <line x1="3" y1="9" x2="21" y2="9" stroke="#121212" stroke-width="1"/>
+                    <rect x="7" y="14" width="10" height="1" stroke="#121212" stroke-width="1"/>
+                </svg>
+                <div class="icon-title">支付系统</div>
+                <div class="icon-description">安全便捷交易</div>
+            </div>
+            
+            <div class="icon-box">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="9" stroke="#121212" stroke-width="1"/>
+                    <path d="M12 12 L18 15 M12 12 L14 6" stroke="#121212" stroke-width="1"/>
+                </svg>
+                <div class="icon-title">全球定位</div>
+                <div class="icon-description">精准位置服务</div>
+            </div>
+            
+            <div class="icon-box">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="7" cy="7" r="4" stroke="#121212" stroke-width="1"/>
+                    <circle cx="17" cy="17" r="4" stroke="#121212" stroke-width="1"/>
+                    <line x1="11" y1="7" x2="13" y2="7" stroke="#121212" stroke-width="1"/>
+                    <line x1="7" y1="11" x2="7" y2="13" stroke="#121212" stroke-width="1"/>
+                    <line x1="11" y1="17" x2="13" y2="17" stroke="#121212" stroke-width="1"/>
+                    <line x1="17" y1="11" x2="17" y2="13" stroke="#121212" stroke-width="1"/>
+                </svg>
+                <div class="icon-title">互联互通</div>
+                <div class="icon-description">开放共享平台</div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="#section1" class="cta-button">立即体验</a>
+        </div>
+    </section>
+
+    <script>
+        // Simple scroll to functionality
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Subtle hover effect for bars
+        document.querySelectorAll('.bar').forEach(bar => {
+            bar.addEventListener('mouseenter', () => {
+                bar.style.opacity = '0.3';
+            });
+            
+            bar.addEventListener('mouseleave', () => {
+                bar.style.opacity = '0.1';
+            });
+        });
+    

@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glassmorphism Style Advertisement</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #0f0c29;
+            background-image: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+        }
+
+        .gradient-orbs {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+        }
+
+        .orb-1 {
+            top: -100px;
+            left: -100px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(3, 252, 144, 0.5) 0%, rgba(3, 252, 144, 0) 70%);
+            animation: orbFloat 20s infinite alternate;
+        }
+
+        .orb-2 {
+            bottom: -100px;
+            right: -100px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(252, 3, 248, 0.5) 0%, rgba(252, 3, 248, 0) 70%);
+            animation: orbFloat 25s infinite alternate-reverse;
+        }
+
+        .orb-3 {
+            top: 40%;
+            left: 30%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(252, 186, 3, 0.3) 0%, rgba(252, 186, 3, 0) 70%);
+            animation: orbFloat 15s infinite alternate;
+        }
+
+        @keyframes orbFloat {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                transform: translate(50px, 50px) scale(1.1);
+            }
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease, transform 1.2s ease;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -50%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg, 
+                rgba(255, 255, 255, 0) 0%, 
+                rgba(255, 255, 255, 0.05) 50%, 
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: skewX(-15deg);
+            transition: left 0.8s ease-out;
+        }
+
+        .active .glass-card {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .active .glass-card::before {
+            left: 150%;
+            transition: left 1.5s ease-out;
+        }
+
+        .highlight-cyan {
+            color: #03fc90;
+            font-weight: 600;
+        }
+
+        .highlight-magenta {
+            color: #fc03f8;
+            font-weight: 600;
+        }
+
+        .mega-text {
+            font-size: 5rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, #ffffff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 1s ease;
+            transition-delay: 0.3s;
+        }
+
+        .english-caption {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 1s ease;
+            transition-delay: 0.1s;
+        }
+
+        .description {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 1s ease;
+            transition-delay: 0.5s;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        .content-layout {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .text-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .visual-content {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transform: translateX(30px);
+            transition: opacity 0.8s ease, transform 1s ease;
+            transition-delay: 0.7s;
+        }
+
+        .active .mega-text,
+        .active .english-caption,
+        .active .description,
+        .active .visual-content,
+        .active .data-viz,
+        .active .cta-button {
+            opacity: 1;
+            transform: translateY(0) translateX(0);
+        }
+
+        .glass-circle {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(3, 252, 144, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(3, 252, 144, 0.2);
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 8px 32px rgba(3, 252, 144, 0.1);
+        }
+
+        .glass-square {
+            width: 300px;
+            height: 300px;
+            background: rgba(252, 3, 248, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(252,, 3, 248, 0.2);
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 8px 32px rgba(252, 3, 248, 0.1);
+        }
+
+        .glass-triangle {
+            width: 300px;
+            height: 300px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .triangle-bg {
+            width: 0;
+            height: 0;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-bottom: 260px solid rgba(3, 252, 144, 0.1);
+            position: absolute;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            filter: drop-shadow(0 8px 32px rgba(3, 252, 144, 0.1));
+        }
+
+        .data-viz {
+            display: flex;
+            align-items: flex-end;
+            height: 150px;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 2rem;
+            gap: 10px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 1s ease;
+            transition-delay: 0.6s;
+        }
+
+        .bar {
+            flex: 1;
+            background: linear-gradient(to top, rgba(3, 252, 144, 0.2), rgba(3, 252, 144, 0.6));
+            border-radius: 5px 5px 0 0;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(3, 252, 144, 0.2);
+            border-bottom: none;
+            box-shadow: 0 0 15px rgba(3, 252, 144, 0.2);
+            transition: height 1s ease;
+        }
+
+        .bar:nth-child(even) {
+            background: linear-gradient(to top, rgba(252, 3, 248, 0.2), rgba(252, 3, 248, 0.6));
+            border: 1px solid rgba(252, 3, 248, 0.2);
+            border-bottom: none;
+            box-shadow: 0 0 15px rgba(252, 3, 248, 0.2);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            border-radius: 30px;
+            margin-top: 2rem;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            transition-property: background, box-shadow, transform, opacity;
+            transition-duration: 0.3s, 0.3s, 1s, 0.8s;
+            transition-timing-function: ease;
+            transition-delay: 0s, 0s, 0.8s, 0.8s;
+        }
+
+        .cta-button:hover {
+            background: rgba(3, 252, 144, 0.2);
+            box-shadow: 0 8px 25px rgba(3, 252, 144, 0.3);
+            border: 1px solid rgba(3, 252, 144, 0.3);
+        }
+
+        .cta-button.magenta:hover {
+            background: rgba(252, 3, 248, 0.2);
+            box-shadow: 0 8px 25px rgba(252, 3, 248, 0.3);
+            border: 1px solid rgba(252, 3, 248, 0.3);
+        }
+
+        .svg-icon {
+            width: 100%;
+            height: 100%;
+            max-width: 200px;
+            max-height: 200px;
+            stroke-width: 1;
+        }
+
+        .highlight-number {
+            font-size: 6rem;
+            font-weight: 700;
+            line-height: 1;
+            background: linear-gradient(90deg, #fc03f8, #ff6ec4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-background"></div>
+    <div class="gradient-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <section class="section" id="section1">
+        <div class="glass-card">
+            <div class="content-layout">
+                <div class="text-content">
+                    <div class="english-caption">The Future Is Now</div>
+                    <h1 class="mega-text">科技<span class="highlight-cyan">创新</span></h1>
+                    <p class="description">突破性能边界，<span class="highlight-magenta">颠覆</span>传统思维。INNOVATION WITHOUT LIMITS.</p>
+                    <a href="#section2" class="cta-button">探索更多</a>
+                </div>
+                <div class="visual-content">
+                    <div class="glass-circle">
+                        <svg class="svg-icon" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="100" cy="100" r="50" fill="none" stroke="#03fc90" stroke-width="2"/>
+                            <path d="M70 80 Q100 60, 130 80" fill="none" stroke="#fc03f8" stroke-width="2"/>
+                            <path d="M70 120 Q100 140, 130 120" fill="none" stroke="#03fc90" stroke-width="2"/>
+                            <circle cx="70" cy="80" r="5" fill="none" stroke="#03fc90" stroke-width="2"/>
+                            <circle cx="130" cy="80" r="5" fill="none" stroke="#03fc90" stroke-width="2"/>
+                            <circle cx="70" cy="120" r="5" fill="none" stroke="#fc03f8" stroke-width="2"/>
+                            <circle cx="130" cy="120" r="5" fill="none" stroke="#fc03f8" stroke-width="2"/>
+                            <line x1="70" y1="80" x2="70" y2="120" stroke="#03fc90" stroke-width="2"/>
+                            <line x1="130" y1="80" x2="130" y2="120" stroke="#fc03f8" stroke-width="2"/>
+                            <line x1="85" y1="100" x2="115" y2="100" stroke="#03fc90" stroke-width="2"/>
+                            <circle cx="100" cy="100" r="10" fill="none" stroke="#fc03f8" stroke-width="2"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="section2">
+        <div class="glass-card">
+            <div class="content-layout">
+                <div class="text-content">
+                    <div class="english-caption">Breakthrough Performance</div>
+                    <h1 class="mega-text">性能<span class="highlight-magenta">提升</span></h1>
+                    <p class="description">全新架构设计，REVOLUTIONARY TECHNOLOGY 为您带来前所未有的体验。</p>
+                    <div class="highlight-number">200%</div>
+                    <div class="data-viz">
+                        <div class="bar" style="height: 40%;"></div>
+                        <div class="bar" style="height: 60%;"></div>
+                        <div class="bar" style="height: 80%;"></div>
+                        <div class="bar" style="height: 100%;"></div>
+                        <div class="bar" style="height: 90%;"></div>
+                        <div class="bar" style="height: 120%;"></div>
+                    </div>
+                    <a href="#section3" class="cta-button magenta">了解技术</a>
+                </div>
+                <div class="visual-content">
+                    <div class="glass-square">
+                        <svg class="svg-icon" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <line x1="40" y1="40" x2="160" y2="40" stroke="#fc03f8" stroke-width="2"/>
+                            <line x1="40" y1="160" x2="160" y2="160" stroke="#fc03f8" stroke-width="2"/>
+                            <line x1="40" y1="40" x2="40" y2="160" stroke="#fc03f8" stroke-width="2"/>
+                            <line x1="160" y1="40" x2="160" y2="160" stroke="#fc03f8" stroke-width="2"/>
+                            <path d="M40,120 C60,130 80,140 100,80 S140,40 160,70" fill="none" stroke="#03fc90" stroke-width="2"/>
+                            <circle cx="100" cy="100" r="30" fill="none" stroke="#03fc90" stroke-width="2"/>
+                            <circle cx="100" cy="100" r="10" fill="none" stroke="#fc03f8" stroke-width="2"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="section3">
+        <div class="glass-card">
+            <div class="content-layout">
+                <div class="text-content">
+                    <div class="english-caption">Seamless Integration</div>
+                    <h1 class="mega-text">智能<span class="highlight-cyan">生态</span></h1>
+                    <p class="description">连接一切可能，ECOSYSTEM OF THE FUTURE 打造无缝体验。</p>
+                    <a href="#section1" class="cta-button">立即体验</a>
+                </div>
+                <div class="visual-content">
+                    <div class="glass-triangle">
+                        <div class="triangle-bg"></div>
+                        <svg class="svg-icon" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="z-index: 2; position: relative;">
+                            <circle cx="100" cy="100" r="40" fill="none" stroke="#03fc90" stroke-width="2"/>
+                            <circle cx="160" cy="70" r="20" fill="none" stroke="#fc03f8" stroke-width="2"/>
+                            <circle cx="60" cy="150" r="25" fill="none" stroke="#03fc90" stroke-width="2"/>
+                            <circle cx="50" cy="60" r="15" fill="none" stroke="#fc03f8" stroke-width="2"/>
+                            <circle cx="150" cy="140" r="18" fill="none" stroke="#03fc90" stroke-width="2"/>
+                            <line x1="100" y1="60" x2="100" y2="30" stroke="#03fc90" stroke-width="2"/>
+                            <line x1="60" y1="125" x2="40" y2="100" stroke="#fc03f8" stroke-width="2"/>
+                            <line x1="135" y1="115" x2="150" y2="122" stroke="#03fc90" stroke-width="2"/>
+                            <line x1="135" y1="85" x2="145" y2="75" stroke="#fc03f8" stroke-width="2"/>
+                            <line x1="75" y1="75" x2="60" y2="70" stroke="#03fc90" stroke-width="2"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Observer for section animation
+        const sections = document.querySelectorAll('.section');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                } else {
+                    entry.target.classList.remove('active');
+                }
+            });
+        }, {
+            threshold: 0.3
+        });
+        
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Dynamic bar animation on scroll
+        window.addEventListener('scroll', () => {
+            const bars = document.querySelectorAll('.bar');
+            const scrollPosition = window.scrollY;
+            
+            bars.forEach((bar, index) => {
+                const baseHeight = parseInt(bar.style.height);
+                const fluctuation = Math.sin(scrollPosition / 100 + index) * 20;
+                bar.style.height = `${baseHeight + fluctuation}%`;
+            });
+        });
+    </script>
+</body>
+</html>
