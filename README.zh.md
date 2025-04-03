@@ -4,14 +4,17 @@
 
 ## 项目简介
 
-DesignVerse 是一个展示当代网页设计风格的项目。浏览不同的风格示例，复制提供的提示文本(prompt)，即可使用 Claude 或 DeepSeek 等AI工具生成类似风格的网站。
+DesignVerse 是一个展示当代网页设计风格的项目。浏览不同的风格示例，复制提供的提示文本(prompt)，即可使用 Claude 或 DeepSeek 等AI工具生成类似风格的网页。
 
+> **注意**：
+> - 本展示中的所有网页都是在同一个上下文对话中生成的，因此它们具有相似的结构和内容模式。
+> - 经过测试，Claude 3.7 相比其他版本能产生更好的效果。
 
 ## 包含的设计风格
 
 目前项目包含以下设计风格：
 
-1. **TheVerge Style** - 科技媒体网站风格，深色背景与霓虹色高亮
+1. **TheVerge Style** - 科技媒体网页风格，深色背景与霓虹色高亮
 2. **Swiss/International Style** - 瑞士国际风格，现代主义设计
 3. **Cyberpunk Style** - 赛博朋克风格，未来派反乌托邦美学
 4. **Glassmorphism** - 玻璃拟态，半透明磨砂玻璃效果
@@ -27,7 +30,7 @@ DesignVerse 是一个展示当代网页设计风格的项目。浏览不同的�
 
 ## 如何使用
 
-1. 访问 [DesignVerse 网站](https://liyincode.github.io/design-verse/)
+1. 访问 [liyincode.github.io/design-verse](https://liyincode.github.io/design-verse/)
 2. 点击任意卡片右下角的"复制Prompt"按钮，复制该设计风格的提示文本
 3. 将复制的提示文本粘贴到Claude、DeepSeek等AI工具中并回车
 4. 或者，您可以在本仓库的 [prompt.md](prompt.md) 文件中找到所有设计风格的提示文本
@@ -43,5 +46,3 @@ DesignVerse 是一个展示当代网页设计风格的项目。浏览不同的�
 - 项目灵感来源于各大设计社区和平台的风格探索
 
 ---
-
-*注：这是DesignVerse项目的一部分，该项目提供了将各种设计风格应用于相同内容结构的示例。更多信息，请查看[英文版README](README.md)。*

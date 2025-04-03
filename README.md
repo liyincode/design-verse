@@ -4,13 +4,17 @@
 
 ## Project Overview
 
-DesignVerse is a showcase of contemporary web design styles. Browse different style examples and copy the provided prompts to generate similar websites using Claude or DeepSeek AI tools.
+DesignVerse is a showcase of contemporary web design styles. Browse different style examples and copy the provided prompts to generate similar webpages using AI tools like Claude or DeepSeek.
+
+> **Note**: 
+> - All webpages in this showcase were generated in a single context conversation, so they share similar structure and content patterns.
+> - Based on testing, Claude 3.7 produces better results compared to other versions.
 
 ## Included Design Styles
 
 The project currently includes the following design styles:
 
-1. **TheVerge Style** - Tech media website style with dark backgrounds and neon highlights
+1. **TheVerge Style** - Tech media webpage style with dark backgrounds and neon highlights
 2. **Swiss/International Style** - Modern design approach focusing on clarity and objectivity
 3. **Cyberpunk Style** - Futuristic dystopian aesthetics with neon effects
 4. **Glassmorphism** - Semi-transparent frosted glass effects for depth
@@ -26,7 +30,7 @@ The project currently includes the following design styles:
 
 ## How to Use
 
-1. Visit [DesignVerse website](https://liyincode.github.io/design-verse/)
+1. Visit [liyincode.github.io/design-verse](https://liyincode.github.io/design-verse/)
 2. Click the "Copy Prompt" button in the bottom-right corner of any card to copy the design style prompt
 3. Paste the copied prompt into Claude, DeepSeek or other AI assistants and press Enter
 4. Alternatively, you can find all prompts collected in the [prompt.md](prompt.md) file in this repository
@@ -42,5 +46,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Project inspiration comes from style explorations across design communities and platforms
 
 ---
-
-*Note: This is part of the DesignVerse project, which provides examples of various design styles applied to the same content structure. For more information, check out the [中文版README](README.zh.md).*
