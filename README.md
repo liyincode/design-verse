@@ -27,6 +27,18 @@ The project currently includes the following design styles:
 11. **Neo-Retro Style** - Modern interpretation of retro computing aesthetics
 12. **Memphis Design** - Bold geometric shapes and bright colors from 1980s Italian design
 13. **Flat Design 2.0** - Evolution of flat design with subtle shadows and depth cues
+14. **Kinetic Typography** - Dynamic text effects creating visual impact through motion
+15. **Isometric Design** - Using isometric projections to create 2.5D spatial layouts
+16. **Organic Design** - Soft curves and natural elements creating warm, approachable interfaces
+17. **Parametric Design** - Algorithmically generated patterns with mathematical precision
+18. **Art Deco** - Geometric patterns and luxurious details inspired by 1920-30s aesthetics
+19. **Bauhaus** - Fundamental geometric shapes and primary colors following form-follows-function principles
+20. **Lo-Fi Design** - Basic elements with pixel art and nostalgic web elements
+21. **Maximalism** - Rich colors, textures and decorative elements breaking minimalist rules
+22. **Claymorphism** - Soft clay-like interfaces with rounded corners and gentle shadows
+23. **Psychedelic Design** - Vibrant colors and fluid, distorted forms creating dreamlike experiences
+24. **Retro Futurism** - Combining past visions of the future with modern technology
+25. **Liquid Design** - Soft gradients and elastic flowing forms emphasizing dynamic transitions
 
 ## How to Use
 
