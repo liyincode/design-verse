@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kinetic Typography Style</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #0e0e10;
+            --text-color: #f1f1f2;
+            --accent1: #2389da;
+            --accent2: #fc3a6b;
+            --highlight-cyan: #03fc90;
+            --highlight-magenta: #fc03f8;
+            --light-gray: #303035;
+            --dark-gray: #1c1c1e;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Typography Styles */
+        .kinetic-text-container {
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            padding: 1rem 0;
+        }
+
+        .kinetic-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 7vw;
+            line-height: 1;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            position: relative;
+            display: inline-block;
+        }
+
+        .char {
+            display: inline-block;
+            position: relative;
+            transform: translateY(100%);
+            opacity: 0;
+            animation: slideUp 0.5s forwards;
+        }
+
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .highlight-cyan {
+            color: var(--highlight-cyan);
+        }
+
+        .highlight-magenta {
+            color: var(--highlight-magenta);
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.5s forwards;
+            animation-delay: 1s;
+        }
+
+        @keyframes fadeUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .description {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            max-width: 700px;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .description .word {
+            display: inline-block;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeWord 0.3s forwards;
+        }
+
+        @keyframes fadeWord {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .animated-letter {
+            display: inline-block;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .animated-letter:hover {
+            transform: translateY(-10px) scale(1.2);
+            color: var(--accent1);
+        }
+
+        /* Button Styles */
+        .button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: none;
+            color: var(--text-color);
+            border: 2px solid var(--accent1);
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            transition: color 0.3s ease;
+            cursor: pointer;
+            margin-top: 2rem;
+        }
+
+        .button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background-color: var(--accent1);
+            transition: transform 0.4s cubic-bezier(0.7, 0, 0.3, 1);
+            transform: skewX(-20deg);
+            z-index: -1;
+        }
+
+        .button:hover::before {
+            transform: translateX(100%) skewX(-20deg);
+        }
+
+        .button:hover {
+            color: var(--bg-color);
+        }
+
+        .button-magenta {
+            border-color: var(--accent2);
+        }
+
+        .button-magenta::before {
+            background-color: var(--accent2);
+        }
+
+        /* Background Elements */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+        }
+
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            filter: blur(60px);
+        }
+
+        .bg-circle-1 {
+            width: 600px;
+            height: 600px;
+            background-color: var(--accent1);
+            top: -200px;
+            right: -200px;
+        }
+
+        .bg-circle-2 {
+            width: 500px;
+            height: 500px;
+            background-color: var(--accent2);
+            bottom: -200px;
+            left: -200px;
+        }
+
+        /* Stats Section */
+        .stats-container {
+            margin: 4rem 0;
+            position: relative;
+        }
+
+        .stats-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 10vw;
+            line-height: 1;
+            color: var(--accent2);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .stats-number .char {
+            animation-delay: calc(var(--char-index) * 0.1s);
+        }
+
+        .stats-label {
+            font-size: 1.25rem;
+            font-weight: 300;
+            color: var(--text-color);
+            opacity: 0.7;
+        }
+
+        /* Data Visualization */
+        .data-viz-container {
+            height: 300px;
+            position: relative;
+            margin: 3rem 0;
+            overflow: hidden;
+        }
+
+        .data-viz {
+            display: flex;
+            align-items: flex-end;
+            height: 100%;
+            gap: 10px;
+        }
+
+        .bar {
+            flex: 1;
+            background: linear-gradient(to top, var(--accent1), var(--accent1-light, #56a8e2));
+            position: relative;
+            overflow: hidden;
+            transform: scaleY(0);
+            transform-origin: bottom;
+            animation: growBar 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .bar:nth-child(even) {
+            background: linear-gradient(to top, var(--accent2), var(--accent2-light, #ff7a9d));
+        }
+
+        @keyframes growBar {
+            to {
+                transform: scaleY(1);
+            }
+        }
+
+        .bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background: linear-gradient(rgba(255, 255, 255, 0.3), transparent);
+        }
+
+        /* Feature Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        @media (max-width: 992px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .feature-card {
+            background-color: var(--dark-gray);
+            border: 1px solid var(--light-gray);
+            padding: 2rem;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeCard 0.5s forwards;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        @keyframes fadeCard {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .feature-description {
+            font-size: 0.95rem;
+            opacity: 0.7;
+        }
+
+        /* Marquee */
+        .marquee-container {
+            overflow: hidden;
+            margin: 5rem 0;
+            position: relative;
+        }
+
+        .marquee {
+            display: flex;
+            animation: marquee 25s linear infinite;
+            white-space: nowrap;
+        }
+
+        .marquee-item {
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 8vw;
+            color: var(--dark-gray);
+            text-transform: uppercase;
+        }
+
+        .marquee-divider {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: var(--accent1);
+            border-radius: 50%;
+            margin: 0 2rem;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* Split Text Section */
+        .split-container {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 4rem 0;
+        }
+
+        .split-left {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 2rem;
+        }
+
+        .split-right {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        /* Scroll Down Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0.7;
+            animation: fadeIn 1s forwards;
+            animation-delay: 1.5s;
+            opacity: 0;
+        }
+
+        .scroll-text {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .scroll-arrow {
+            width: 30px;
+            height: 30px;
+            border: 2px solid var(--text-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .kinetic-title {
+                font-size: 12vw;
+            }
+            
+            .subtitle {
+                font-size: 1.25rem;
+            }
+            
+            .description {
+                font-size: 1rem;
+            }
+            
+            .stats-number {
+                font-size: 15vw;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-circle bg-circle-1"></div>
+    <div class="bg-circle bg-circle-2"></div>
+
+    <section class="section" id="section1">
+        <div class="container">
+            <div class="kinetic-text-container">
+                <h1 class="kinetic-title">
+                    <span class="char" style="--char-index: 0;">科</span>
+                    <span class="char" style="--char-index: 1;">技</span>
+                    <span class="char" style="--char-index: 2; color: var(--highlight-cyan);">创</span>
+                    <span class="char" style="--char-index: 3; color: var(--highlight-cyan);">新</span>
+                </h1>
+                <div class="subtitle">The Future Is Now</div>
+            </div>
+            
+            <p class="description">
+                <span class="word" style="animation-delay: 1.2s;">突破</span>
+                <span class="word" style="animation-delay: 1.3s;">性能</span>
+                <span class="word" style="animation-delay: 1.4s;">边界，</span>
+                <span class="word" style="animation-delay: 1.5s; color: var(--highlight-magenta);">颠覆</span>
+                <span class="word" style="animation-delay: 1.6s;">传统</span>
+                <span class="word" style="animation-delay: 1.7s;">思维。</span>
+                <span class="word" style="animation-delay: 1.8s;">INNOVATION</span>
+                <span class="word" style="animation-delay: 1.9s;">WITHOUT</span>
+                <span class="word" style="animation-delay: 2.0s;">LIMITS.</span>
+            </p>
+            
+            <a href="#section2" class="button">
+                <span class="animated-letter">探</span>
+                <span class="animated-letter">索</span>
+                <span class="animated-letter">更</span>
+                <span class="animated-letter">多</span>
+            </a>
+            
+            <div class="scroll-indicator">
+                <div class="scroll-text">Scroll Down</div>
+                <div class="scroll-arrow">↓</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="marquee-container">
+        <div class="marquee">
+            <div class="marquee-item">Innovation</div>
+            <div class="marquee-divider"></div>
+            <div class="marquee-item">Technology</div>
+            <div class="marquee-divider"></div>
+            <div class="marquee-item">Future</div>
+            <div class="marquee-divider"></div>
+            <div class="marquee-item">Innovation</div>
+            <div class="marquee-divider"></div>
+            <div class="marquee-item">Technology</div>
+            <div class="marquee-divider"></div>
+            <div class="marquee-item">Future</div>
+            <div class="marquee-divider"></div>
+        </div>
+    </div>
+
+    <section class="section" id="section2">
+        <div class="container">
+            <div class="kinetic-text-container">
+                <h1 class="kinetic-title">
+                    <span class="char" style="--char-index: 0;">性</span>
+                    <span class="char" style="--char-index: 1;">能</span>
+                    <span class="char" style="--char-index: 2; color: var(--highlight-magenta);">提</span>
+                    <span class="char" style="--char-index: 3; color: var(--highlight-magenta);">升</span>
+                </h1>
+                <div class="subtitle">Breakthrough Performance</div>
+            </div>
+            
+            <div class="split-container">
+                <div class="split-left">
+                    <div class="stats-container">
+                        <div class="stats-number">
+                            <span class="char" style="--char-index: 0;">2</span>
+                            <span class="char" style="--char-index: 1;">0</span>
+                            <span class="char" style="--char-index: 2;">0</span>
+                            <span class="char" style="--char-index: 3;">%</span>
+                        </div>
+                        <div class="stats-label">性能提升</div>
+                    </div>
+                    
+                    <p class="description">
+                        <span class="word" style="animation-delay: 2.2s;">全新</span>
+                        <span class="word" style="animation-delay: 2.3s;">架构</span>
+                        <span class="word" style="animation-delay: 2.4s;">设计，</span>
+                        <span class="word" style="animation-delay: 2.5s;">REVOLUTIONARY</span>
+                        <span class="word" style="animation-delay: 2.6s;">TECHNOLOGY</span>
+                        <span class="word" style="animation-delay: 2.7s;">为您</span>
+                        <span class="word" style="animation-delay: 2.8s;">带来</span>
+                        <span class="word" style="animation-delay: 2.9s;">前所未有</span>
+                        <span class="word" style="animation-delay: 3.0s;">的体验。</span>
+                    </p>
+                    
+                    <a href="#section3" class="button button-magenta">
+                        <span class="animated-letter">了</span>
+                        <span class="animated-letter">解</span>
+                        <span class="animated-letter">技</span>
+                        <span class="animated-letter">术</span>
+                    </a>
+                </div>
+                
+                <div class="split-right">
+                    <div class="data-viz-container">
+                        <div class="data-viz">
+                            <div class="bar" style="height: 40%; animation-delay: 0.1s;"></div>
+                            <div class="bar" style="height: 60%; animation-delay: 0.2s;"></div>
+                            <div class="bar" style="height: 80%; animation-delay: 0.3s;"></div>
+                            <div class="bar" style="height: 100%; animation-delay: 0.4s;"></div>
+                            <div class="bar" style="height: 90%; animation-delay: 0.5s;"></div>
+                            <div class="bar" style="height: 120%; animation-delay: 0.6s;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="marquee-container">
+        <div class="marquee" style="animation-direction: reverse;">
+            <div class="marquee-item">Seamless</div>
+            <div class="marquee-divider"></div>
+            <div class="marquee-item">Integration</div>
+            <div class="marquee-divider"></div>
+            <div class="marquee-item">Ecosystem</div>
+            <div class="marquee-divider"></div>
+            <div class="marquee-item">Seamless</div>
+            <div class="marquee-divider"></div>
+            <div class="marquee-item">Integration</div>
+            <div class="marquee-divider"></div>
+            <div class="marquee-item">Ecosystem</div>
+            <div class="marquee-divider"></div>
+        </div>
+    </div>
+
+    <section class="section" id="section3">
+        <div class="container">
+            <div class="kinetic-text-container">
+                <h1 class="kinetic-title">
+                    <span class="char" style="--char-index: 0;">智</span>
+                    <span class="char" style="--char-index: 1;">能</span>
+                    <span class="char" style="--char-index: 2; color: var(--highlight-cyan);">生</span>
+                    <span class="char" style="--char-index: 3; color: var(--highlight-cyan);">态</span>
+                </h1>
+                <div class="subtitle">Seamless Integration</div>
+            </div>
+            
+            <p class="description">
+                <span class="word" style="animation-delay: 3.2s;">连接</span>
+                <span class="word" style="animation-delay: 3.3s;">一切</span>
+                <span class="word" style="animation-delay: 3.4s;">可能，</span>
+                <span class="word" style="animation-delay: 3.5s;">ECOSYSTEM</span>
+                <span class="word" style="animation-delay: 3.6s;">OF</span>
+                <span class="word" style="animation-delay: 3.7s;">THE</span>
+                <span class="word" style="animation-delay: 3.8s;">FUTURE</span>
+                <span class="word" style="animation-delay: 3.9s;">打造</span>
+                <span class="word" style="animation-delay: 4.0s;">无缝</span>
+                <span class="word" style="animation-delay: 4.1s;">体验。</span>
+            </p>
+            
+            <div class="features-grid">
+                <div class="feature-card" style="animation-delay: 4.2s;">
+                    <div class="feature-icon">📱</div>
+                    <h3 class="feature-title">移动设备</h3>
+                    <p class="feature-description">随时随地，跨平台无缝衔接，智能同步数据，完美移动体验。</p>
+                </div>
+                
+                <div class="feature-card" style="animation-delay: 4.3s;">
+                    <div class="feature-icon">💻</div>
+                    <h3 class="feature-title">电脑</h3>
+                    <p class="feature-description">强大性能，专业处理，高效工作流程，满足创作需求。</p>
+                </div>
+                
+                <div class="feature-card" style="animation-delay: 4.4s;">
+                    <div class="feature-icon">🌐</div>
+                    <h3 class="feature-title">互联网</h3>
+                    <p class="feature-description">全球连接，云端协作，安全传输，高速稳定访问。</p>
+                </div>
+                
+                <div class="feature-card" style="animation-delay: 4.5s;">
+                    <div class="feature-icon">🎮</div>
+                    <h3 class="feature-title">游戏</h3>
+                    <p class="feature-description">沉浸体验，高清画质，流畅帧率，创新玩法。</p>
+                </div>
+                
+                <div class="feature-card" style="animation-delay: 4.6s;">
+                    <div class="feature-icon">🏠</div>
+                    <h3 class="feature-title">家居</h3>
+                    <p class="feature-description">智能控制，环境感知，安全监控，便捷生活。</p>
+                </div>
+                
+                <div class="feature-card" style="animation-delay: 4.7s;">
+                    <div class="feature-icon">🚗</div>
+                    <h3 class="feature-title">出行</h3>
+                    <p class="feature-description">智能导航，实时路况，自动驾驶，安全舒适。</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="#section1" class="button">
+                    <span class="animated-letter">立</span>
+                    <span class="animated-letter">即</span>
+                    <span class="animated-letter">体</span>
+                    <span class="animated-letter">验</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Initialize page with animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation for characters
+            const chars = document.querySelectorAll('.char');
+            chars.forEach((char, index) => {
+                char.style.animationDelay = `${index * 0.1 + 0.5}s`;
+            });
+            
+            // Initialize scroll animations
+            initScrollAnimations();
+            
+            // Animate on hover for letters
+            document.querySelectorAll('.animated-letter').forEach(letter => {
+                letter.addEventListener('mouseover', function() {
+                    this.style.color = getRandomColor();
+                });
+                
+                letter.addEventListener('mouseout', function() {
+                    this.style.color = '';
+                });
+            });
+        });
+        
+        // Random color generator
+        function getRandomColor() {
+            const colors = ['#2389da', '#fc3a6b', '#03fc90', '#fc03f8'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+        
+        // Scroll animations
+        function initScrollAnimations() {
+            const sections = document.querySelectorAll('.section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Reset and restart animations
+                        const chars = entry.target.querySelectorAll('.char');
+                        chars.forEach((char, index) => {
+                            char.style.opacity = 0;
+                            char.style.transform = 'translateY(100%)';
+                            setTimeout(() => {
+                                char.style.animationDelay = `${index * 0.1}s`;
+                                char.style.animation = 'none';
+                                setTimeout(() => {
+                                    char.style.animation = 'slideUp 0.5s forwards';
+                                }, 10);
+                            }, 10);
+                        });
+                        
+                        const words = entry.target.querySelectorAll('.word');
+                        words.forEach((word, index) => {
+                            word.style.opacity = 0;
+                            word.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                word.style.animation = 'none';
+                                setTimeout(() => {
+                                    word.style.animation = 'fadeWord 0.3s forwards';
+                                }, 10);
+                            }, 10);
+                        });
+                    }
+                });
+            }, {
+                threshold: 0.2
+            });
+            
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        }
+        
+        // Smooth scroll functionality
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

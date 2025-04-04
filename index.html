@@ -275,6 +275,8 @@
         /* 3. Cyberpunk Style */
         .card.cyberpunk {
             background-color: #0a0a12;
+            position: relative;
+            overflow: hidden;
         }
 
         .card.cyberpunk .card-inner {
@@ -282,16 +284,82 @@
                     linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
                     linear-gradient(90deg, rgba(255, 0, 255, 0.1) 1px, transparent 1px);
             background-size: 20px 20px;
+            position: relative;
+            z-index: 1;
+            box-shadow: inset 0 0 20px rgba(0, 240, 255, 0.3);
         }
 
         .card.cyberpunk .card-title {
             color: #00f0ff;
             font-family: 'Roboto Mono', monospace;
             text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
+            position: relative;
+            display: inline-block;
+            filter: drop-shadow(0 0 5px #00f0ff);
+        }
+
+        .card.cyberpunk .card-title::before,
+        .card.cyberpunk .card-title::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+        }
+
+        .card.cyberpunk .card-title::before {
+            left: -2px;
+            text-shadow: 2px 0 #ff00ff;
+            animation: glitch-1 3s infinite linear alternate-reverse;
+            color: #ff00ff;
+        }
+
+        .card.cyberpunk .card-title::after {
+            left: 2px;
+            text-shadow: -2px 0 #00f0ff;
+            animation: glitch-2 2s infinite linear alternate-reverse;
+            color: #00f0ff;
+        }
+
+        @keyframes glitch-1 {
+            0%, 24%, 44%, 62%, 81%, 100% {
+                clip-path: polygon(0 0%, 100% 0%, 100% 45%, 0% 45%);
+                opacity: 0.8;
+            }
+            25%, 43%, 63%, 80% {
+                clip-path: polygon(0 25%, 100% 25%, 100% 47%, 0% 47%);
+                opacity: 0.9;
+            }
+            45%, 61% {
+                clip-path: polygon(0 50%, 100% 50%, 100% 70%, 0% 70%);
+                opacity: 1;
+            }
+        }
+
+        @keyframes glitch-2 {
+            0%, 34%, 60%, 74%, 90%, 100% {
+                clip-path: polygon(0 62%, 100% 62%, 100% 100%, 0% 100%);
+                opacity: 0.7;
+            }
+            35%, 59%, 75%, 89% {
+                clip-path: polygon(0 80%, 100% 80%, 100% 100%, 0% 100%);
+                opacity: 0.8;
+            }
+            61%, 73% {
+                clip-path: polygon(0 10%, 100% 10%, 100% 30%, 0% 30%);
+                opacity: 1;
+            }
         }
 
         .card.cyberpunk .card-subtitle {
             color: rgba(255, 255, 255, 0.7);
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+            position: relative;
         }
 
         .card.cyberpunk::before {
@@ -301,6 +369,31 @@
             height: 100%;
             background: linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 95%, rgba(255, 0, 255, 0.3) 100%);
             z-index: 1;
+        }
+        
+        .card.cyberpunk::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                transparent 0%,
+                rgba(0, 240, 255, 0.05) 0.5%,
+                transparent 1%
+            );
+            opacity: 0.2;
+            animation: scanline 8s linear infinite;
+            z-index: 2;
+            pointer-events: none;
+        }
+        
+        @keyframes scanline {
+            0% {
+                background-position: 0 -100vh;
+            }
+            100% {
+                background-position: 0 100vh;
+            }
         }
 
         /* 4. Glassmorphism Style */
@@ -728,6 +821,510 @@
             z-index: 0;
         }
 
+        /* Kinetic Typography Style */
+        .card.kinetic {
+            background-color: #121212;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card.kinetic .card-inner {
+            padding: 2rem;
+            background-image: 
+                linear-gradient(90deg, rgba(255, 51, 102, 0.05) 1px, transparent 1px),
+                linear-gradient(rgba(255, 51, 102, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card.kinetic .card-title {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .card.kinetic .card-title::after {
+            content: "Kinetic";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            color: #ff3366;
+            clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+            animation: glitch 3s infinite;
+            text-shadow: 0 0 10px rgba(255, 51, 102, 0.7);
+        }
+
+        @keyframes glitch {
+            0%, 100% { clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%); }
+            20% { clip-path: polygon(0 10%, 100% 10%, 100% 55%, 0 55%); }
+            40% { clip-path: polygon(0 20%, 100% 20%, 100% 65%, 0 65%); }
+            60% { clip-path: polygon(0 30%, 100% 30%, 100% 75%, 0 75%); }
+            80% { clip-path: polygon(0 40%, 100% 40%, 100% 85%, 0 85%); }
+        }
+
+        .card.kinetic .card-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.875rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card.kinetic::before {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 51, 102, 0.2) 0%, transparent 70%);
+            top: -150px;
+            left: -150px;
+            z-index: 1;
+            animation: pulseKinetic 8s infinite alternate ease-in-out;
+        }
+
+        .card.kinetic::after {
+            content: "";
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255, 51, 102, 0.15) 0%, transparent 70%);
+            bottom: -100px;
+            right: -100px;
+            z-index: 1;
+            animation: pulseKinetic 12s infinite alternate-reverse ease-in-out;
+        }
+
+        @keyframes pulseKinetic {
+            0% { transform: scale(1); opacity: 0.2; }
+            50% { transform: scale(1.2); opacity: 0.3; }
+            100% { transform: scale(1); opacity: 0.2; }
+        }
+
+        /* Isometric Design Style */
+        .card.isometric {
+            background-color: #2c3e50;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card.isometric .card-inner {
+            padding: 2rem;
+            background-image: 
+                linear-gradient(45deg, rgba(98, 70, 234, 0.05) 25%, transparent 25%, transparent 75%, rgba(98, 70, 234, 0.05) 75%),
+                linear-gradient(45deg, rgba(98, 70, 234, 0.05) 25%, transparent 25%, transparent 75%, rgba(98, 70, 234, 0.05) 75%);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+            transform: perspective(800px) rotateX(10deg);
+            transform-origin: center bottom;
+            position: relative;
+            z-index: 2;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .card.isometric .card-title {
+            color: #6246ea;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(98, 70, 234, 0.4);
+            position: relative;
+            display: inline-block;
+            z-index: 2;
+        }
+
+        .card.isometric .card-title::before {
+            content: "";
+            position: absolute;
+            width: 120%;
+            height: 5px;
+            background: #6246ea;
+            bottom: -10px;
+            left: -10%;
+            transform: skewX(-45deg);
+            opacity: 0.5;
+            box-shadow: 0 0 10px rgba(98, 70, 234, 0.4);
+        }
+
+        .card.isometric .card-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.875rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card.isometric::before {
+            content: "";
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background-color: rgba(98, 70, 234, 0.1);
+            top: 20px;
+            right: -30px;
+            transform: rotateX(50deg) rotateZ(-40deg);
+            box-shadow: 0 0 20px rgba(98, 70, 234, 0.2);
+            z-index: 1;
+        }
+
+        .card.isometric::after {
+            content: "";
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background-color: rgba(98, 70, 234, 0.05);
+            bottom: -60px;
+            left: -60px;
+            transform: rotateX(50deg) rotateZ(-40deg);
+            box-shadow: 0 0 30px rgba(98, 70, 234, 0.2);
+            z-index: 1;
+        }
+
+        /* Organic Design Style */
+        .card.organic {
+            background-color: #f4f1ed;
+            border-radius: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card.organic .card-inner {
+            padding: 2rem;
+            background-image: radial-gradient(circle at 20% 50%, rgba(92, 154, 140, 0.05) 0%, transparent 50%),
+                            radial-gradient(circle at 80% 20%, rgba(208, 134, 114, 0.05) 0%, transparent 50%);
+            background-size: 300px 300px;
+            position: relative;
+            z-index: 2;
+            border-radius: 20px;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        .card.organic .card-title {
+            color: #5c9a8c;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+            display: inline-block;
+        }
+
+        .card.organic .card-title::after {
+            content: "";
+            position: absolute;
+            height: 2px;
+            width: 100%;
+            left: 0;
+            bottom: -5px;
+            background: linear-gradient(90deg, #5c9a8c, transparent);
+            border-radius: 2px;
+        }
+
+        .card.organic .card-subtitle {
+            color: #33322e;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card.organic::before {
+            content: "";
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            border-radius: 71% 29% 65% 35% / 36% 44% 56% 64%;
+            background: rgba(92, 154, 140, 0.05);
+            top: -125px;
+            right: -125px;
+            animation: morphOrganic 20s infinite alternate ease-in-out;
+            z-index: 1;
+        }
+
+        .card.organic::after {
+            content: "";
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 29% 71% 35% 65% / 44% 36% 64% 56%;
+            background: rgba(208, 134, 114, 0.05);
+            bottom: -100px;
+            left: -100px;
+            animation: morphOrganic 15s infinite alternate-reverse ease-in-out;
+            z-index: 1;
+        }
+
+        @keyframes morphOrganic {
+            0% {
+                border-radius: 71% 29% 65% 35% / 36% 44% 56% 64%;
+                transform: rotate(0deg);
+            }
+            33% {
+                border-radius: 36% 64% 30% 70% / 59% 40% 60% 41%;
+                transform: rotate(120deg);
+            }
+            66% {
+                border-radius: 52% 48% 68% 32% / 42% 28% 72% 58%;
+                transform: rotate(240deg);
+            }
+            100% {
+                border-radius: 29% 71% 35% 65% / 44% 36% 64% 56%;
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Parametric Design Style */
+        .card.parametric {
+            background-color: #f4f4f8;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+        }
+
+        .card.parametric:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(30, 55, 153, 0.2);
+        }
+
+        .card.parametric .card-inner {
+            padding: 2rem;
+            background-image: 
+                linear-gradient(30deg, rgba(30, 55, 153, 0.03) 1px, transparent 1px),
+                linear-gradient(120deg, rgba(74, 105, 189, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            position: relative;
+            z-index: 2;
+            transition: background-size 0.4s ease;
+        }
+
+        .card.parametric:hover .card-inner {
+            background-size: 25px 25px;
+        }
+
+        .card.parametric .card-title {
+            color: #1e3799;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+            z-index: 2;
+            font-family: 'Space Mono', monospace;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .card.parametric:hover .card-title {
+            color: #4a69bd;
+            transform: translateX(5px);
+        }
+
+        .card.parametric .card-title::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, #1e3799, #4a69bd);
+            transition: width 0.3s ease, opacity 0.3s ease;
+        }
+
+        .card.parametric:hover .card-title::after {
+            width: 100%;
+        }
+
+        .card.parametric .card-subtitle {
+            color: #1a1a2e;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+            transition: opacity 0.3s ease;
+        }
+
+        .card.parametric:hover .card-subtitle {
+            opacity: 0.8;
+        }
+
+        /* Sine wave animation */
+        .card.parametric .wave {
+            position: absolute;
+            height: 20px;
+            width: 100%;
+            background: linear-gradient(90deg, rgba(30, 55, 153, 0.05), rgba(74, 105, 189, 0.05));
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 1;
+        }
+
+        .card.parametric:hover .wave {
+            opacity: 1;
+        }
+
+        .card.parametric .wave-1 {
+            top: 30%;
+            animation: parametricWave1 8s infinite linear;
+            height: 15px;
+        }
+
+        .card.parametric .wave-2 {
+            top: 60%;
+            animation: parametricWave2 12s infinite linear;
+            height: 10px;
+        }
+
+        @keyframes parametricWave1 {
+            0% { transform: translateX(-100%) scaleY(1); }
+            50% { transform: translateX(0%) scaleY(1.5); }
+            100% { transform: translateX(100%) scaleY(1); }
+        }
+
+        @keyframes parametricWave2 {
+            0% { transform: translateX(100%) scaleY(0.7); }
+            50% { transform: translateX(0%) scaleY(1.3); }
+            100% { transform: translateX(-100%) scaleY(0.7); }
+        }
+
+        /* Fibonacci spiral element */
+        .card.parametric .spiral {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border: 2px solid rgba(30, 55, 153, 0.1);
+            border-radius: 0 0 0 100%;
+            top: 20px;
+            right: 20px;
+            z-index: 1;
+            opacity: 0;
+            transform: rotate(0deg) scale(0);
+            transition: all 0.5s ease;
+        }
+
+        .card.parametric .spiral::before {
+            content: "";
+            position: absolute;
+            width: 62%;
+            height: 62%;
+            border: 2px solid rgba(30, 55, 153, 0.1);
+            border-radius: 0 0 0 100%;
+            top: 0;
+            right: 0;
+            transform: rotate(0deg);
+        }
+
+        .card.parametric .spiral::after {
+            content: "";
+            position: absolute;
+            width: 62%;
+            height: 62%;
+            border: 2px solid rgba(30, 55, 153, 0.1);
+            border-radius: 0 0 0 100%;
+            top: 0;
+            right: 0;
+            transform: rotate(0deg);
+        }
+
+        .card.parametric:hover .spiral {
+            opacity: 0.8;
+            transform: rotate(-90deg) scale(1);
+        }
+
+        /* Mathematical points */
+        .card.parametric .point {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: rgba(30, 55, 153, 0.3);
+            border-radius: 50%;
+            opacity: 0;
+            transition: all 0.5s ease;
+            z-index: 1;
+        }
+
+        .card.parametric:hover .point {
+            opacity: 1;
+        }
+
+        .card.parametric .point-1 { top: 20%; left: 20%; animation: parametricPoint 5s infinite alternate; }
+        .card.parametric .point-2 { top: 40%; left: 70%; animation: parametricPoint 7s infinite alternate-reverse; }
+        .card.parametric .point-3 { top: 70%; left: 30%; animation: parametricPoint 9s infinite alternate; }
+        .card.parametric .point-4 { top: 60%; left: 80%; animation: parametricPoint 8s infinite alternate-reverse; }
+        .card.parametric .point-5 { top: 30%; left: 40%; animation: parametricPoint 6s infinite alternate; }
+        .card.parametric .point-6 { top: 80%; left: 60%; animation: parametricPoint 10s infinite alternate-reverse; }
+
+        @keyframes parametricPoint {
+            0% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(10px) translateY(5px); }
+            50% { transform: translateX(20px) translateY(0px); }
+            75% { transform: translateX(10px) translateY(-5px); }
+            100% { transform: translateX(0) translateY(0); }
+        }
+
+        /* Voronoi pattern background effect */
+        .card.parametric::before {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(74, 105, 189, 0.05) 0%, transparent 70%);
+            top: -150px;
+            right: -150px;
+            z-index: 1;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            mask-image: repeating-linear-gradient(0deg, #000, #000 2px, transparent 2px, transparent 8px);
+            -webkit-mask-image: repeating-linear-gradient(0deg, #000, #000 2px, transparent 2px, transparent 8px);
+        }
+
+        .card.parametric:hover::before {
+            transform: scale(1.2) rotate(10deg);
+            background: radial-gradient(circle, rgba(74, 105, 189, 0.08) 0%, transparent 70%);
+            mask-image: repeating-linear-gradient(60deg, #000, #000 2px, transparent 2px, transparent 8px);
+            -webkit-mask-image: repeating-linear-gradient(60deg, #000, #000 2px, transparent 2px, transparent 8px);
+        }
+
+        .card.parametric::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 90%, rgba(30, 55, 153, 0.05) 0%, transparent 30%),
+                radial-gradient(circle at 90% 10%, rgba(74, 105, 189, 0.05) 0%, transparent 30%);
+            z-index: 1;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: parametricPattern 20s infinite alternate ease-in-out;
+        }
+
+        .card.parametric:hover::after {
+            animation-duration: 10s;
+            background: 
+                radial-gradient(circle at 10% 90%, rgba(30, 55, 153, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 10%, rgba(74, 105, 189, 0.08) 0%, transparent 40%);
+        }
+
+        /* 动画关键帧 */
+        @keyframes parametricPattern {
+            0% { opacity: 0.5; background-position: 0% 0%; }
+            50% { opacity: 0.7; background-position: 100% 100%; }
+            100% { opacity: 0.5; background-position: 0% 0%; }
+        }
+
         /* Footer styles */
         footer {
             text-align: center;
@@ -746,6 +1343,1131 @@
 
             h1 {
                 font-size: 2.5rem;
+            }
+        }
+
+        /* Art Deco Style */
+        .card.artdeco {
+            background-color: #f0ead6;
+            border-radius: 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.5s ease;
+        }
+
+        .card.artdeco:hover {
+            transform: translateY(-15px) translateX(5px);
+            box-shadow: 0 20px 40px rgba(184, 156, 80, 0.4), 0 0 15px rgba(184, 156, 80, 0.2);
+        }
+
+        .card.artdeco .card-inner {
+            padding: 2.5rem;
+            border: 2px solid #b89c50;
+            background-image: 
+                radial-gradient(circle at center, #b89c50 1px, transparent 1px),
+                radial-gradient(circle at center, #b89c50 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            z-index: 1;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .card.artdeco:hover .card-inner {
+            background-size: 25px 25px;
+        }
+
+        .card.artdeco .card-title {
+            font-family: 'Playfair Display', serif;
+            color: #222222;
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            position: relative;
+            padding-bottom: 0.8rem;
+            letter-spacing: 1px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .card.artdeco:hover .card-title {
+            color: #2a4b7c;
+            transform: translateX(5px);
+        }
+
+        .card.artdeco .card-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 120px;
+            height: 3px;
+            background: linear-gradient(90deg, #b89c50, #d35c37);
+            transition: width 0.4s ease;
+        }
+
+        .card.artdeco:hover .card-title::after {
+            width: 100%;
+        }
+
+        .card.artdeco .card-subtitle {
+            color: #333333;
+            font-size: 0.875rem;
+            line-height: 1.7;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .card.artdeco:hover .card-subtitle {
+            opacity: 0.9;
+            transform: translateX(5px);
+        }
+
+        .card.artdeco::before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 15px;
+            background: 
+                linear-gradient(135deg, #b89c50 25%, transparent 25%) -10px 0,
+                linear-gradient(225deg, #b89c50 25%, transparent 25%) -10px 0,
+                linear-gradient(315deg, #b89c50 25%, transparent 25%),
+                linear-gradient(45deg, #b89c50 25%, transparent 25%);
+            background-size: 20px 20px;
+            z-index: 2;
+            transition: height 0.4s ease;
+        }
+
+        .card.artdeco:hover::before {
+            height: 20px;
+        }
+
+        .card.artdeco::after {
+            content: "";
+            position: absolute;
+            top: -150px;
+            right: -150px;
+            width: 300px;
+            height: 300px;
+            background-image: repeating-conic-gradient(#b89c50 0deg, #b89c50 10deg, transparent 10deg, transparent 20deg);
+            opacity: 0.1;
+            border-radius: 50% 0 0 0;
+            z-index: 0;
+            transition: transform 0.6s ease;
+        }
+
+        .card.artdeco:hover::after {
+            transform: rotate(45deg);
+        }
+
+        /* Art Deco decorative elements */
+        .card.artdeco .deco-corner {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 2px solid #b89c50;
+            z-index: 3;
+            transition: all 0.4s ease;
+        }
+
+        .card.artdeco .corner-tl {
+            top: 10px;
+            left: 10px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .card.artdeco .corner-tr {
+            top: 10px;
+            right: 10px;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .card.artdeco .corner-bl {
+            bottom: 10px;
+            left: 10px;
+            border-right: none;
+            border-top: none;
+        }
+
+        .card.artdeco .corner-br {
+            bottom: 10px;
+            right: 10px;
+            border-left: none;
+            border-top: none;
+        }
+
+        .card.artdeco:hover .corner-tl {
+            transform: translate(-5px, -5px);
+        }
+
+        .card.artdeco:hover .corner-tr {
+            transform: translate(5px, -5px);
+        }
+
+        .card.artdeco:hover .corner-bl {
+            transform: translate(-5px, 5px);
+        }
+
+        .card.artdeco:hover .corner-br {
+            transform: translate(5px, 5px);
+        }
+
+        /* Sunburst effect */
+        .card.artdeco .sunburst {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-image: repeating-conic-gradient(#b89c50 0deg, #b89c50 5deg, transparent 5deg, transparent 10deg);
+            opacity: 0.2;
+            z-index: 2;
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card.artdeco:hover .sunburst {
+            transform: scale(1) rotate(180deg);
+        }
+
+        /* Bauhaus Style */
+        .card.bauhaus {
+            background-color: #ffffff;
+            border-radius: 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), box-shadow 0.5s ease;
+        }
+
+        .card.bauhaus:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .card.bauhaus .card-inner {
+            padding: 2.5rem;
+            z-index: 2;
+            position: relative;
+            transition: all 0.5s ease;
+            background-color: #ffffff;
+        }
+
+        .card.bauhaus .card-title {
+            font-family: 'Roboto', sans-serif;
+            color: #000000;
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.2rem;
+            position: relative;
+            transition: transform 0.4s ease, color 0.4s ease;
+        }
+
+        .card.bauhaus:hover .card-title {
+            transform: translateX(10px);
+            color: #e73213;
+        }
+
+        .card.bauhaus .card-subtitle {
+            color: #1a1a1a;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            max-width: 90%;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .card.bauhaus:hover .card-subtitle {
+            opacity: 0.9;
+            transform: translateX(5px);
+        }
+
+        /* Bauhaus elements */
+        .card.bauhaus .bauhaus-element {
+            position: absolute;
+            z-index: 1;
+            transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .card.bauhaus .red-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #e73213;
+            right: -30px;
+            top: -30px;
+            opacity: 0.8;
+            transform: scale(0.8);
+        }
+
+        .card.bauhaus:hover .red-circle {
+            transform: scale(1) rotate(45deg);
+            right: -20px;
+            top: -20px;
+        }
+
+        .card.bauhaus .yellow-square {
+            width: 70px;
+            height: 70px;
+            background-color: #f8d92a;
+            left: -20px;
+            bottom: 30px;
+            opacity: 0.8;
+            transform: rotate(0deg) scale(0.8);
+        }
+
+        .card.bauhaus:hover .yellow-square {
+            transform: rotate(-15deg) scale(1);
+            left: -10px;
+        }
+
+        .card.bauhaus .blue-line {
+            width: 120px;
+            height: 12px;
+            background-color: #234b9b;
+            right: 30px;
+            bottom: 40px;
+            opacity: 0.8;
+            transform: scaleX(0.6);
+            transform-origin: right;
+        }
+
+        .card.bauhaus:hover .blue-line {
+            transform: scaleX(1);
+        }
+
+        .card.bauhaus .blue-square {
+            width: 30px;
+            height: 30px;
+            background-color: #234b9b;
+            left: 40px;
+            top: 30px;
+            opacity: 0;
+            transform: rotate(0deg) scale(0);
+            transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1) 0.1s;
+        }
+
+        .card.bauhaus:hover .blue-square {
+            opacity: 0.8;
+            transform: rotate(45deg) scale(1);
+        }
+
+        .card.bauhaus .red-line {
+            width: 60px;
+            height: 6px;
+            background-color: #e73213;
+            left: 20px;
+            top: 65px;
+            opacity: 0;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1) 0.2s;
+        }
+
+        .card.bauhaus:hover .red-line {
+            opacity: 0.8;
+            transform: scaleX(1);
+        }
+
+        .card.bauhaus .bauhaus-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+
+        .card.bauhaus .bauhaus-grid::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .card.bauhaus:hover .bauhaus-grid {
+            opacity: 1;
+        }
+
+        .card.bauhaus .vertical-lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            opacity: 0;
+            background-image: repeating-linear-gradient(
+                to right,
+                rgba(0, 0, 0, 0.1),
+                rgba(0, 0, 0, 0.1) 1px,
+                transparent 1px,
+                transparent 30px
+            );
+            transition: opacity 0.6s ease;
+        }
+
+        .card.bauhaus:hover .vertical-lines {
+            opacity: 0.5;
+        }
+
+        /* 添加新的包豪斯动画效果 */
+        .card.bauhaus .yellow-triangle {
+            width: 0;
+            height: 0;
+            border-left: 35px solid transparent;
+            border-right: 35px solid transparent;
+            border-bottom: 60px solid #f8d92a;
+            position: absolute;
+            right: 20px;
+            bottom: 80px;
+            opacity: 0;
+            transform: rotate(0deg) scale(0);
+            z-index: 1;
+            transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1) 0.3s;
+        }
+
+        .card.bauhaus:hover .yellow-triangle {
+            opacity: 0.7;
+            transform: rotate(15deg) scale(1);
+            right: 35px;
+        }
+
+        /* Lo-Fi Design Style */
+        .card.lofi {
+            background-color: #f0f0f0;
+            border: 2px solid #000000;
+            border-radius: 0;
+            box-shadow: 8px 8px 0 #000000;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            image-rendering: pixelated;
+        }
+
+        .card.lofi:hover {
+            transform: translateY(-5px) translateX(-5px);
+            box-shadow: 13px 13px 0 #000000;
+        }
+
+        .card.lofi .card-inner {
+            padding: 1.8rem;
+            border-bottom: 2px dashed #000000;
+            z-index: 2;
+            background-color: #f0f0f0;
+            position: relative;
+        }
+
+        .card.lofi .card-title {
+            font-family: monospace;
+            color: #000000;
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 1.2rem;
+            text-transform: uppercase;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .card.lofi .card-title::before {
+            content: ">";
+            position: absolute;
+            left: 0;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+
+        .card.lofi .card-subtitle {
+            color: #333333;
+            font-size: 0.9rem;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        /* Hit counter & nostalgic elements */
+        .card.lofi .hit-counter {
+            position: absolute;
+            right: 15px;
+            bottom: 15px;
+            background-color: #ffffff;
+            border: 1px solid #000000;
+            padding: 3px 8px;
+            font-family: monospace;
+            font-size: 0.75rem;
+            z-index: 2;
+        }
+
+        .card.lofi .hit-counter::before {
+            content: "HITS:";
+            margin-right: 5px;
+        }
+
+        /* Pixel art elements */
+        .card.lofi .pixel-art {
+            position: absolute;
+            z-index: 1;
+            image-rendering: pixelated;
+            opacity: 0.8;
+        }
+
+        .card.lofi .pixel-cursor {
+            width: 12px;
+            height: 12px;
+            background-color: #000000;
+            bottom: 60px;
+            right: 20px;
+            animation: moveCursor 3s infinite alternate ease-in-out;
+        }
+
+        @keyframes moveCursor {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-20px, -10px); }
+        }
+
+        .card.lofi .pixel-pattern {
+            width: 80px;
+            height: 80px;
+            top: 10px;
+            right: 10px;
+            z-index: 0;
+            opacity: 0.15;
+            background-image: 
+                linear-gradient(45deg, #000000 25%, transparent 25%),
+                linear-gradient(-45deg, #000000 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #000000 75%),
+                linear-gradient(-45deg, transparent 75%, #000000 75%);
+            background-size: 10px 10px;
+            background-position: 0 0, 0 5px, 5px -5px, -5px 0px;
+        }
+
+        /* Under construction element */
+        .card.lofi .under-construction {
+            position: absolute;
+            right: -80px;
+            top: 20px;
+            background-color: #ffff00;
+            color: #000000;
+            transform: rotate(45deg);
+            padding: 5px 70px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border: 1px solid #000000;
+            z-index: 3;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card.lofi:hover .under-construction {
+            opacity: 1;
+        }
+
+        /* Pixel art cursor */
+        .card.lofi .pixel-element {
+            content: "";
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            bottom: 10px;
+            right: 10px;
+            background-color: transparent;
+            border: 1px solid #000000;
+            z-index: 1;
+            background-image: linear-gradient(45deg, #000000 25%, transparent 25%),
+                            linear-gradient(-45deg, #000000 25%, transparent 25%),
+                            linear-gradient(45deg, transparent 75%, #000000 75%),
+                            linear-gradient(-45deg, transparent 75%, #000000 75%);
+            background-size: 10px 10px;
+            background-position: 0 0, 0 5px, 5px -5px, -5px 0px;
+        }
+
+        /* Maximalism Style */
+        .card.maximalism {
+            background: linear-gradient(135deg, #ffc4ff 0%, #c4daff 100%);
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .card.maximalism:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        .card.maximalism .card-inner {
+            padding: 2rem;
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            border-radius: 10px;
+            z-index: 2;
+        }
+
+        .card.maximalism .card-title {
+            color: #240046;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            background: linear-gradient(45deg, #ff0a54, #8338ec);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card.maximalism .card-subtitle {
+            color: #240046;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .card.maximalism::before {
+            content: "";
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 10, 84, 0.5) 0%, transparent 70%);
+            bottom: -50px;
+            right: -50px;
+            z-index: 1;
+            animation: moveAround 8s infinite alternate ease-in-out;
+        }
+
+        .card.maximalism::after {
+            content: "";
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 40% 60% 60% 40% / 70% 30% 70% 30%;
+            background: radial-gradient(circle, rgba(131, 56, 236, 0.5) 0%, transparent 70%);
+            top: -40px;
+            left: -40px;
+            z-index: 1;
+            animation: morphShape 10s infinite alternate ease-in-out;
+        }
+
+        @keyframes moveAround {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(-30px, -20px);
+            }
+        }
+
+        @keyframes morphShape {
+            0% {
+                border-radius: 40% 60% 60% 40% / 70% 30% 70% 30%;
+            }
+            100% {
+                border-radius: 60% 40% 30% 70% / 30% 50% 50% 70%;
+            }
+        }
+
+        /* Claymorphism Style */
+        .card.claymorphism {
+            background: #f5f0ff;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card.claymorphism:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card.claymorphism .card-inner {
+            padding: 2rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            z-index: 2;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .card.claymorphism:hover .card-inner {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .card.claymorphism .card-title {
+            color: #b884ff;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .card.claymorphism:hover .card-title {
+            transform: translateY(-5px);
+            color: #7c5cff;
+        }
+
+        .card.claymorphism .card-title::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #b884ff, #ffc2e9);
+            transition: width 0.4s ease;
+            border-radius: 3px;
+        }
+
+        .card.claymorphism:hover .card-title::after {
+            width: 100%;
+        }
+
+        .card.claymorphism .card-subtitle {
+            color: #6b6b8d;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .card.claymorphism:hover .card-subtitle {
+            color: #534f78;
+        }
+
+        /* Clay decorative elements */
+        .card.claymorphism .clay-bubble {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 4px 4px 10px rgba(198, 198, 255, 0.4), 
+                        -4px -4px 10px rgba(255, 255, 255, 0.9),
+                        inset 2px 2px 5px rgba(198, 198, 255, 0.1), 
+                        inset -2px -2px 5px rgba(255, 255, 255, 0.7);
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 1;
+        }
+
+        .card.claymorphism .bubble-1 {
+            width: 30px;
+            height: 30px;
+            top: 20%;
+            right: 15%;
+            transition-delay: 0.1s;
+        }
+
+        .card.claymorphism .bubble-2 {
+            width: 22px;
+            height: 22px;
+            top: 35%;
+            right: 8%;
+            transition-delay: 0.2s;
+        }
+
+        .card.claymorphism .bubble-3 {
+            width: 18px;
+            height: 18px;
+            bottom: 30%;
+            left: 12%;
+            transition-delay: 0.15s;
+        }
+
+        .card.claymorphism:hover .clay-bubble {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .card.claymorphism::before {
+            content: "";
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #b884ff, #9b6eff);
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0;
+            top: -100px;
+            right: -100px;
+            z-index: 0;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: scale(0.5);
+        }
+
+        .card.claymorphism:hover::before {
+            opacity: 0.25;
+            transform: scale(1.2);
+            animation: pulsate 5s infinite alternate ease-in-out;
+        }
+
+        .card.claymorphism::after {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(135deg, #ffc2e9, #ff9ed2);
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0;
+            bottom: -90px;
+            left: -90px;
+            z-index: 0;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: scale(0.5);
+        }
+
+        .card.claymorphism:hover::after {
+            opacity: 0.25;
+            transform: scale(1.2);
+            animation: pulsate 7s infinite alternate-reverse ease-in-out;
+        }
+
+        @keyframes pulsate {
+            0% {
+                transform: scale(0.9);
+                opacity: 0.2;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.3;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.25;
+            }
+        }
+
+        /* Psychedelic Design Style */
+        .card.psychedelic {
+            background-color: #120458;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 15px 30px rgba(18, 4, 88, 0.3);
+            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.5s ease;
+        }
+
+        .card.psychedelic:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(250, 30, 78, 0.4);
+        }
+
+        .card.psychedelic .card-inner {
+            position: relative;
+            z-index: 2;
+            background: rgba(18, 4, 88, 0.6);
+            backdrop-filter: blur(5px);
+            border: none;
+            padding: 2rem;
+            transition: all 0.5s ease;
+        }
+
+        .card.psychedelic::before {
+            content: "";
+            position: absolute;
+            width: 300%;
+            height: 300%;
+            top: -100%;
+            left: -100%;
+            background: 
+                radial-gradient(circle at 50% 50%, #fa1e4e 0%, transparent 20%),
+                radial-gradient(circle at 80% 20%, #8a2be2 0%, transparent 20%),
+                radial-gradient(circle at 20% 80%, #ff7700 0%, transparent 20%),
+                radial-gradient(circle at 80% 80%, #61d4b3 0%, transparent 20%);
+            filter: blur(30px);
+            animation: rotatePsychedelic 30s infinite linear;
+            z-index: 1;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .card.psychedelic:hover::before {
+            opacity: 1;
+            animation-duration: 20s;
+        }
+
+        @keyframes rotatePsychedelic {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .card.psychedelic .card-title {
+            font-family: 'Bungee Shade', 'Noto Sans SC', sans-serif;
+            color: #ffffff;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            text-shadow: 
+                0 0 5px rgba(250, 30, 78, 0.8),
+                0 0 10px rgba(250, 30, 78, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .card.psychedelic:hover .card-title {
+            transform: skew(-5deg);
+            color: #61d4b3;
+            text-shadow: 
+                0 0 5px rgba(97, 212, 179, 0.8),
+                0 0 10px rgba(97, 212, 179, 0.5);
+        }
+
+        .card.psychedelic .card-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        /* Retro Futurism Style */
+        .card.retrofuturism {
+            background-color: #0a0a0f;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(10, 10, 15, 0.5);
+            transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), box-shadow 0.5s ease;
+        }
+
+        .card.retrofuturism:hover {
+            transform: translateY(-10px);
+            box-shadow: 
+                0 20px 40px rgba(43, 251, 255, 0.3),
+                0 0 15px rgba(43, 251, 255, 0.2);
+        }
+
+        .card.retrofuturism .card-inner {
+            position: relative;
+            z-index: 2;
+            background: rgba(10, 10, 15, 0.7);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(43, 251, 255, 0.2);
+            padding: 2rem;
+            transition: all 0.4s ease;
+        }
+
+        .card.retrofuturism::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            bottom: -50%;
+            left: 0;
+            background: repeating-linear-gradient(
+                180deg,
+                rgba(43, 251, 255, 0.1),
+                rgba(43, 251, 255, 0.1) 1px,
+                transparent 1px,
+                transparent 20px
+            );
+            transform: perspective(500px) rotateX(60deg);
+            transform-origin: bottom;
+            z-index: 1;
+            transition: all 0.5s ease;
+        }
+
+        .card.retrofuturism:hover::before {
+            bottom: -40%;
+            background: repeating-linear-gradient(
+                180deg,
+                rgba(255, 41, 117, 0.1),
+                rgba(255, 41, 117, 0.1) 1px,
+                transparent 1px,
+                transparent 20px
+            );
+        }
+
+        .card.retrofuturism::after {
+            content: "";
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            bottom: -75px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: radial-gradient(circle, rgba(255, 41, 117, 0.4) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+            filter: blur(20px);
+            transition: all 0.5s ease;
+        }
+
+        .card.retrofuturism:hover::after {
+            background: radial-gradient(circle, rgba(43, 251, 255, 0.4) 0%, transparent 70%);
+            width: 180px;
+            height: 180px;
+        }
+
+        .card.retrofuturism .card-title {
+            font-family: 'Orbitron', 'Noto Sans SC', sans-serif;
+            color: #ffffff;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(43, 251, 255, 0.8);
+            transition: all 0.3s ease;
+        }
+
+        .card.retrofuturism:hover .card-title {
+            color: #2bfbff;
+            text-shadow: 0 0 15px rgba(43, 251, 255, 1);
+        }
+
+        .card.retrofuturism .card-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        /* Liquid Design Style */
+        .card.liquid {
+            background: linear-gradient(135deg, #0a0047, #150059);
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(10, 0, 71, 0.4);
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.5s ease;
+        }
+
+        .card.liquid:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 198, 255, 0.4);
+        }
+
+        .card.liquid .card-inner {
+            position: relative;
+            z-index: 2;
+            background: rgba(10, 0, 71, 0.3);
+            backdrop-filter: blur(5px);
+            border: none;
+            padding: 2rem;
+            transition: all 0.4s ease;
+        }
+
+        .card.liquid::before {
+            content: "";
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(circle at center, rgba(0, 198, 255, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+            animation: rotateLiquid 30s infinite linear;
+            z-index: 1;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        .card.liquid:hover::before {
+            opacity: 0.8;
+            animation-duration: 20s;
+        }
+
+        @keyframes rotateLiquid {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .card.liquid .card-title {
+            font-family: 'Montserrat', 'Noto Sans SC', sans-serif;
+            background: linear-gradient(to right, #00c6ff, #ff00c3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .card.liquid:hover .card-title {
+            letter-spacing: 1px;
+        }
+
+        .card.liquid .card-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        .card.liquid .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background: rgba(0, 198, 255, 0.1);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .card.liquid .wave::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 198, 255, 0.1);
+            border-radius: 100% 100% 0 0/100px 100px 0 0;
+        }
+
+        .card.liquid .wave:nth-child(2) {
+            bottom: -10px;
+            opacity: 0;
+            height: 30px;
+        }
+
+        .card.liquid .wave:nth-child(3) {
+            bottom: -20px;
+            opacity: 0;
+            height: 20px;
+        }
+
+        .card.liquid:hover .wave {
+            opacity: 1;
+            animation: waveFlow 8s infinite linear;
+        }
+
+        .card.liquid:hover .wave:nth-child(2) {
+            opacity: 0.6;
+            animation: waveFlow 12s infinite linear reverse;
+        }
+
+        .card.liquid:hover .wave:nth-child(3) {
+            opacity: 0.3;
+            animation: waveFlow 16s infinite linear;
+        }
+
+        @keyframes waveFlow {
+            0% {
+                transform: translateX(0) scaleX(1);
+            }
+            50% {
+                transform: translateX(-25%) scaleX(0.8);
+            }
+            100% {
+                transform: translateX(0) scaleX(1);
             }
         }
     </style>
@@ -790,7 +2512,7 @@
         <!-- Cyberpunk Style -->
         <div class="card cyberpunk">
             <div class="card-inner">
-                <h2 class="card-title">赛博朋克风格 | Cyberpunk</h2>
+                <h2 class="card-title" data-text="赛博朋克风格 | Cyberpunk">赛博朋克风格 | Cyberpunk</h2>
                 <p class="card-subtitle">未来派反乌托邦美学，霓虹灯效果、故障艺术和高科技与低生活的对比，呈现数字化未来。</p>
             </div>
             <button class="copy-prompt-btn" data-style="cyberpunk">复制Prompt</button>
@@ -907,6 +2629,174 @@
             <div class="tooltip">已复制到剪贴板！</div>
             <a href="flat-design-2-style-ad.html" class="card-link"></a>
         </div>
+
+        <!-- Kinetic Typography Style -->
+        <div class="card kinetic">
+            <div class="card-inner">
+                <h2 class="card-title">Kinetic Typography 动态字体</h2>
+                <p class="card-subtitle">动态字体设计风格，使用文字动效创造视觉冲击力，强调文字排版的活力与动感。</p>
+            </div>
+            <button class="copy-prompt-btn" data-style="kinetic">复制Prompt</button>
+            <div class="tooltip">已复制到剪贴板！</div>
+            <a href="kinetic-typography-style-ad.html" class="card-link"></a>
+        </div>
+
+        <!-- Isometric Design Style -->
+        <div class="card isometric">
+            <div class="card-inner">
+                <h2 class="card-title">Isometric Design 等距设计</h2>
+                <p class="card-subtitle">等距设计风格，使用三维透视效果呈现扁平图形，创造出空间感和立体效果。</p>
+            </div>
+            <button class="copy-prompt-btn" data-style="isometric">复制Prompt</button>
+            <div class="tooltip">已复制到剪贴板！</div>
+            <a href="isometric-design-style-ad.html" class="card-link"></a>
+        </div>
+
+        <!-- Organic Design Style -->
+        <div class="card organic">
+            <div class="card-inner">
+                <h2 class="card-title">Organic Design 有机设计</h2>
+                <p class="card-subtitle">有机设计风格，使用柔和曲线和自然元素，营造出温暖、亲切且贴近自然的视觉体验。</p>
+            </div>
+            <button class="copy-prompt-btn" data-style="organic">复制Prompt</button>
+            <div class="tooltip">已复制到剪贴板！</div>
+            <a href="organic-design-style-ad.html" class="card-link"></a>
+        </div>
+
+        <!-- Parametric Design Style -->
+        <div class="card parametric">
+            <div class="card-inner">
+                <h2 class="card-title">Parametric Design 参数化设计</h2>
+                <p class="card-subtitle">参数化设计风格，使用算法和数学模型生成的几何形状，展现精确、规律且可变的视觉效果。</p>
+            </div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="wave wave-1"></div>
+            <div class="wave wave-2"></div>
+            <div class="spiral"></div>
+            <div class="point point-1"></div>
+            <div class="point point-2"></div>
+            <div class="point point-3"></div>
+            <div class="point point-4"></div>
+            <div class="point point-5"></div>
+            <div class="point point-6"></div>
+            <button class="copy-prompt-btn" data-style="parametric">复制Prompt</button>
+            <div class="tooltip">已复制到剪贴板！</div>
+            <a href="parametric-design-style-ad.html" class="card-link"></a>
+        </div>
+
+        <!-- Art Deco Style -->
+        <div class="card artdeco">
+            <div class="card-inner">
+                <h2 class="card-title">Art Deco 艺术装饰风格</h2>
+                <p class="card-subtitle">艺术装饰风格融合几何形状与奢华材质，展现1920-30年代的优雅与精致，以对称图案和大胆色彩为特点。</p>
+            </div>
+            <div class="deco-corner corner-tl"></div>
+            <div class="deco-corner corner-tr"></div>
+            <div class="deco-corner corner-bl"></div>
+            <div class="deco-corner corner-br"></div>
+            <div class="sunburst"></div>
+            <button class="copy-prompt-btn" data-style="artdeco">复制Prompt</button>
+            <div class="tooltip">已复制到剪贴板！</div>
+            <a href="art-deco-style-ad.html" class="card-link"></a>
+        </div>
+
+        <!-- Bauhaus Style -->
+        <div class="card bauhaus">
+            <div class="card-inner">
+                <h2 class="card-title">Bauhaus 包豪斯风格</h2>
+                <p class="card-subtitle">包豪斯风格强调功能性与简约，使用基本几何形状与原色，体现"形式服从功能"的设计理念。</p>
+            </div>
+            <div class="bauhaus-element red-circle"></div>
+            <div class="bauhaus-element yellow-square"></div>
+            <div class="bauhaus-element blue-line"></div>
+            <div class="bauhaus-element blue-square"></div>
+            <div class="bauhaus-element red-line"></div>
+            <div class="bauhaus-element yellow-triangle"></div>
+            <div class="bauhaus-grid"></div>
+            <div class="vertical-lines"></div>
+            <button class="copy-prompt-btn" data-style="bauhaus">复制Prompt</button>
+            <div class="tooltip">已复制到剪贴板！</div>
+            <a href="bauhaus-style-ad.html" class="card-link"></a>
+        </div>
+
+        <!-- Lo-Fi Design Style -->
+        <div class="card lofi">
+            <div class="card-inner">
+                <h2 class="card-title">Lo-Fi Design 低保真设计</h2>
+                <p class="card-subtitle">低保真设计回归基础，以简单朴素的界面元素与最小装饰，强调内容本身并传递怀旧与真实感。</p>
+            </div>
+            <div class="hit-counter">12345</div>
+            <div class="pixel-art pixel-cursor"></div>
+            <div class="pixel-art pixel-pattern"></div>
+            <div class="under-construction">UNDER CONSTRUCTION</div>
+            <div class="pixel-element"></div>
+            <button class="copy-prompt-btn" data-style="lofi">复制Prompt</button>
+            <div class="tooltip">已复制到剪贴板！</div>
+            <a href="lofi-design-style-ad.html" class="card-link"></a>
+        </div>
+
+        <!-- Maximalism Style -->
+        <div class="card maximalism">
+            <div class="card-inner">
+                <h2 class="card-title">Maximalism 极繁主义风格</h2>
+                <p class="card-subtitle">极繁主义风格以丰富的色彩、纹理和装饰为特征，打破极简主义规则，追求大胆、奢华的视觉体验。</p>
+            </div>
+            <button class="copy-prompt-btn" data-style="maximalism">复制Prompt</button>
+            <div class="tooltip">已复制到剪贴板！</div>
+            <a href="maximalism-style-ad.html" class="card-link"></a>
+        </div>
+
+        <!-- Claymorphism Style -->
+        <div class="card claymorphism">
+            <div class="card-inner">
+                <h2 class="card-title">Claymorphism 粘土拟态风格</h2>
+                <p class="card-subtitle">粘土拟态风格以柔和的阴影和圆润边角创造出如同软陶泥的立体质感，营造出温暖、友好的视觉体验。</p>
+            </div>
+            <div class="clay-bubble bubble-1"></div>
+            <div class="clay-bubble bubble-2"></div>
+            <div class="clay-bubble bubble-3"></div>
+            <button class="copy-prompt-btn" data-style="claymorphism">复制Prompt</button>
+            <div class="tooltip">已复制到剪贴板！</div>
+            <a href="claymorphism-complete.html" class="card-link"></a>
+        </div>
+
+        <!-- Psychedelic Design Style -->
+        <div class="card psychedelic">
+            <div class="card-inner">
+                <h2 class="card-title">Psychedelic Design 迷幻设计</h2>
+                <p class="card-subtitle">迷幻设计风格以鲜艳的色彩和有机的流动形态为特点，融合视觉错觉和扭曲效果，营造出梦幻超现实的体验。</p>
+            </div>
+            <button class="copy-prompt-btn" data-style="psychedelic">复制Prompt</button>
+            <div class="tooltip">已复制到剪贴板！</div>
+            <a href="psychedelic-design.html" class="card-link"></a>
+        </div>
+
+        <!-- Retro Futurism Style -->
+        <div class="card retrofuturism">
+            <div class="card-inner">
+                <h2 class="card-title">Retro Futurism 复古未来主义</h2>
+                <p class="card-subtitle">复古未来主义结合过去对未来的想象与现代技术，以霓虹网格、合成波风格和太空时代美学为特征。</p>
+            </div>
+            <button class="copy-prompt-btn" data-style="retrofuturism">复制Prompt</button>
+            <div class="tooltip">已复制到剪贴板！</div>
+            <a href="retro-futurism.html" class="card-link"></a>
+        </div>
+
+        <!-- Liquid Design Style -->
+        <div class="card liquid">
+            <div class="card-inner">
+                <h2 class="card-title">Liquid Design 流体设计</h2>
+                <p class="card-subtitle">流体设计以柔和的渐变和弹性流动的形态为特点，强调动态过渡效果和有机连续的用户体验。</p>
+            </div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <button class="copy-prompt-btn" data-style="liquid">复制Prompt</button>
+            <div class="tooltip">已复制到剪贴板！</div>
+            <a href="liquid-design.html" class="card-link"></a>
+        </div>
     </div>
 </main>
 
@@ -927,180 +2817,39 @@
         });
     });
     
-    // Prompt content for each style
-    const prompts = {
-        theverge: `根据以下设计原则设计 TheVerge 风格的网站：
-1. 使用 TheVerge 风格的视觉设计，深色底配合与#03fc90和#fc03f8相近的颜色作为高亮
-2. 淡淡的网格线在背景中制造科技感
-3. 强调超大字体或数字突出核心要点，画面中有超大视觉元素强调重点，与小元素的比例形成反差
-4. 中英文混用，中文大字体粗体，英文小字作为点缀
-5. 简洁的勾线图形化作为数据可视化或者配图元素
-6. 运用高亮色自身透明度渐变制造科技感，但是不同高亮色不要互相渐变
-7. 模仿 apple 官网的动效，向下滚动鼠标配合动效`,
-        
-        swiss: `根据以下设计原则设计瑞士国际风格的网站：
-1. 使用简洁、客观的布局
-2. 采用基于网格系统的排版
-3. 以无衬线字体为主，如Helvetica
-4. 黑白为主色调，辅以红色和蓝色等基本色
-5. 注重负空间的使用
-6. 对称与不对称的平衡
-7. 使用大胆的标题排版
-8. 信息层次分明`,
-        
-        cyberpunk: `根据以下设计原则设计赛博朋克风格的网站：
-1. 霓虹色调，以#00f0ff青色和#ff00ff品红为主要强调色
-2. 深色背景，优选黑色或深蓝色
-3. 故障艺术效果(Glitch effects)和画面扭曲
-4. 全息投影和扫描线效果
-5. 像素化元素或CRT屏幕模拟
-6. 网格线背景有透视效果，带动感
-7. 未来主义界面元素，如编码终端、数字雨
-8. 霓虹文字效果，包含文本阴影和发光效果
-9. 向下滚动时有动态故障和闪烁效果`,
-        
-        glassmorphism: `根据以下设计原则设计玻璃拟态风格的网站：
-1. 半透明磨砂玻璃效果的卡片和UI元素
-2. 背景使用渐变色和模糊效果
-3. 应用backdrop-filter: blur()效果
-4. 轻微阴影效果增强深度感
-5. 边缘细微高亮以增强玻璃感
-6. 使用#03fc90和#fc03f8作为强调色，但通过透明度制造层次
-7. 背景中加入漂浮的彩色形状或光晕
-8. 鼠标悬停时有细微的光影变化
-9. 保持整体轻盈通透的视觉效果`,
-        
-        brutalist: `根据以下设计原则设计野兽派(Brutalist)风格的网站：
-1. 原始HTML风格的界面元素
-2. 无装饰的排版，使用等宽字体
-3. 高对比度的颜色组合
-4. 粗犷、直接的视觉语言
-5. 明确的元素边框，优先使用黑色
-6. 最小化装饰，强调功能性
-7. 大胆使用网格和区块，不追求圆角或柔和过渡
-8. 字体使用粗体，尺寸有明显差异
-9. 简单粗暴的交互反馈
-10. 布局元素使用简单几何形状`,
-        
-        vaporwave: `根据以下设计原则设计蒸汽波(Vaporwave)风格的网站：
-1. 使用粉色(#ff6ec7)和青色(#00ffff)为主色调
-2. 复古网格背景，带透视效果
-3. 添加古典雕塑、棋盘格和复古计算机元素
-4. 8-90年代复古计算机界面元素
-5. 使用VT323或类似复古电脑字体
-6. 模拟CRT显示器效果
-7. 复古风格图标和符号
-8. 使用霓虹色文字阴影效果
-9. 在背景中加入棕榈树和夕阳等复古元素
-10. 动画元素使用缓慢、梦幻的效果`,
-        
-        material: `根据以下设计原则设计 Material Design 风格的网站：
-1. 基于纸张隐喻的表面和阴影效果
-2. 使用Google的Material色彩系统，主色为#6200ee
-3. 圆角矩形卡片布局
-4. 微妙的阴影效果指示层级
-5. 简洁的排版，使用Roboto字体
-6. 明确的间距和网格系统
-7. 交互元素有水波纹效果
-8. 悬浮操作按钮(FAB)
-9. 符合Material Design图标规范
-10. 应用动态动画和过渡效果`,
-        
-        neumorphism: `根据以下设计原则设计新拟态(Neumorphism)风格的网站：
-1. 使用柔和的浅色背景，优选#e0e5ec
-2. 应用软UI效果，阴影使用双向阴影(亮色+暗色)
-3. 元素看起来像是从背景"挤出"而非"附着"
-4. 使用微妙的色调变化而非鲜明对比色
-5. 按钮和控件有内凹和凸起两种状态
-6. 避免使用传统阴影，而是采用同色系内的阴影
-7. 圆角设计，增加柔和感
-8. 交互时有细微的状态变化
-9. 配色方案保持单一和谐，避免过多色彩
-10. 图标和文字颜色与背景保持低对比度关系`,
-        
-        antidesign: `根据以下设计原则设计反设计(Anti-Design)风格的网站：
-1. 故意打破传统设计规则
-2. 使用不协调的色彩组合，如明亮的黄色背景
-3. 故意使用Comic Sans等非设计类字体
-4. 元素错位、重叠或透明度部分遮挡
-5. 混搭不同视觉语言和样式
-6. 故意使用扭曲或旋转的文字和元素
-7. 加入随机表情符号和不规则动画效果
-8. 忽略传统网格系统，采用混乱布局
-9. 交互元素有夸张或不协调的反馈
-10. 复古网络元素与现代设计混搭`,
-        
-        minimalist: `根据以下设计原则设计极简主义(Minimalism)风格的网站：
-1. 大量白色空间
-2. 单色或极简配色方案
-3. 使用轻量级无衬线字体
-4. 内容减至最少，仅保留核心信息
-5. 微妙的间距和比例关系
-6. 避免使用装饰性元素
-7. 简约的线条和形状
-8. 细微的交互反馈
-9. 文字层次分明但保持克制
-10. 可选的细微动画，不干扰主体内容`,
-        
-        neoretro: `根据以下设计原则设计新复古(Neo-Retro)风格的网站：
-1. 像素艺术和8-bit风格视觉元素
-2. CRT屏幕效果，包含扫描线和微弱闪烁
-3. 使用Press Start 2P等像素字体
-4. 复古计算机界面元素，如命令行提示符
-5. 像素化图标和插图
-6. 使用有限的色彩，模拟早期电脑色彩限制
-7. 加入传统游戏界面元素
-8. 背景网格带有透视效果
-9. 霓虹色彩的文字和强调
-10. 故障艺术和像素化转场效果`,
-        
-        memphis: `根据以下设计原则设计孟菲斯(Memphis Design)风格的网站：
-1. 使用明亮、大胆的颜色组合，如#ffd166, #06d6a0, #ef476f
-2. 加入几何图形装饰元素，如点、线、波浪和锯齿形
-3. 不对称和不规则的布局
-4. 使用不同尺寸和位置的几何形状
-5. 自由组合圆形、方形、三角形等元素
-6. 可加入简单的图案和条纹
-7. 元素间使用重叠和叠加效果
-8. 字体使用粗体或半粗体无衬线字体
-9. 元素有细微的旋转或倾斜
-10. 视觉上活泼、有趣和不拘一格`,
-        
-        flat2: `根据以下设计原则设计扁平化设计2.0(Flat Design 2.0)风格的网站：
-1. 基于扁平设计，但增加微妙的深度暗示
-2. 使用轻微的阴影和渐变增加层次感
-3. 保持简洁的界面但增加细微的立体感
-4. 使用鲜明但不过多的色彩，主色为#4361ee
-5. 无衬线字体，清晰可读
-6. 简单的图标和界面元素
-7. 微妙的悬停和点击效果
-8. 增强的材质感和表面处理
-9. 几何形状作为装饰元素
-10. 保持整体轻量级的视觉效果`
-    };
+    // Load prompts from external JSON file
+    let prompts = {};
     
-    // Handle copy button clicks
+    fetch('prompts.json')
+        .then(response => response.json())
+        .then(data => {
+            prompts = data;
+            console.log('Prompts loaded successfully');
+        })
+        .catch(error => console.error('Error loading prompts:', error));
+    
+    // Copy prompt functionality
     document.querySelectorAll('.copy-prompt-btn').forEach(button => {
         button.addEventListener('click', function(e) {
-            e.preventDefault();
             e.stopPropagation();
             
             const style = this.getAttribute('data-style');
-            const prompt = prompts[style];
+            const promptText = prompts[style];
             
-            // Copy to clipboard
-            navigator.clipboard.writeText(prompt).then(() => {
-                // Show tooltip
-                const tooltip = this.nextElementSibling;
-                tooltip.style.opacity = 1;
-                
-                // Hide tooltip after 2 seconds
-                setTimeout(() => {
-                    tooltip.style.opacity = 0;
-                }, 2000);
-            }).catch(err => {
-                console.error('无法复制到剪贴板:', err);
-            });
+            if (promptText) {
+                navigator.clipboard.writeText(promptText).then(() => {
+                    // Show tooltip
+                    const tooltip = this.nextElementSibling;
+                    tooltip.style.opacity = 1;
+                    
+                    // Hide tooltip after 2 seconds
+                    setTimeout(() => {
+                        tooltip.style.opacity = 0;
+                    }, 2000);
+                });
+            } else {
+                console.error('No prompt found for style:', style);
+            }
         });
     });
 </script>

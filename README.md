@@ -33,7 +33,6 @@ The project currently includes the following design styles:
 1. Visit [liyincode.github.io/design-verse](https://liyincode.github.io/design-verse/)
 2. Click the "Copy Prompt" button in the bottom-right corner of any card to copy the design style prompt
 3. Paste the copied prompt into Claude, DeepSeek or other AI assistants and press Enter
-4. Alternatively, you can find all prompts collected in the [prompt.md](prompt.md) file in this repository
 
 ## License
 

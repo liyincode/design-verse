@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parametric Design Style</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@300;400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #f4f4f8;
+            --text-color: #1a1a2e;
+            --primary: #1e3799;
+            --secondary: #0a0f20;
+            --accent: #4a69bd;
+            --light-accent: #c8d6e5;
+            --highlight-cyan: #03fc90;
+            --highlight-magenta: #fc03f8;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Work Sans', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Parametric Background */
+        .parametric-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-color);
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .parametric-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Typography */
+        .title-container {
+            margin-bottom: 3rem;
+        }
+
+        .subtitle {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .title {
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        .highlight-cyan {
+            color: var(--highlight-cyan);
+        }
+
+        .highlight-magenta {
+            color: var(--highlight-magenta);
+        }
+
+        .description {
+            font-size: 1.25rem;
+            font-weight: 300;
+            max-width: 700px;
+            margin-bottom: 2rem;
+        }
+
+        /* Button Styles */
+        .button {
+            display: inline-block;
+            padding: 0.875rem 2rem;
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            border: none;
+            cursor: pointer;
+            font-family: 'Space Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.875rem;
+        }
+
+        .button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s ease;
+            z-index: -1;
+        }
+
+        .button:hover {
+            background-color: var(--accent);
+            box-shadow: 0 5px 15px rgba(30, 55, 153, 0.3);
+        }
+
+        .button:hover::before {
+            left: 100%;
+        }
+
+        .button-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .button-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4rem;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        /* Parametric Visual Element */
+        .parametric-visual {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background-color: rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            border-radius: 4px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .parametric-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Stats Section */
+        .stats-container {
+            background-color: white;
+            padding: 3rem;
+            border-radius: 4px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+
+        .stats-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--highlight-magenta), var(--highlight-cyan));
+        }
+
+        .stats-number {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--highlight-magenta);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .stats-label {
+            font-size: 1.25rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .stats-description {
+            margin-top: 1rem;
+            color: var(--secondary);
+            opacity: 0.8;
+        }
+
+        /* Data Visualization */
+        .data-viz-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 4px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+            margin: 2rem 0;
+        }
+
+        .data-viz-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .data-viz-title::before {
+            content: "";
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            background-color: var(--primary);
+            margin-right: 0.75rem;
+        }
+
+        .data-viz {
+            height: 250px;
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+        }
+
+        .bar {
+            flex: 1;
+            background: linear-gradient(to top, var(--highlight-cyan), rgba(3, 252, 144, 0.3));
+            border-radius: 4px 4px 0 0;
+            transition: height 0.3s ease;
+            position: relative;
+        }
+
+        .bar::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), transparent);
+        }
+
+        .bar:nth-child(even) {
+            background: linear-gradient(to top, var(--highlight-magenta), rgba(252, 3, 248, 0.3));
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        @media (max-width: 992px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .feature {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 4px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--highlight-cyan), var(--highlight-magenta));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .feature:hover::after {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .feature-text {
+            font-size: 0.95rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .scroll-indicator:hover {
+            opacity: 1;
+        }
+
+        .scroll-text {
+            font-size: 0.75rem;
+            font-family: 'Space Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .scroll-icon {
+            width: 30px;
+            height: 50px;
+            border: 2px solid var(--accent);
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .scroll-icon::before {
+            content: "";
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            animation: scrollDown 2s infinite;
+        }
+
+        @keyframes scrollDown {
+            0% {
+                transform: translate(-50%, 0);
+                opacity: 1;
+            }
+            80% {
+                transform: translate(-50%, 24px);
+                opacity: 0;
+            }
+            100% {
+                transform: translate(-50%, 0);
+                opacity: 0;
+            }
+        }
+
+        /* Parametric Shapes */
+        .parametric-shape {
+            position: absolute;
+            opacity: 0.05;
+            z-index: 0;
+        }
+
+        .shape-1 {
+            top: 10%;
+            right: 10%;
+            width: 300px;
+            height: 300px;
+        }
+
+        .shape-2 {
+            bottom: 10%;
+            left: 5%;
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="parametric-bg">
+        <canvas id="parametricCanvas" class="parametric-canvas"></canvas>
+    </div>
+
+    <section class="section" id="section1">
+        <div class="parametric-shape shape-1">
+            <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                <path d="M150,20 C250,20 280,150 150,280 C20,280 20,20 150,20 Z" fill="#1e3799"/>
+            </svg>
+        </div>
+        <div class="parametric-shape shape-2">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20,100 C20,50 50,20 100,20 C150,20 180,50 180,100 C180,150 150,180 100,180 C50,180 20,150 20,100 Z" fill="#4a69bd"/>
+            </svg>
+        </div>
+        
+        <div class="container">
+            <div class="grid">
+                <div>
+                    <div class="title-container">
+                        <div class="subtitle">The Future Is Now</div>
+                        <h1 class="title">科技<span class="highlight-cyan">创新</span></h1>
+                        <p class="description">突破性能边界，<span class="highlight-magenta">颠覆</span>传统思维。INNOVATION WITHOUT LIMITS.</p>
+                    </div>
+                    
+                    <div>
+                        <a href="#section2" class="button">探索更多</a>
+                        <a href="#" class="button button-outline" style="margin-left: 1rem;">了解详情</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="parametric-visual">
+                        <canvas id="visualizationCanvas" class="parametric-pattern"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="scroll-indicator">
+                <div class="scroll-text">向下滚动</div>
+                <div class="scroll-icon"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="section2">
+        <div class="parametric-shape shape-1" style="top: auto; bottom: 10%; right: 15%;">
+            <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                <path d="M150,20 C250,20 280,150 150,280 C20,280 20,20 150,20 Z" fill="#4a69bd"/>
+            </svg>
+        </div>
+        <div class="parametric-shape shape-2" style="bottom: auto; top: 15%; left: 10%;">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20,100 C20,50 50,20 100,20 C150,20 180,50 180,100 C180,150 150,180 100,180 C50,180 20,150 20,100 Z" fill="#1e3799"/>
+            </svg>
+        </div>
+        
+        <div class="container">
+            <div class="title-container">
+                <div class="subtitle">Breakthrough Performance</div>
+                <h1 class="title">性能<span class="highlight-magenta">提升</span></h1>
+                <p class="description">全新架构设计，REVOLUTIONARY TECHNOLOGY 为您带来前所未有的体验。</p>
+            </div>
+            
+            <div class="grid">
+                <div>
+                    <div class="stats-container">
+                        <div class="stats-number">200%</div>
+                        <div class="stats-label">性能提升</div>
+                        <p class="stats-description">采用最新的参数化算法优化，相比传统解决方案，性能提升200%，同时保持稳定性和可靠性。</p>
+                    </div>
+                    
+                    <a href="#section3" class="button">了解技术</a>
+                </div>
+                
+                <div>
+                    <div class="data-viz-container">
+                        <div class="data-viz-title">Performance Metrics</div>
+                        <div class="data-viz">
+                            <div class="bar" style="height: 40%;"></div>
+                            <div class="bar" style="height: 60%;"></div>
+                            <div class="bar" style="height: 80%;"></div>
+                            <div class="bar" style="height: 100%;"></div>
+                            <div class="bar" style="height: 90%;"></div>
+                            <div class="bar" style="height: 120%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="section3">
+        <div class="parametric-shape shape-1" style="top: 20%; right: 5%;">
+            <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                <path d="M150,20 C250,20 280,150 150,280 C20,280 20,20 150,20 Z" fill="#1e3799"/>
+            </svg>
+        </div>
+        <div class="parametric-shape shape-2" style="bottom: 15%; left: 15%;">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20,100 C20,50 50,20 100,20 C150,20 180,50 180,100 C180,150 150,180 100,180 C50,180 20,150 20,100 Z" fill="#4a69bd"/>
+            </svg>
+        </div>
+        
+        <div class="container">
+            <div class="title-container">
+                <div class="subtitle">Seamless Integration</div>
+                <h1 class="title">智能<span class="highlight-cyan">生态</span></h1>
+                <p class="description">连接一切可能，ECOSYSTEM OF THE FUTURE 打造无缝体验。</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature">
+                    <div class="feature-icon">📱</div>
+                    <h3 class="feature-title">移动设备</h3>
+                    <p class="feature-text">随时随地，无缝连接各种设备，数据智能同步，提供流畅体验。</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">💻</div>
+                    <h3 class="feature-title">电脑</h3>
+                    <p class="feature-text">强大的计算能力，处理复杂任务，支持专业创作和工作需求。</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">🌐</div>
+                    <h3 class="feature-title">互联网</h3>
+                    <p class="feature-text">全球连接，云端协同，安全数据传输，高速访问网络资源。</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">🎮</div>
+                    <h3 class="feature-title">游戏</h3>
+                    <p class="feature-text">沉浸式体验，高清画质，流畅帧率，参数化游戏环境生成。</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">🏠</div>
+                    <h3 class="feature-title">家居</h3>
+                    <p class="feature-text">智能家居控制，自动环境调节，安全监控系统，语音操作。</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">🚗</div>
+                    <h3 class="feature-title">出行</h3>
+                    <p class="feature-text">智能导航，实时路况，自动驾驶辅助，参数化路线优化。</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="#section1" class="button">立即体验</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Parametric background animation
+        const canvas = document.getElementById('parametricCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Set canvas size
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        
+        // Parametric equations
+        class Point {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.originalX = x;
+                this.originalY = y;
+                this.vx = 0;
+                this.vy = 0;
+                this.size = Math.random() * 2 + 1;
+            }
+            
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                // Slowly return to original position
+                this.vx = (this.originalX - this.x) * 0.02;
+                this.vy = (this.originalY - this.y) * 0.02;
+            }
+            
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(74, 105, 189, 0.1)';
+                ctx.fill();
+            }
+        }
+        
+        // Create grid of points
+        const points = [];
+        const spacing = 50;
+        const cols = Math.ceil(window.innerWidth / spacing) + 1;
+        const rows = Math.ceil(window.innerHeight / spacing) + 1;
+        
+        for (let y = 0; y < rows; y++) {
+            for (let x = 0; x < cols; x++) {
+                points.push(new Point(x * spacing, y * spacing));
+            }
+        }
+        
+        // Animation loop
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Update and draw points
+            points.forEach(point => {
+                point.update();
+                point.draw();
+            });
+            
+            // Draw connections
+            ctx.strokeStyle = 'rgba(30, 55, 153, 0.05)';
+            ctx.lineWidth = 1;
+            
+            for (let i = 0; i < points.length; i++) {
+                for (let j = i + 1; j < points.length; j++) {
+                    const p1 = points[i];
+                    const p2 = points[j];
+                    const distance = Math.sqrt((p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2);
+                    
+                    if (distance < 100) {
+                        ctx.beginPath();
+                        ctx.moveTo(p1.x, p1.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
+        
+        // Mouse interaction
+        let mouseX = 0;
+        let mouseY = 0;
+        
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            points.forEach(point => {
+                const dx = mouseX - point.x;
+                const dy = mouseY - point.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < 150) {
+                    const force = (150 - distance) / 150;
+                    const angle = Math.atan2(dy, dx);
+                    point.vx -= Math.cos(angle) * force * 2;
+                    point.vy -= Math.sin(angle) * force * 2;
+                }
+            });
+        });
+        
+        // Visualization canvas
+        const visCanvas = document.getElementById('visualizationCanvas');
+        const visCtx = visCanvas.getContext('2d');
+        
+        function resizeVisCanvas() {
+            visCanvas.width = visCanvas.parentElement.offsetWidth;
+            visCanvas.height = visCanvas.parentElement.offsetHeight;
+        }
+        
+        window.addEventListener('resize', resizeVisCanvas);
+        resizeVisCanvas();
+        
+        // Create a parametric visualization
+        function drawVisualization() {
+            visCtx.clearRect(0, 0, visCanvas.width, visCanvas.height);
+            
+            const width = visCanvas.width;
+            const height = visCanvas.height;
+            const time = Date.now() * 0.001;
+            
+            visCtx.fillStyle = 'rgba(30, 55, 153, 0.05)';
+            
+            // Draw a parametric curve
+            visCtx.beginPath();
+            for (let t = 0; t < Math.PI * 12; t += 0.1) {
+                const x = width / 2 + Math.sin(t + time) * t * 5;
+                const y = height / 2 + Math.cos(t + time * 0.5) * t * 5;
+                
+                if (t === 0) {
+                    visCtx.moveTo(x, y);
+                } else {
+                    visCtx.lineTo(x, y);
+                }
+            }
+            visCtx.stroke();
+            
+            // Draw some circles along the curve
+            for (let t = 0; t < Math.PI * 10; t += 0.5) {
+                const x = width / 2 + Math.sin(t + time) * t * 5;
+                const y = height / 2 + Math.cos(t + time * 0.5) * t * 5;
+                
+                visCtx.beginPath();
+                visCtx.arc(x, y, Math.sin(t * 0.5) * 5 + 5, 0, Math.PI * 2);
+                
+                if (t % 1 < 0.5) {
+                    visCtx.fillStyle = 'rgba(3, 252, 144, 0.2)';
+                } else {
+                    visCtx.fillStyle = 'rgba(252, 3, 248, 0.2)';
+                }
+                visCtx.fill();
+            }
+            
+            requestAnimationFrame(drawVisualization);
+        }
+        
+        drawVisualization();
+        
+        // Simple scroll to functionality
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Bar hover effect
+        document.querySelectorAll('.bar').forEach(bar => {
+            bar.addEventListener('mouseenter', function() {
+                const currentHeight = parseInt(this.style.height);
+                this.style.height = (currentHeight + 10) + '%';
+            });
+            
+            bar.addEventListener('mouseleave', function() {
+                const currentHeight = parseInt(this.style.height);
+                this.style.height = (currentHeight - 10) + '%';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isometric Design Style</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #f8f9fa;
+            --text-color: #212529;
+            --primary: #6246ea;
+            --secondary: #e45858;
+            --tertiary: #2cb67d;
+            --light1: #eff0f3;
+            --light2: #e4e5e9;
+            --dark1: #2a2a2a;
+            --dark2: #555555;
+            --highlight-cyan: #03fc90;
+            --highlight-magenta: #fc03f8;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Space Grotesk', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: linear-gradient(var(--light2) 1px, transparent 1px), 
+                              linear-gradient(90deg, var(--light2) 1px, transparent 1px);
+            background-size: 25px 25px;
+            opacity: 0.5;
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .isometric-element {
+            position: absolute;
+            transform-style: preserve-3d;
+            transform: rotateX(50deg) rotateZ(-40deg);
+        }
+
+        .iso-cube {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            transform-style: preserve-3d;
+        }
+
+        .iso-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .iso-top {
+            transform: translateZ(100px);
+        }
+
+        .iso-front {
+            transform: rotateX(-90deg) translateZ(100px);
+            transform-origin: bottom;
+        }
+
+        .iso-right {
+            transform: rotateY(90deg) translateZ(100px);
+            transform-origin: left;
+        }
+
+        .decoration-1 {
+            top: 10%;
+            right: 15%;
+            z-index: 1;
+        }
+
+        .decoration-1 .iso-top {
+            background-color: rgba(98, 70, 234, 0.2);
+            border: 2px solid var(--primary);
+        }
+
+        .decoration-1 .iso-front {
+            background-color: rgba(98, 70, 234, 0.1);
+            border: 2px solid var(--primary);
+        }
+
+        .decoration-1 .iso-right {
+            background-color: rgba(98, 70, 234, 0.15);
+            border: 2px solid var(--primary);
+        }
+
+        .decoration-2 {
+            bottom: 10%;
+            left: 10%;
+            z-index: 1;
+        }
+
+        .decoration-2 .iso-top {
+            background-color: rgba(44, 182, 125, 0.2);
+            border: 2px solid var(--tertiary);
+        }
+
+        .decoration-2 .iso-front {
+            background-color: rgba(44, 182, 125, 0.1);
+            border: 2px solid var(--tertiary);
+        }
+
+        .decoration-2 .iso-right {
+            background-color: rgba(44, 182, 125, 0.15);
+            border: 2px solid var(--tertiary);
+        }
+
+        .decoration-3 {
+            top: 20%;
+            left: 15%;
+            z-index: 1;
+            transform: rotateX(50deg) rotateZ(-40deg) scale(0.7);
+        }
+
+        .decoration-3 .iso-top {
+            background-color: rgba(228, 88, 88, 0.2);
+            border: 2px solid var(--secondary);
+        }
+
+        .decoration-3 .iso-front {
+            background-color: rgba(228, 88, 88, 0.1);
+            border: 2px solid var(--secondary);
+        }
+
+        .decoration-3 .iso-right {
+            background-color: rgba(228, 88, 88, 0.15);
+            border: 2px solid var(--secondary);
+        }
+
+        .decoration-4 {
+            bottom: 20%;
+            right: 10%;
+            z-index: 1;
+            transform: rotateX(50deg) rotateZ(-40deg) scale(0.6);
+        }
+
+        .decoration-4 .iso-top {
+            background-color: rgba(3, 252, 144, 0.2);
+            border: 2px solid var(--highlight-cyan);
+        }
+
+        .decoration-4 .iso-front {
+            background-color: rgba(3, 252, 144, 0.1);
+            border: 2px solid var(--highlight-cyan);
+        }
+
+        .decoration-4 .iso-right {
+            background-color: rgba(3, 252, 144, 0.15);
+            border: 2px solid var(--highlight-cyan);
+        }
+
+        .isometric-box {
+            width: 500px;
+            height: 300px;
+            position: relative;
+            perspective: 1000px;
+            margin: 0 auto;
+        }
+
+        .iso-scene {
+            transform-style: preserve-3d;
+            transform: rotateX(50deg) rotateZ(-40deg);
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .highlight-cyan {
+            color: var(--highlight-cyan);
+        }
+
+        .highlight-magenta {
+            color: var(--highlight-magenta);
+        }
+
+        .title-container {
+            margin-bottom: 3rem;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .description {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 0;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 5px 5px 0 var(--dark1);
+            transition: all 0.3s ease;
+        }
+
+        .btn::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%);
+            top: 0;
+            left: -100%;
+            transition: all 0.5s ease;
+        }
+
+        .btn:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 3px 3px 0 var(--dark1);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin: 4rem 0;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .stats {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--highlight-magenta);
+            margin-bottom: 0.5rem;
+        }
+
+        .stats-label {
+            font-size: 1.25rem;
+            color: var(--dark2);
+            font-weight: 500;
+        }
+
+        .data-container {
+            perspective: 1000px;
+            margin: 3rem 0;
+        }
+
+        .data-viz {
+            display: flex;
+            align-items: flex-end;
+            height: 200px;
+            transform-style: preserve-3d;
+            transform: rotateX(50deg) rotateZ(-40deg);
+        }
+
+        .bar {
+            flex: 1;
+            margin: 0 5px;
+            background: var(--primary);
+            box-shadow: 
+                inset 0 0 0 2px rgba(255, 255, 255, 0.2),
+                5px 0 0 var(--light2),
+                5px 5px 0 var(--dark1);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .bar:hover {
+            transform: translateY(-10px);
+        }
+
+        .bar:nth-child(even) {
+            background: var(--highlight-magenta);
+        }
+
+        .bar::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .bar::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 5px;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        @media (max-width: 992px) {
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .feature-card {
+            padding: 2rem;
+            background-color: var(--light1);
+            position: relative;
+            box-shadow: 5px 5px 0 var(--dark1);
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: perspective(1000px) rotateX(5deg) rotateY(5deg);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            position: relative;
+        }
+
+        .feature-icon::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .feature-description {
+            font-size: 0.875rem;
+            color: var(--dark2);
+        }
+
+        .isometric-grid {
+            position: relative;
+            perspective: 1000px;
+            width: 100%;
+            height: 300px;
+        }
+
+        .iso-grid {
+            transform-style: preserve-3d;
+            transform: rotateX(50deg) rotateZ(-40deg);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .iso-grid-cell {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: rgba(98, 70, 234, 0.1);
+            border: 1px solid rgba(98, 70, 234, 0.3);
+            transform-style: preserve-3d;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--dark2);
+            opacity: 0.7;
+        }
+
+        .scroll-arrow {
+            margin-top: 0.5rem;
+            font-size: 1.5rem;
+            animation: float 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-bg"></div>
+
+    <div class="isometric-element decoration-1">
+        <div class="iso-cube">
+            <div class="iso-face iso-top"></div>
+            <div class="iso-face iso-front"></div>
+            <div class="iso-face iso-right"></div>
+        </div>
+    </div>
+
+    <div class="isometric-element decoration-2">
+        <div class="iso-cube">
+            <div class="iso-face iso-top"></div>
+            <div class="iso-face iso-front"></div>
+            <div class="iso-face iso-right"></div>
+        </div>
+    </div>
+
+    <div class="isometric-element decoration-3">
+        <div class="iso-cube">
+            <div class="iso-face iso-top"></div>
+            <div class="iso-face iso-front"></div>
+            <div class="iso-face iso-right"></div>
+        </div>
+    </div>
+
+    <div class="isometric-element decoration-4">
+        <div class="iso-cube">
+            <div class="iso-face iso-top"></div>
+            <div class="iso-face iso-front"></div>
+            <div class="iso-face iso-right"></div>
+        </div>
+    </div>
+
+    <section class="section" id="section1">
+        <div class="container">
+            <div class="content-grid">
+                <div>
+                    <div class="title-container">
+                        <div class="subtitle">The Future Is Now</div>
+                        <h1 class="title">科技<span class="highlight-cyan">创新</span></h1>
+                        <p class="description">突破性能边界，<span class="highlight-magenta">颠覆</span>传统思维。INNOVATION WITHOUT LIMITS.</p>
+                    </div>
+                    
+                    <a href="#section2" class="btn">探索更多</a>
+                </div>
+                
+                <div class="isometric-box">
+                    <div class="iso-scene">
+                        <svg width="100%" height="100%" viewBox="0 0 500 300">
+                            <!-- Isometric grid base -->
+                            <path d="M250,50 L50,150 L250,250 L450,150 Z" fill="#f8f9fa" stroke="#e4e5e9" stroke-width="2"/>
+                            
+                            <!-- Isometric graphic elements -->
+                            <path d="M250,50 L150,100 L150,150 L250,200 L350,150 L350,100 Z" fill="rgba(3, 252, 144, 0.2)" stroke="#03fc90" stroke-width="2"/>
+                            <path d="M200,75 L150,100 L200,125 L250,100 Z" fill="rgba(252, 3, 248, 0.2)" stroke="#fc03f8" stroke-width="2"/>
+                            <path d="M300,75 L250,100 L300,125 L350,100 Z" fill="rgba(98, 70, 234, 0.2)" stroke="#6246ea" stroke-width="2"/>
+                            <path d="M200,125 L150,150 L200,175 L250,150 Z" fill="rgba(98, 70, 234, 0.2)" stroke="#6246ea" stroke-width="2"/>
+                            <path d="M300,125 L250,150 L300,175 L350,150 Z" fill="rgba(252, 3, 248, 0.2)" stroke="#fc03f8" stroke-width="2"/>
+                            
+                            <!-- Connecting lines -->
+                            <line x1="250" y1="100" x2="250" y2="150" stroke="#03fc90" stroke-width="2"/>
+                            <line x1="200" y1="125" x2="200" y2="175" stroke="#6246ea" stroke-width="2"/>
+                            <line x1="300" y1="125" x2="300" y2="175" stroke="#fc03f8" stroke-width="2"/>
+                            
+                            <!-- Center circle -->
+                            <circle cx="250" cy="150" r="15" fill="#f8f9fa" stroke="#212529" stroke-width="2"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="scroll-hint">
+                向下滚动
+                <div class="scroll-arrow">↓</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="section2">
+        <div class="container">
+            <div class="title-container">
+                <div class="subtitle">Breakthrough Performance</div>
+                <h1 class="title">性能<span class="highlight-magenta">提升</span></h1>
+                <p class="description">全新架构设计，REVOLUTIONARY TECHNOLOGY 为您带来前所未有的体验。</p>
+            </div>
+            
+            <div class="content-grid">
+                <div>
+                    <div class="stats">200%</div>
+                    <div class="stats-label">性能提升</div>
+                    <p style="margin-top: 1.5rem;">与同类产品相比，我们的技术解决方案提供了显著的性能优势，处理速度提升200%，同时保持能源效率和系统稳定性。</p>
+                    <a href="#section3" class="btn btn-secondary" style="margin-top: 2rem;">了解技术</a>
+                </div>
+                
+                <div class="data-container">
+                    <div class="data-viz">
+                        <div class="bar" style="height: 40%;"></div>
+                        <div class="bar" style="height: 60%;"></div>
+                        <div class="bar" style="height: 80%;"></div>
+                        <div class="bar" style="height: 100%;"></div>
+                        <div class="bar" style="height: 90%;"></div>
+                        <div class="bar" style="height: 120%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="section3">
+        <div class="container">
+            <div class="title-container">
+                <div class="subtitle">Seamless Integration</div>
+                <h1 class="title">智能<span class="highlight-cyan">生态</span></h1>
+                <p class="description">连接一切可能，ECOSYSTEM OF THE FUTURE 打造无缝体验。</p>
+            </div>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3 class="feature-title">移动设备</h3>
+                    <p class="feature-description">随时随地连接世界，智能同步数据，提供流畅的移动体验。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💻</div>
+                    <h3 class="feature-title">电脑</h3>
+                    <p class="feature-description">强大的计算能力，专业级处理性能，满足各种复杂工作需求。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3 class="feature-title">互联网</h3>
+                    <p class="feature-description">开放的云端平台，全球数据连接，安全可靠的信息交换。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎮</div>
+                    <h3 class="feature-title">游戏</h3>
+                    <p class="feature-description">沉浸式游戏体验，高清晰度图像渲染，低延迟反应系统。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🏠</div>
+                    <h3 class="feature-title">家居</h3>
+                    <p class="feature-description">智能家居控制系统，环境调节优化，提升居住舒适度。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🚗</div>
+                    <h3 class="feature-title">出行</h3>
+                    <p class="feature-description">智能导航系统，实时路况分析，自动驾驶辅助功能。</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="#section1" class="btn">立即体验</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Simple scroll to functionality
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Add parallax effect to isometric elements
+        document.addEventListener('mousemove', function(e) {
+            const decorations = document.querySelectorAll('.isometric-element');
+            
+            decorations.forEach((decoration, index) => {
+                const depth = index + 1;
+                const moveX = (e.clientX - window.innerWidth / 2) / (10 * depth);
+                const moveY = (e.clientY - window.innerHeight / 2) / (10 * depth);
+                
+                decoration.style.transform = `rotateX(50deg) rotateZ(-40deg) translate(${moveX}px, ${moveY}px)`;
+            });
+        });
+    </script>
+</body>
+</html>

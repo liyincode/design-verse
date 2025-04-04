@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bauhaus Design Style</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #000000;
+            --primary-red: #e73213;
+            --primary-yellow: #f8d92a;
+            --primary-blue: #234b9b;
+            --highlight-cyan: #03fc90;
+            --highlight-magenta: #fc03f8;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-weight: 300;
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Typography */
+        .title-area {
+            margin-bottom: 3rem;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            color: var(--primary-red);
+        }
+
+        .title {
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+
+        .highlight-cyan {
+            color: var(--highlight-cyan);
+        }
+
+        .highlight-magenta {
+            color: var(--highlight-magenta);
+        }
+
+        .description {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        /* Bauhaus Elements */
+        .bauhaus-element {
+            position: absolute;
+            z-index: 1;
+        }
+
+        .red-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: var(--primary-red);
+            top: 10%;
+            right: 10%;
+        }
+
+        .yellow-square {
+            width: 150px;
+            height: 150px;
+            background-color: var(--primary-yellow);
+            bottom: 15%;
+            left: 10%;
+        }
+
+        .blue-rectangle {
+            width: 100px;
+            height: 300px;
+            background-color: var(--primary-blue);
+            top: 30%;
+            left: 15%;
+        }
+
+        .grid-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.05;
+        }
+
+        .vertical-lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: repeating-linear-gradient(
+                to right,
+                var(--text-color),
+                var(--text-color) 1px,
+                transparent 1px,
+                transparent 50px
+            );
+        }
+
+        .horizontal-lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: repeating-linear-gradient(
+                to bottom,
+                var(--text-color),
+                var(--text-color) 1px,
+                transparent 1px,
+                transparent 50px
+            );
+        }
+
+        /* Button Styles */
+        .bauhaus-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            text-decoration: none;
+            position: relative;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+        }
+
+        .bauhaus-button:hover {
+            background-color: var(--primary-red);
+        }
+
+        .bauhaus-button::after {
+            content: "";
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: var(--primary-yellow);
+            bottom: -5px;
+            right: -5px;
+            z-index: -1;
+        }
+
+        .button-blue {
+            background-color: var(--primary-blue);
+        }
+
+        .button-blue::after {
+            background-color: var(--primary-red);
+        }
+
+        /* Layout Grids */
+        .bauhaus-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .bauhaus-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        /* Stats Section */
+        .stats-container {
+            position: relative;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stats-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--primary-yellow);
+            z-index: -1;
+            transform: rotate(2deg);
+        }
+
+        .stats-number {
+            font-size: 6rem;
+            font-weight: 700;
+            line-height: 1;
+            color: var(--highlight-magenta);
+        }
+
+        .stats-label {
+            font-size: 1.25rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Data Visualization */
+        .data-viz-container {
+            position: relative;
+            margin: 3rem 0;
+            padding: 2rem 0;
+            overflow: hidden;
+        }
+
+        .data-viz-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .data-viz {
+            height: 250px;
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+        }
+
+        .bar {
+            flex: 1;
+            background-color: var(--primary-blue);
+            transition: height 0.3s ease;
+        }
+
+        .bar:nth-child(even) {
+            background-color: var(--primary-red);
+        }
+
+        .bar:nth-child(3n) {
+            background-color: var(--primary-yellow);
+        }
+
+        /* Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        @media (max-width: 992px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .feature-card {
+            position: relative;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            background-color: var(--bg-color);
+        }
+
+        .feature-card::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            transform: rotate(1deg);
+        }
+
+        .feature-card:nth-child(1)::before {
+            background-color: var(--primary-red);
+        }
+
+        .feature-card:nth-child(2)::before {
+            background-color: var(--primary-blue);
+        }
+
+        .feature-card:nth-child(3)::before {
+            background-color: var(--primary-yellow);
+        }
+
+        .feature-card:nth-child(4)::before {
+            background-color: var(--primary-yellow);
+        }
+
+        .feature-card:nth-child(5)::before {
+            background-color: var(--primary-red);
+        }
+
+        .feature-card:nth-child(6)::before {
+            background-color: var(--primary-blue);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .feature-text {
+            font-size: 0.95rem;
+        }
+
+        /* Visual Elements */
+        .bauhaus-visual {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            margin: 2rem 0;
+        }
+
+        .visual-element {
+            position: absolute;
+        }
+
+        .visual-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 10px solid var(--primary-blue);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .visual-rectangle-1 {
+            width: 300px;
+            height: 50px;
+            background-color: var(--primary-red);
+            top: 20%;
+            left: 20%;
+        }
+
+        .visual-rectangle-2 {
+            width: 50px;
+            height: 250px;
+            background-color: var(--primary-yellow);
+            bottom: 10%;
+            right: 25%;
+        }
+
+        .visual-square {
+            width: 80px;
+            height: 80px;
+            background-color: var(--primary-blue);
+            bottom: 15%;
+            left: 30%;
+        }
+
+        /* Responsive Typography */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 3rem;
+            }
+            
+            .description {
+                font-size: 1rem;
+            }
+            
+            .stats-number {
+                font-size: 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-lines">
+        <div class="vertical-lines"></div>
+        <div class="horizontal-lines"></div>
+    </div>
+
+    <section class="section" id="section1">
+        <div class="bauhaus-element red-circle"></div>
+        <div class="bauhaus-element yellow-square"></div>
+        
+        <div class="container">
+            <div class="bauhaus-grid">
+                <div>
+                    <div class="title-area">
+                        <div class="subtitle">The Future Is Now</div>
+                        <h1 class="title">科技<span class="highlight-cyan">创新</span></h1>
+                        <p class="description">突破性能边界，<span class="highlight-magenta">颠覆</span>传统思维。INNOVATION WITHOUT LIMITS.</p>
+                    </div>
+                    
+                    <a href="#section2" class="bauhaus-button">探索更多</a>
+                </div>
+                
+                <div class="bauhaus-visual">
+                    <div class="visual-element visual-circle"></div>
+                    <div class="visual-element visual-rectangle-1"></div>
+                    <div class="visual-element visual-rectangle-2"></div>
+                    <div class="visual-element visual-square"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="section2">
+        <div class="bauhaus-element blue-rectangle"></div>
+        <div class="bauhaus-element red-circle" style="right: auto; left: 70%; top: 65%; width: 150px; height: 150px;"></div>
+        
+        <div class="container">
+            <div class="title-area">
+                <div class="subtitle">Breakthrough Performance</div>
+                <h1 class="title">性能<span class="highlight-magenta">提升</span></h1>
+                <p class="description">全新架构设计，REVOLUTIONARY TECHNOLOGY 为您带来前所未有的体验。</p>
+            </div>
+            
+            <div class="bauhaus-grid">
+                <div>
+                    <div class="stats-container">
+                        <div class="stats-number">200%</div>
+                        <div class="stats-label">性能提升</div>
+                    </div>
+                    
+                    <p>我们的技术方案通过优化算法和硬件架构，实现了显著的性能提升，同时保持系统的稳定性和可靠性。</p>
+                    
+                    <a href="#section3" class="bauhaus-button button-blue" style="margin-top: 2rem;">了解技术</a>
+                </div>
+                
+                <div>
+                    <div class="data-viz-container">
+                        <div class="data-viz-title">Performance Metrics</div>
+                        <div class="data-viz">
+                            <div class="bar" style="height: 40%;"></div>
+                            <div class="bar" style="height: 60%;"></div>
+                            <div class="bar" style="height: 80%;"></div>
+                            <div class="bar" style="height: 100%;"></div>
+                            <div class="bar" style="height: 90%;"></div>
+                            <div class="bar" style="height: 120%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="section3">
+        <div class="bauhaus-element yellow-square" style="left: auto; right: 15%; top: 15%; width: 120px; height: 120px;"></div>
+        <div class="bauhaus-element blue-rectangle" style="left: auto; right: 25%; top: 45%; width: 80px; height: 250px;"></div>
+        
+        <div class="container">
+            <div class="title-area">
+                <div class="subtitle">Seamless Integration</div>
+                <h1 class="title">智能<span class="highlight-cyan">生态</span></h1>
+                <p class="description">连接一切可能，ECOSYSTEM OF THE FUTURE 打造无缝体验。</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3 class="feature-title">移动设备</h3>
+                    <p class="feature-text">随时随地，无缝连接各种设备，数据智能同步，提供流畅体验。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💻</div>
+                    <h3 class="feature-title">电脑</h3>
+                    <p class="feature-text">强大的计算能力，处理复杂任务，支持专业创作和工作需求。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3 class="feature-title">互联网</h3>
+                    <p class="feature-text">全球连接，云端协同，安全数据传输，高速访问网络资源。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎮</div>
+                    <h3 class="feature-title">游戏</h3>
+                    <p class="feature-text">沉浸式体验，高清画质，流畅帧率，先进游戏技术。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🏠</div>
+                    <h3 class="feature-title">家居</h3>
+                    <p class="feature-text">智能家居控制，自动环境调节，安全监控系统，语音操作。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🚗</div>
+                    <h3 class="feature-title">出行</h3>
+                    <p class="feature-text">智能导航，实时路况，自动驾驶辅助，便捷出行服务。</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="#section1" class="bauhaus-button">立即体验</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Simple scroll to functionality
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Bar hover effect
+        document.querySelectorAll('.bar').forEach(bar => {
+            bar.addEventListener('mouseenter', function() {
+                const currentHeight = parseInt(this.style.height);
+                this.style.height = (currentHeight + 10) + '%';
+            });
+            
+            bar.addEventListener('mouseleave', function() {
+                const currentHeight = parseInt(this.style.height);
+                this.style.height = (currentHeight - 10) + '%';
+            });
+        });
+    </script>
+</body>
+</html>

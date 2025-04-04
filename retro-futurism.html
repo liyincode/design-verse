@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retro Futurism | 复古未来主义</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Orbitron:wght@400;500;700;900&display=swap');
+        
+        :root {
+            --bg-dark: #0a0a0f;
+            --primary: #ff2975;
+            --secondary: #2bfbff;
+            --accent: #ffe14d;
+            --purple: #8f00ff;
+            --grid-color: rgba(43, 251, 255, 0.2);
+            --text-light: #ffffff;
+            --text-dark: #0a0a0f;
+            --grad-pink: linear-gradient(135deg, #ff2975, #ff71c5);
+            --grad-blue: linear-gradient(135deg, #2bfbff, #2b91ff);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: 'Space Mono', monospace;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Retro Grid Background */
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            perspective: 1000px;
+            perspective-origin: center bottom;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .grid-floor {
+            position: absolute;
+            width: 400%;
+            height: 100%;
+            bottom: -80%;
+            left: -150%;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--grid-color),
+                var(--grid-color) 1px,
+                transparent 1px,
+                transparent 50px
+            ),
+            repeating-linear-gradient(
+                180deg,
+                var(--grid-color),
+                var(--grid-color) 1px,
+                transparent 1px,
+                transparent 50px
+            );
+            transform: rotateX(75deg);
+            transform-style: preserve-3d;
+            animation: gridMove 20s linear infinite;
+        }
+        
+        @keyframes gridMove {
+            0% {
+                transform: rotateX(75deg) translateY(0%);
+            }
+            100% {
+                transform: rotateX(75deg) translateY(50%);
+            }
+        }
+        
+        .sun {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            bottom: -150px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(to top, var(--primary), var(--accent));
+            border-radius: 50%;
+            box-shadow: 0 0 70px var(--primary), 0 0 120px var(--primary);
+            opacity: 0.7;
+            z-index: -2;
+        }
+        
+        .sun::before {
+            content: '';
+            position: absolute;
+            width: 330px;
+            height: 20px;
+            background: var(--primary);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 10px;
+            box-shadow: 0 0 20px var(--primary);
+            opacity: 0.6;
+        }
+        
+        .sun::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 330px;
+            background: var(--primary);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 10px;
+            box-shadow: 0 0 20px var(--primary);
+            opacity: 0.6;
+        }
+        
+        .mountains {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            z-index: -1;
+        }
+        
+        .mountain {
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            filter: drop-shadow(0 0 20px rgba(43, 251, 255, 0.3));
+        }
+        
+        .mountain:nth-child(1) {
+            left: 10%;
+            border-width: 0 150px 200px 150px;
+            border-color: transparent transparent #1a1a2e transparent;
+        }
+        
+        .mountain:nth-child(2) {
+            left: 30%;
+            border-width: 0 200px 250px 200px;
+            border-color: transparent transparent #1a1a2e transparent;
+        }
+        
+        .mountain:nth-child(3) {
+            right: 20%;
+            border-width: 0 180px 220px 180px;
+            border-color: transparent transparent #1a1a2e transparent;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            padding: 1.5rem 0;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--secondary);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 1.8rem;
+            color: var(--text-light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--primary);
+        }
+        
+        .logo::after {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 20px;
+            background-color: var(--primary);
+            margin-left: 10px;
+            animation: cursorBlink 1s infinite steps(1);
+        }
+        
+        @keyframes cursorBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 700;
+            padding: 0.5rem 1rem;
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
+        
+        .nav-links a:hover::before, .nav-links a.active::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        /* Section */
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 8rem 0;
+            overflow: hidden;
+        }
+        
+        .section-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 5rem;
+        }
+        
+        .text-content {
+            flex: 1;
+        }
+        
+        .visual-content {
+            flex: 1;
+        }
+        
+        .glitch-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+            text-shadow: 
+                2px 2px 0 var(--primary),
+                -2px -2px 0 var(--secondary);
+            position: relative;
+            animation: textShadowPulse 2s infinite alternate;
+        }
+        
+        @keyframes textShadowPulse {
+            0% {
+                text-shadow: 
+                    2px 2px 0 var(--primary),
+                    -2px -2px 0 var(--secondary);
+            }
+            100% {
+                text-shadow: 
+                    4px 4px 0 var(--primary),
+                    -4px -4px 0 var(--secondary);
+            }
+        }
+        
+        .glitch-title::before,
+        .glitch-title::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+        
+        .glitch-title::before {
+            color: var(--primary);
+            z-index: -1;
+            animation: glitch-animation-1 5s infinite linear alternate-reverse;
+        }
+        
+        .glitch-title::after {
+            color: var(--secondary);
+            z-index: -2;
+            animation: glitch-animation-2 3s infinite linear alternate-reverse;
+        }
+        
+        @keyframes glitch-animation-1 {
+            0%, 100% { transform: none; }
+            10% { transform: translate(-2px, 1px); }
+            20% { transform: translate(2px, -1px); }
+            30% { transform: translate(-1px, -2px); }
+            40% { transform: translate(1px, 2px); }
+            50% { transform: translate(-1px, 1px); }
+            60% { transform: translate(1px, -1px); }
+            70% { transform: translate(-1px, -1px); }
+            80% { transform: translate(1px, 1px); }
+            90% { transform: translate(-1px, 2px); }
+        }
+        
+        @keyframes glitch-animation-2 {
+            0%, 100% { transform: none; }
+            10% { transform: translate(2px, -1px); }
+            20% { transform: translate(-2px, 1px); }
+            30% { transform: translate(1px, 2px); }
+            40% { transform: translate(-1px, -2px); }
+            50% { transform: translate(1px, -1px); }
+            60% { transform: translate(-1px, 1px); }
+            70% { transform: translate(1px, 1px); }
+            80% { transform: translate(-1px, -1px); }
+            90% { transform: translate(2px, -1px); }
+        }
+        
+        .subtitle {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            max-width: 600px;
+        }
+        
+        .highlight-text {
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .highlight-text-cyan {
+            color: var(--secondary);
+            font-weight: 700;
+        }
+        
+        /* Buttons */
+        .retro-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border: 2px solid var(--primary);
+            background-color: transparent;
+            color: var(--primary);
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            text-decoration: none;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: all 0.3s;
+        }
+        
+        .retro-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background-color: var(--primary);
+            z-index: -1;
+            transition: width 0.3s;
+        }
+        
+        .retro-button:hover {
+            color: var(--text-dark);
+        }
+        
+        .retro-button:hover::before {
+            width: 100%;
+        }
+        
+        .retro-button.cyan {
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+        
+        .retro-button.cyan::before {
+            background-color: var(--secondary);
+        }
+        
+        /* Visual Elements */
+        .retro-computer {
+            position: relative;
+            width: 400px;
+            height: 300px;
+            margin: 0 auto;
+            perspective: 1000px;
+        }
+        
+        .monitor {
+            width: 100%;
+            height: 240px;
+            background-color: #1e1e2d;
+            border: 8px solid #2a2a3a;
+            border-radius: 10px;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateY(-20deg) rotateX(5deg);
+            box-shadow: 
+                0 20px 30px rgba(0, 0, 0, 0.4),
+                inset 0 2px 10px rgba(255, 255, 255, 0.1);
+        }
+        
+        .screen {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            background-color: #000;
+            overflow: hidden;
+        }
+        
+        .scanline {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                transparent,
+                transparent 50%,
+                rgba(0, 0, 0, 0.3) 50%,
+                rgba(0, 0, 0, 0.3)
+            );
+            background-size: 100% 4px;
+            z-index: 2;
+        }
+        
+        .screen-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            z-index: 1;
+            color: var(--secondary);
+            font-family: 'Space Mono', monospace;
+            text-align: center;
+        }
+        
+        .screen-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(43, 251, 255, 0.1) 0%, rgba(0, 0, 0, 0.5) 100%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .screen-text {
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        
+        .keyboard {
+            width: 340px;
+            height: 30px;
+            background-color: #2a2a3a;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 5px 5px 10px 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Data visualization */
+        .retro-bars {
+            display: flex;
+            gap: 10px;
+            height: 240px;
+            align-items: flex-end;
+            margin-top: 2rem;
+        }
+        
+        .retro-bar {
+            flex: 1;
+            background: linear-gradient(to top, var(--primary), transparent);
+            border: 2px solid var(--primary);
+            position: relative;
+            transform-style: preserve-3d;
+            transform: perspective(1000px) rotateY(-20deg) rotateX(5deg);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transition: height 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            height: 0;
+        }
+        
+        .retro-bar:nth-child(even) {
+            background: linear-gradient(to top, var(--secondary), transparent);
+            border-color: var(--secondary);
+        }
+        
+        .section-active .retro-bar:nth-child(1) {
+            height: 40%;
+            transition-delay: 0.1s;
+        }
+        
+        .section-active .retro-bar:nth-child(2) {
+            height: 60%;
+            transition-delay: 0.2s;
+        }
+        
+        .section-active .retro-bar:nth-child(3) {
+            height: 80%;
+            transition-delay: 0.3s;
+        }
+        
+        .section-active .retro-bar:nth-child(4) {
+            height: 100%;
+            transition-delay: 0.4s;
+        }
+        
+        .section-active .retro-bar:nth-child(5) {
+            height: 90%;
+            transition-delay: 0.5s;
+        }
+        
+        .retro-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent,
+                transparent 4px,
+                rgba(255, 255, 255, 0.1) 4px,
+                rgba(255, 255, 255, 0.1) 8px
+            );
+        }
+        
+        /* Hologram */
+        .hologram {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+        }
+        
+        .holo-base {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 20px;
+            background: linear-gradient(to right, var(--dark), var(--secondary), var(--dark));
+            border-radius: 50%;
+            box-shadow: 0 0 30px var(--secondary);
+        }
+        
+        .holo-projection {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 250px;
+            background: linear-gradient(to top, var(--secondary), transparent);
+            border-radius: 50% 50% 0 0;
+            opacity: 0.3;
+            animation: holoPulse 4s infinite ease-in-out;
+        }
+        
+        @keyframes holoPulse {
+            0%, 100% { opacity: 0.3; width: 100px; }
+            50% { opacity: 0.5; width: 120px; }
+        }
+        
+        .holo-grid {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 240px;
+            background: 
+                linear-gradient(to bottom, transparent, var(--secondary)),
+                repeating-linear-gradient(
+                    to bottom,
+                    transparent,
+                    transparent 10px,
+                    rgba(43, 251, 255, 0.3) 10px,
+                    rgba(43, 251, 255, 0.3) 11px
+                ),
+                repeating-linear-gradient(
+                    to right,
+                    transparent,
+                    transparent 10px,
+                    rgba(43, 251, 255, 0.3) 10px,
+                    rgba(43, 251, 255, 0.3) 11px
+                );
+            border-radius: 100% 100% 0 0;
+            opacity: 0.5;
+        }
+        
+        .holo-planet {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, var(--secondary), var(--purple));
+            box-shadow: 0 0 30px var(--secondary);
+            opacity: 0.7;
+        }
+        
+        .holo-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotateX(70deg);
+            width: 120px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 10px var(--primary);
+            opacity: 0.7;
+        }
+        
+        .holo-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.3;
+            animation: holoLinesAnimation 6s infinite linear;
+        }
+        
+        @keyframes holoLinesAnimation {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-20px); }
+        }
+        
+        .holo-line {
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            background-color: var(--secondary);
+        }
+        
+        .holo-line:nth-child(1) { top: 20%; }
+        .holo-line:nth-child(2) { top: 40%; }
+        .holo-line:nth-child(3) { top: 60%; }
+        .holo-line:nth-child(4) { top: 80%; }
+        
+        /* Animation Controls */
+        .text-content, .visual-content {
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 1s ease-out;
+        }
+        
+        .section-active .text-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .section-active .visual-content {
+            transform: translateY(0);
+            opacity: 1;
+            transition-delay: 0.3s;
+        }
+        
+        /* Responsive */
+        @media (max-width: 991px) {
+            .section-content {
+                flex-direction: column;
+                gap: 3rem;
+            }
+            
+            .glitch-title {
+                font-size: 3.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .retro-computer, .hologram {
+                transform: scale(0.8);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-bg">
+        <div class="grid-floor"></div>
+        <div class="sun"></div>
+        <div class="mountains">
+            <div class="mountain"></div>
+            <div class="mountain"></div>
+            <div class="mountain"></div>
+        </div>
+    </div>
+    
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">RETRO<span>FUTURE</span></a>
+            <div class="nav-links">
+                <a href="#section1" class="active">未来现在</a>
+                <a href="#section2">性能突破</a>
+                <a href="#section3">智能生态</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <section id="section1">
+            <div class="section-content">
+                <div class="text-content">
+                    <div class="subtitle">THE FUTURE IS NOW</div>
+                    <h1 class="glitch-title" data-text="科技创新">科技创新</h1>
+                    <p class="description">突破性能边界，<span class="highlight-text">颠覆</span>传统思维。复古未来主义设计展现了过去对未来的无限想象，INNOVATION WITHOUT LIMITS.</p>
+                    <a href="#section2" class="retro-button">探索更多</a>
+                </div>
+                
+                <div class="visual-content">
+                    <div class="retro-computer">
+                        <div class="monitor">
+                            <div class="screen">
+                                <div class="scanline"></div>
+                                <div class="screen-content">
+                                    <div class="screen-text">INITIALIZING SYSTEM</div>
+                                    <div class="screen-text">FUTURE OS V2.0</div>
+                                    <div class="screen-text">> WELCOME TO TOMORROW</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="keyboard"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="section2">
+            <div class="section-content">
+                <div class="visual-content">
+                    <div class="retro-bars">
+                        <div class="retro-bar"></div>
+                        <div class="retro-bar"></div>
+                        <div class="retro-bar"></div>
+                        <div class="retro-bar"></div>
+                        <div class="retro-bar"></div>
+                    </div>
+                </div>
+                
+                <div class="text-content">
+                    <div class="subtitle">BREAKTHROUGH PERFORMANCE</div>
+                    <h1 class="glitch-title" data-text="200%性能提升">200%性能提升</h1>
+                    <p class="description">全新架构设计，<span class="highlight-text-cyan">REVOLUTIONARY TECHNOLOGY</span> 为您带来前所未有的体验。复古科幻的视觉语言，呈现高速未来。</p>
+                    <a href="#section3" class="retro-button cyan">了解技术</a>
+                </div>
+            </div>
+        </section>
+        
+        <section id="section3">
+            <div class="section-content">
+                <div class="text-content">
+                    <div class="subtitle">SEAMLESS INTEGRATION</div>
+                    <h1 class="glitch-title" data-text="智能生态">智能生态</h1>
+                    <p class="description">连接一切可能，<span class="highlight-text-cyan">ECOSYSTEM OF THE FUTURE</span> 打造无缝体验。全息投影技术将现实与虚拟完美融合，开启未来智联新纪元。</p>
+                    <a href="#section1" class="retro-button">立即体验</a>
+                </div>
+                
+                <div class="visual-content">
+                    <div class="hologram">
+                        <div class="holo-base"></div>
+                        <div class="holo-projection"></div>
+                        <div class="holo-grid"></div>
+                        <div class="holo-planet"></div>
+                        <div class="holo-ring"></div>
+                        <div class="holo-lines">
+                            <div class="holo-line"></div>
+                            <div class="holo-line"></div>
+                            <div class="holo-line"></div>
+                            <div class="holo-line"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <script>
+        // Intersection Observer for animations
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-links a');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('section-active');
+                    
+                    // Update active nav link
+                    navLinks.forEach(link => {
+                        if (link.getAttribute('href') === '#' + entry.target.id) {
+                            link.classList.add('active');
+                        } else {
+                            link.classList.remove('active');
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.3 });
+        
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetSection = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetSection.offsetTop,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

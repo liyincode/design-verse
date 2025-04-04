@@ -33,7 +33,6 @@ DesignVerse 是一个展示当代网页设计风格的项目。浏览不同的�
 1. 访问 [liyincode.github.io/design-verse](https://liyincode.github.io/design-verse/)
 2. 点击任意卡片右下角的"复制Prompt"按钮，复制该设计风格的提示文本
 3. 将复制的提示文本粘贴到Claude、DeepSeek等AI工具中并回车
-4. 或者，您可以在本仓库的 [prompt.md](prompt.md) 文件中找到所有设计风格的提示文本
 
 ## 授权
 

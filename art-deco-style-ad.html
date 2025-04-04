@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Deco Design Style</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poiret+One&family=Raleway:wght@300;400;600;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #f0ead6;
+            --text-color: #222222;
+            --primary: #b89c50;
+            --secondary: #2a4b7c;
+            --accent: #d35c37;
+            --dark: #1f1e1c;
+            --light: #f7f5f0;
+            --highlight-cyan: #03fc90;
+            --highlight-magenta: #fc03f8;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Raleway', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Art Deco Background Patterns */
+        .art-deco-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+        }
+
+        .geometric-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at center, var(--primary) 2px, transparent 2px),
+                radial-gradient(circle at center, var(--primary) 2px, transparent 2px);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+        }
+
+        .zigzag-pattern {
+            position: absolute;
+            width: 100%;
+            height: 50px;
+            bottom: 0;
+            left: 0;
+            background: 
+                linear-gradient(135deg, var(--primary) 25%, transparent 25%) -10px 0,
+                linear-gradient(225deg, var(--primary) 25%, transparent 25%) -10px 0,
+                linear-gradient(315deg, var(--primary) 25%, transparent 25%),
+                linear-gradient(45deg, var(--primary) 25%, transparent 25%);
+            background-size: 20px 20px;
+            background-color: transparent;
+        }
+
+        .sunburst {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 400px;
+            height: 400px;
+            opacity: 0.1;
+            background-image: 
+                repeating-conic-gradient(var(--primary) 0deg, var(--primary) 10deg, transparent 10deg, transparent 20deg);
+            border-radius: 50% 0 0 0;
+        }
+
+        /* Typography */
+        .title-group {
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .subtitle {
+            font-family: 'Raleway', sans-serif;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .subtitle::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: var(--primary);
+        }
+
+        .title {
+            font-family: 'Poiret One', cursive;
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            position: relative;
+            color: var(--dark);
+            letter-spacing: 2px;
+            font-weight: normal;
+        }
+
+        .highlight-cyan {
+            color: var(--highlight-cyan);
+        }
+
+        .highlight-magenta {
+            color: var(--highlight-magenta);
+        }
+
+        .description {
+            font-size: 1.25rem;
+            font-weight: 300;
+            max-width: 600px;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        /* Art Deco Decorative Elements */
+        .deco-divider {
+            position: relative;
+            height: 30px;
+            width: 100%;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .deco-divider::before {
+            content: "✧";
+            font-size: 1.5rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            background: var(--bg-color);
+            padding: 0 15px;
+            z-index: 1;
+        }
+
+        .deco-divider::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--primary);
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+
+        .deco-frame {
+            border: 1px solid var(--primary);
+            padding: 2rem;
+            position: relative;
+        }
+
+        .deco-frame::before,
+        .deco-frame::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 1px solid var(--primary);
+            z-index: 1;
+        }
+
+        .deco-frame::before {
+            top: -10px;
+            left: -10px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .deco-frame::after {
+            bottom: -10px;
+            right: -10px;
+            border-left: none;
+            border-top: none;
+        }
+
+        /* Button Styles */
+        .deco-button {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background-color: var(--primary);
+            color: var(--light);
+            font-family: 'Raleway', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+
+        .deco-button::before,
+        .deco-button::after {
+            content: "";
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .deco-button::before {
+            top: 5px;
+            left: 5px;
+            border-top: 1px solid var(--light);
+            border-left: 1px solid var(--light);
+        }
+
+        .deco-button::after {
+            bottom: 5px;
+            right: 5px;
+            border-bottom: 1px solid var(--light);
+            border-right: 1px solid var(--light);
+        }
+
+        .deco-button:hover {
+            background-color: var(--dark);
+        }
+
+        .deco-button:hover::before,
+        .deco-button:hover::after {
+            width: 15px;
+            height: 15px;
+        }
+
+        .deco-button-secondary {
+            background-color: var(--secondary);
+        }
+
+        /* Layout Grid */
+        .deco-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .deco-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        /* Stats Section */
+        .stats-container {
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .stats-number {
+            font-family: 'Poiret One', cursive;
+            font-size: 6rem;
+            line-height: 1;
+            color: var(--highlight-magenta);
+            position: relative;
+            display: inline-block;
+        }
+
+        .stats-number::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+        }
+
+        .stats-label {
+            font-size: 1.25rem;
+            color: var(--dark);
+            margin-top: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Data Visualization */
+        .data-viz-container {
+            border: 1px solid var(--primary);
+            padding: 2rem;
+            background-color: var(--light);
+            position: relative;
+            margin: 3rem 0;
+        }
+
+        .data-viz-container::before,
+        .data-viz-container::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+        }
+
+        .data-viz-container::before {
+            top: -10px;
+            left: -10px;
+            border-top: 2px solid var(--primary);
+            border-left: 2px solid var(--primary);
+        }
+
+        .data-viz-container::after {
+            bottom: -10px;
+            right: -10px;
+            border-bottom: 2px solid var(--primary);
+            border-right: 2px solid var(--primary);
+        }
+
+        .data-viz-title {
+            text-align: center;
+            font-family: 'Poiret One', cursive;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--dark);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .data-viz {
+            height: 200px;
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+        }
+
+        .bar {
+            flex: 1;
+            background: linear-gradient(to top, var(--primary), var(--highlight-cyan));
+            transition: height 0.3s ease;
+            position: relative;
+        }
+
+        .bar::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: var(--light);
+            opacity: 0.3;
+        }
+
+        .bar:nth-child(even) {
+            background: linear-gradient(to top, var(--secondary), var(--highlight-magenta));
+        }
+
+        /* Feature Cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        @media (max-width: 992px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .feature-card {
+            background-color: var(--light);
+            border: 1px solid var(--primary);
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .feature-title {
+            font-family: 'Poiret One', cursive;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+        }
+
+        .feature-title::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+
+        .feature-text {
+            color: var(--text-color);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Decorative Elements */
+        .deco-fan {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .fan-top-right {
+            top: 0;
+            right: 0;
+            transform: rotate(90deg);
+        }
+
+        .fan-bottom-left {
+            bottom: 0;
+            left: 0;
+            transform: rotate(-90deg);
+        }
+
+        /* Responsive typography */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 3rem;
+            }
+            
+            .description {
+                font-size: 1rem;
+            }
+            
+            .stats-number {
+                font-size: 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="art-deco-bg">
+        <div class="geometric-pattern"></div>
+        <div class="sunburst"></div>
+    </div>
+
+    <section class="section" id="section1">
+        <div class="zigzag-pattern"></div>
+        <div class="deco-fan fan-top-right">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path d="M100,0 L200,100 L100,200 L0,100 Z" fill="#b89c50"/>
+            </svg>
+        </div>
+        <div class="deco-fan fan-bottom-left">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path d="M100,0 L200,100 L100,200 L0,100 Z" fill="#2a4b7c"/>
+            </svg>
+        </div>
+        
+        <div class="container">
+            <div class="deco-grid">
+                <div>
+                    <div class="title-group">
+                        <div class="subtitle">The Future Is Now</div>
+                        <h1 class="title">科技<span class="highlight-cyan">创新</span></h1>
+                        <p class="description">突破性能边界，<span class="highlight-magenta">颠覆</span>传统思维。INNOVATION WITHOUT LIMITS.</p>
+                    </div>
+                    
+                    <div>
+                        <a href="#section2" class="deco-button">探索更多</a>
+                    </div>
+                </div>
+                
+                <div class="deco-frame">
+                    <svg width="100%" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="sunburstGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#b89c50;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#d35c37;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        
+                        <!-- Art Deco Sun Design -->
+                        <circle cx="200" cy="150" r="80" fill="none" stroke="#b89c50" stroke-width="2"/>
+                        <circle cx="200" cy="150" r="60" fill="none" stroke="#b89c50" stroke-width="2"/>
+                        
+                        <!-- Sun Rays -->
+                        <line x1="200" y1="40" x2="200" y2="70" stroke="#b89c50" stroke-width="2"/>
+                        <line x1="200" y1="230" x2="200" y2="260" stroke="#b89c50" stroke-width="2"/>
+                        <line x1="90" y1="150" x2="120" y2="150" stroke="#b89c50" stroke-width="2"/>
+                        <line x1="280" y1="150" x2="310" y2="150" stroke="#b89c50" stroke-width="2"/>
+                        
+                        <line x1="130" y1="80" x2="150" y2="100" stroke="#b89c50" stroke-width="2"/>
+                        <line x1="250" y1="200" x2="270" y2="220" stroke="#b89c50" stroke-width="2"/>
+                        <line x1="130" y1="220" x2="150" y2="200" stroke="#b89c50" stroke-width="2"/>
+                        <line x1="250" y1="100" x2="270" y2="80" stroke="#b89c50" stroke-width="2"/>
+                        
+                        <!-- Decorative Elements -->
+                        <path d="M200,90 L230,150 L200,210 L170,150 Z" fill="none" stroke="#b89c50" stroke-width="2"/>
+                        <circle cx="200" cy="150" r="20" fill="none" stroke="#b89c50" stroke-width="2"/>
+                        
+                        <!-- Art Deco Triangular Pattern -->
+                        <path d="M160,130 L180,170 L140,170 Z" fill="none" stroke="#b89c50" stroke-width="1"/>
+                        <path d="M240,130 L260,170 L220,170 Z" fill="none" stroke="#b89c50" stroke-width="1"/>
+                        <path d="M180,110 L220,110 L200,150 Z" fill="none" stroke="#b89c50" stroke-width="1"/>
+                        <path d="M180,190 L220,190 L200,150 Z" fill="none" stroke="#b89c50" stroke-width="1"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="deco-divider"></div>
+
+    <section class="section" id="section2">
+        <div class="zigzag-pattern"></div>
+        <div class="deco-fan fan-top-right">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path d="M100,0 L200,100 L100,200 L0,100 Z" fill="#d35c37"/>
+            </svg>
+        </div>
+        
+        <div class="container">
+            <div class="title-group">
+                <div class="subtitle">Breakthrough Performance</div>
+                <h1 class="title">性能<span class="highlight-magenta">提升</span></h1>
+                <p class="description">全新架构设计，REVOLUTIONARY TECHNOLOGY 为您带来前所未有的体验。</p>
+            </div>
+            
+            <div class="deco-grid">
+                <div>
+                    <div class="stats-container">
+                        <div class="stats-number">200%</div>
+                        <div class="stats-label">性能提升</div>
+                    </div>
+                    
+                    <div class="deco-frame">
+                        <p>与同类产品相比，我们的解决方案提供了显著的性能优势：</p>
+                        <ul style="margin: 1rem 0 1rem 1.5rem;">
+                            <li>更高效的运算处理速度</li>
+                            <li>更低的能源消耗</li>
+                            <li>更快的响应时间</li>
+                            <li>更稳定的系统表现</li>
+                        </ul>
+                        <a href="#section3" class="deco-button deco-button-secondary">了解技术</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="data-viz-container">
+                        <div class="data-viz-title">Performance Metrics</div>
+                        <div class="data-viz">
+                            <div class="bar" style="height: 40%;"></div>
+                            <div class="bar" style="height: 60%;"></div>
+                            <div class="bar" style="height: 80%;"></div>
+                            <div class="bar" style="height: 100%;"></div>
+                            <div class="bar" style="height: 90%;"></div>
+                            <div class="bar" style="height: 120%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="deco-divider"></div>
+
+    <section class="section" id="section3">
+        <div class="zigzag-pattern"></div>
+        <div class="deco-fan fan-bottom-left">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path d="M100,0 L200,100 L100,200 L0,100 Z" fill="#2a4b7c"/>
+            </svg>
+        </div>
+        
+        <div class="container">
+            <div class="title-group">
+                <div class="subtitle">Seamless Integration</div>
+                <h1 class="title">智能<span class="highlight-cyan">生态</span></h1>
+                <p class="description">连接一切可能，ECOSYSTEM OF THE FUTURE 打造无缝体验。</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3 class="feature-title">移动设备</h3>
+                    <p class="feature-text">随时随地，无缝连接各种设备，数据智能同步，提供流畅体验。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💻</div>
+                    <h3 class="feature-title">电脑</h3>
+                    <p class="feature-text">强大的计算能力，处理复杂任务，支持专业创作和工作需求。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3 class="feature-title">互联网</h3>
+                    <p class="feature-text">全球连接，云端协同，安全数据传输，高速访问网络资源。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎮</div>
+                    <h3 class="feature-title">游戏</h3>
+                    <p class="feature-text">沉浸式体验，高清画质，流畅帧率，先进游戏技术。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🏠</div>
+                    <h3 class="feature-title">家居</h3>
+                    <p class="feature-text">智能家居控制，自动环境调节，安全监控系统，语音操作。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🚗</div>
+                    <h3 class="feature-title">出行</h3>
+                    <p class="feature-text">智能导航，实时路况，自动驾驶辅助，便捷出行服务。</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="#section1" class="deco-button">立即体验</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Simple scroll to functionality
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Bar animation on hover
+        document.querySelectorAll('.bar').forEach(bar => {
+            bar.addEventListener('mouseenter', function() {
+                const currentHeight = parseInt(this.style.height);
+                this.style.height = (currentHeight + 10) + '%';
+            });
+            
+            bar.addEventListener('mouseleave', function() {
+                const currentHeight = parseInt(this.style.height);
+                this.style.height = (currentHeight - 10) + '%';
+            });
+        });
+    </script>
+</body>
+</html>

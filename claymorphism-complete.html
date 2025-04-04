@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claymorphism | 粘土态设计</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap');
+        
+        :root {
+            --bg-color: #f5f0ff;
+            --primary: #b884ff;
+            --secondary: #ffc2e9;
+            --accent: #75d5ff;
+            --text: #6b6b8d;
+            --dark: #46466d;
+            --light: #ffffff;
+            --shadow-sm: 4px 4px 10px rgba(198, 198, 255, 0.5), -4px -4px 10px rgba(255, 255, 255, 0.8);
+            --shadow-md: 8px 8px 16px rgba(198, 198, 255, 0.6), -8px -8px 16px rgba(255, 255, 255, 0.8);
+            --shadow-inner: inset 4px 4px 8px rgba(198, 198, 255, 0.6), inset -4px -4px 8px rgba(255, 255, 255, 0.8);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .clay-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Clay Elements */
+        .clay {
+            background-color: var(--light);
+            border-radius: 30px;
+            box-shadow: var(--shadow-md);
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .clay:hover {
+            transform: translateY(-5px);
+            box-shadow: 12px 12px 20px rgba(198, 198, 255, 0.7), -12px -12px 20px rgba(255, 255, 255, 0.9);
+        }
+        
+        .clay-button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 6px 6px 12px rgba(184, 132, 255, 0.4), -6px -6px 12px rgba(255, 255, 255, 0.8);
+            transition: all 0.3s;
+            display: inline-block;
+            text-decoration: none;
+            text-align: center;
+        }
+        
+        .clay-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 8px 8px 16px rgba(184, 132, 255, 0.5), -8px -8px 16px rgba(255, 255, 255, 0.9);
+        }
+        
+        .clay-button:active {
+            transform: translateY(0);
+            box-shadow: var(--shadow-inner);
+        }
+        
+        .clay-button.secondary {
+            background-color: var(--secondary);
+            box-shadow: 6px 6px 12px rgba(255, 194, 233, 0.4), -6px -6px 12px rgba(255, 255, 255, 0.8);
+        }
+        
+        .clay-button.secondary:hover {
+            box-shadow: 8px 8px 16px rgba(255, 194, 233, 0.5), -8px -8px 16px rgba(255, 255, 255, 0.9);
+        }
+        
+        .clay-button.accent {
+            background-color: var(--accent);
+            box-shadow: 6px 6px 12px rgba(117, 213, 255, 0.4), -6px -6px 12px rgba(255, 255, 255, 0.8);
+        }
+        
+        .clay-button.accent:hover {
+            box-shadow: 8px 8px 16px rgba(117, 213, 255, 0.5), -8px -8px 16px rgba(255, 255, 255, 0.9);
+        }
+        
+        /* Header & Sections */
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 6rem 0;
+            overflow: hidden;
+        }
+        
+        .big-title {
+            font-size: 5rem;
+            font-weight: 800;
+            color: var(--dark);
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 0.8s ease-out;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 0.8s ease-out 0.2s;
+        }
+        
+        .description {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 0.8s ease-out 0.4s;
+        }
+        
+        .highlight {
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .highlight-pink {
+            color: var(--secondary);
+            font-weight: 500;
+        }
+        
+        .blob-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.25;
+            transition: all 1.5s ease-out;
+        }
+        
+        .blob-1 {
+            width: 500px;
+            height: 500px;
+            background-color: var(--primary);
+            top: -250px;
+            right: -100px;
+            transform: translateY(-50px);
+            opacity: 0;
+            transition: all 1.5s ease-out 0.3s;
+        }
+        
+        .blob-2 {
+            width: 400px;
+            height: 400px;
+            background-color: var(--secondary);
+            bottom: -200px;
+            left: 10%;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 1.5s ease-out 0.5s;
+        }
+        
+        .blob-3 {
+            width: 300px;
+            height: 300px;
+            background-color: var(--accent);
+            top: 30%;
+            left: -150px;
+            transform: translateX(-50px);
+            opacity: 0;
+            transition: all 1.5s ease-out 0.7s;
+        }
+        
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            position: fixed;
+            top: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 3rem);
+            max-width: 1350px;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .logo {
+            font-weight: 700;
+            font-size: 1.6rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo::before {
+            content: '';
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            margin-right: 8px;
+            box-shadow: 0 0 0 4px rgba(184, 132, 255, 0.3);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .visual-element {
+            position: relative;
+            transform: translateX(50px);
+            opacity: 0;
+            transition: all 0.8s ease-out 0.6s;
+        }
+        
+        .visual-element img {
+            max-width: 100%;
+            border-radius: 25px;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.5s;
+        }
+        
+        .visual-element:hover img {
+            transform: scale(1.02);
+        }
+        
+        .clay-card {
+            padding: 3rem;
+            border-radius: 35px;
+            background-color: var(--light);
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: transform 0.4s, box-shadow 0.4s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .clay-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 15px 15px 30px rgba(198, 198, 255, 0.7), -15px -15px 30px rgba(255, 255, 255, 0.9);
+        }
+        
+        .clay-card h3 {
+            color: var(--dark);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-active .big-title,
+        .section-active .subtitle,
+        .section-active .description,
+        .section-active .visual-element,
+        .section-active .blob-1,
+        .section-active .blob-2,
+        .section-active .blob-3,
+        .section-active .clay-button {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        /* Specific Section Styles */
+        #section1 .clay-card {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        #section1 .clay-card h3 {
+            color: white;
+        }
+        
+        #section2 .visual-element {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        #section2 .clay-data {
+            flex: 1;
+            height: 300px;
+            min-width: 120px;
+            background: linear-gradient(to top, rgba(184, 132, 255, 0.3), var(--primary));
+            border-radius: 20px;
+            position: relative;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding-bottom: 1rem;
+            font-weight: 700;
+            color: white;
+            transform: scaleY(0.3);
+            transform-origin: bottom;
+            transition: transform 1s ease-out;
+        }
+        
+        #section2.section-active .clay-data {
+            transform: scaleY(1);
+        }
+        
+        #section2 .clay-data:nth-child(2) {
+            background: linear-gradient(to top, rgba(255, 194, 233, 0.3), var(--secondary));
+            transition-delay: 0.2s;
+        }
+        
+        #section2 .clay-data:nth-child(3) {
+            background: linear-gradient(to top, rgba(117, 213, 255, 0.3), var(--accent));
+            transition-delay: 0.4s;
+        }
+        
+        #section2 .clay-data:nth-child(4) {
+            background: linear-gradient(to top, rgba(184, 132, 255, 0.3), var(--primary));
+            transition-delay: 0.6s;
+        }
+        
+        #section2 .clay-data:nth-child(5) {
+            background: linear-gradient(to top, rgba(255, 194, 233, 0.3), var(--secondary));
+            transition-delay: 0.8s;
+        }
+        
+        #section3 .clay-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            position: absolute;
+            box-shadow: var(--shadow-md);
+            opacity: 0;
+            transition: all 0.8s ease-out;
+        }
+        
+        #section3 .clay-circle:nth-child(1) {
+            top: 10%;
+            left: 20%;
+            background-color: var(--primary);
+            transition-delay: 0.6s;
+        }
+        
+        #section3 .clay-circle:nth-child(2) {
+            bottom: 30%;
+            right: 15%;
+            background-color: var(--secondary);
+            transition-delay: 0.8s;
+        }
+        
+        #section3 .clay-circle:nth-child(3) {
+            top: 40%;
+            right: 25%;
+            background-color: var(--accent);
+            transition-delay: 1s;
+        }
+        
+        #section3.section-active .clay-circle {
+            opacity: 0.7;
+        }
+        
+        @media (max-width: 991px) {
+            .big-title {
+                font-size: 3.5rem;
+            }
+            
+            .section-content {
+                flex-direction: column;
+                gap: 3rem;
+            }
+            
+            .section-content > div {
+                width: 100% !important;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">Clay Design</div>
+        <div class="nav-links">
+            <a href="#section1" class="active">未来现在</a>
+            <a href="#section2">性能突破</a>
+            <a href="#section3">智能生态</a>
+        </div>
+    </nav>
+    
+    <div class="clay-container">
+        <section id="section1">
+            <div class="blob-container">
+                <div class="blob blob-1"></div>
+                <div class="blob blob-2"></div>
+                <div class="blob blob-3"></div>
+            </div>
+            
+            <div class="section-content" style="display: flex; align-items: center; gap: 5rem;">
+                <div style="width: 50%;">
+                    <div class="subtitle">THE FUTURE IS NOW</div>
+                    <h1 class="big-title">科技<span class="highlight">创新</span></h1>
+                    <p class="description">突破性能边界，<span class="highlight-pink">颠覆</span>传统思维。享受前所未有的科技体验，INNOVATION WITHOUT LIMITS.</p>
+                    <a href="#section2" class="clay-button">探索更多</a>
+                </div>
+                
+                <div class="visual-element" style="width: 50%;">
+                    <div class="clay-card">
+                        <h3>未来已来</h3>
+                        <p>柔软立体的设计语言，创造出如同粘土般触感的视觉体验，让科技与人更加亲近。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="section2">
+            <div class="blob-container">
+                <div class="blob blob-1"></div>
+                <div class="blob blob-2"></div>
+                <div class="blob blob-3"></div>
+            </div>
+            
+            <div class="section-content" style="display: flex; align-items: center; gap: 5rem;">
+                <div class="visual-element" style="width: 50%;">
+                    <div class="clay-data">40%</div>
+                    <div class="clay-data">70%</div>
+                    <div class="clay-data">90%</div>
+                    <div class="clay-data">150%</div>
+                    <div class="clay-data">200%</div>
+                </div>
+                
+                <div style="width: 50%;">
+                    <div class="subtitle">BREAKTHROUGH PERFORMANCE</div>
+                    <h1 class="big-title"><span class="highlight-pink">200%</span>性能提升</h1>
+                    <p class="description">全新架构设计，REVOLUTIONARY TECHNOLOGY 为您带来前所未有的体验，让不可能成为可能。</p>
+                    <a href="#section3" class="clay-button secondary">了解技术</a>
+                </div>
+            </div>
+        </section>
+        
+        <section id="section3">
+            <div class="blob-container">
+                <div class="blob blob-1"></div>
+                <div class="blob blob-2"></div>
+                <div class="blob blob-3"></div>
+                
+                <div class="clay-circle"></div>
+                <div class="clay-circle"></div>
+                <div class="clay-circle"></div>
+            </div>
+            
+            <div class="section-content" style="display: flex; align-items: center; gap: 5rem;">
+                <div style="width: 50%;">
+                    <div class="subtitle">SEAMLESS INTEGRATION</div>
+                    <h1 class="big-title">智能<span class="highlight">生态</span></h1>
+                    <p class="description">连接一切可能，ECOSYSTEM OF THE FUTURE 打造无缝体验，让科技融入生活每一处。</p>
+                    <a href="#section1" class="clay-button accent">立即体验</a>
+                </div>
+                
+                <div class="visual-element" style="width: 50%;">
+                    <img src="/api/placeholder/600/400" alt="Seamless Ecosystem">
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <script>
+        // Intersection Observer for animations
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-links a');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('section-active');
+                    
+                    // Update active nav link
+                    navLinks.forEach(link => {
+                        if (link.getAttribute('href') === '#' + entry.target.id) {
+                            link.classList.add('active');
+                        } else {
+                            link.classList.remove('active');
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.3 });
+        
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetSection.offsetTop,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

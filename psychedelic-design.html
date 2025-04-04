@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psychedelic Design | 迷幻风格设计</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Righteous&family=Rubik:wght@400;500;700&display=swap');
+        
+        :root {
+            --bg-dark: #120458;
+            --bg-light: #4c0a9e;
+            --color-1: #fa1e4e;
+            --color-2: #8a2be2;
+            --color-3: #ff7700;
+            --color-4: #61d4b3;
+            --light: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--bg-dark), var(--bg-light));
+            color: var(--light);
+            font-family: 'Rubik', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        /* Psychedelic Background */
+        .psychedelic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.8;
+            background: 
+                radial-gradient(circle at 50% 50%, var(--color-2) 0%, transparent 20%),
+                radial-gradient(circle at 80% 20%, var(--color-1) 0%, transparent 20%),
+                radial-gradient(circle at 20% 80%, var(--color-3) 0%, transparent 20%),
+                radial-gradient(circle at 80% 80%, var(--color-4) 0%, transparent 20%);
+            filter: blur(80px);
+            animation: pulseBackground 20s infinite alternate;
+        }
+        
+        @keyframes pulseBackground {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2) rotate(5deg);
+            }
+            100% {
+                transform: scale(1) rotate(-5deg);
+            }
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            background: rgba(18, 4, 88, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid transparent;
+            border-image: linear-gradient(to right, var(--color-1), var(--color-2), var(--color-3), var(--color-4));
+            border-image-slice: 1;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+        }
+        
+        .logo {
+            font-family: 'Righteous', cursive;
+            font-size: 2.2rem;
+            color: var(--light);
+            text-decoration: none;
+            background: linear-gradient(to right, var(--color-1), var(--color-3));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(250, 30, 78, 0.5);
+            animation: hueRotate 10s infinite linear;
+        }
+        
+        @keyframes hueRotate {
+            0% {
+                filter: hue-rotate(0deg);
+            }
+            100% {
+                filter: hue-rotate(360deg);
+            }
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-family: 'Rubik', sans-serif;
+            font-weight: 500;
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, var(--color-1), var(--color-3));
+            border-radius: 30px;
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s;
+        }
+        
+        .nav-links a:hover::before, .nav-links a.active::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        /* Section */
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 8rem 0;
+            overflow: hidden;
+        }
+        
+        .section-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 5rem;
+        }
+        
+        .text-content {
+            flex: 1;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 1s ease-out;
+        }
+        
+        .visual-content {
+            flex: 1;
+            transform: translateX(30px);
+            opacity: 0;
+            transition: all 1s ease-out 0.3s;
+        }
+        
+        .section-active .text-content,
+        .section-active .visual-content {
+            transform: translate(0);
+            opacity: 1;
+        }
+        
+        /* Text Elements */
+        .psychedelic-title {
+            font-family: 'Bungee Shade', cursive;
+            font-size: 4.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--light);
+            transform: skew(-5deg);
+            text-shadow: 
+                3px 3px 0 var(--color-1),
+                6px 6px 0 var(--color-2);
+        }
+        
+        .subtitle {
+            font-family: 'Righteous', cursive;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--color-4);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .description {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            max-width: 600px;
+        }
+        
+        .highlight {
+            color: var(--color-1);
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .highlight::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 10px;
+            left: 0;
+            bottom: 0;
+            background: linear-gradient(to right, var(--color-1), transparent);
+            opacity: 0.3;
+            z-index: -1;
+        }
+        
+        .highlight-alt {
+            color: var(--color-3);
+            font-weight: 700;
+        }
+        
+        /* Buttons */
+        .psychedelic-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(to right, var(--color-1), var(--color-2));
+            color: var(--light);
+            font-family: 'Rubik', sans-serif;
+            font-weight: 500;
+            font-size: 1.1rem;
+            text-decoration: none;
+            border-radius: 50px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(250, 30, 78, 0.4);
+        }
+        
+        .psychedelic-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, var(--color-2), var(--color-1));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .psychedelic-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(250, 30, 78, 0.6);
+        }
+        
+        .psychedelic-button:hover::before {
+            opacity: 1;
+        }
+        
+        .psychedelic-button.alt {
+            background: linear-gradient(to right, var(--color-3), var(--color-4));
+            box-shadow: 0 5px 15px rgba(255, 119, 0, 0.4);
+        }
+        
+        .psychedelic-button.alt::before {
+            background: linear-gradient(to right, var(--color-4), var(--color-3));
+        }
+        
+        .psychedelic-button.alt:hover {
+            box-shadow: 0 10px 20px rgba(255, 119, 0, 0.6);
+        }
+        
+        /* Visual Elements */
+        .blob-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            perspective: 1000px;
+        }
+        
+        .blob {
+            position: absolute;
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            animation: morphBlob 8s infinite alternate ease-in-out;
+        }
+        
+        @keyframes morphBlob {
+            0% {
+                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+                transform: rotate(0deg);
+            }
+            50% {
+                border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+                transform: rotate(5deg);
+            }
+            100% {
+                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+                transform: rotate(0deg);
+            }
+        }
+        
+        .blob-1 {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, var(--color-1), var(--color-2));
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+            opacity: 0.9;
+            box-shadow: 0 0 30px rgba(250, 30, 78, 0.6);
+            animation: morphBlob 8s infinite alternate ease-in-out, hueRotate 15s infinite linear;
+        }
+        
+        .blob-2 {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, var(--color-3), var(--color-4));
+            bottom: 0;
+            left: 20%;
+            z-index: 2;
+            opacity: 0.8;
+            box-shadow: 0 0 20px rgba(255, 119, 0, 0.6);
+            animation: morphBlob 12s infinite alternate-reverse ease-in-out, hueRotate 20s infinite linear;
+        }
+        
+        .blob-3 {
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(135deg, var(--color-4), var(--color-2));
+            bottom: 50px;
+            right: 10%;
+            z-index: 3;
+            opacity: 0.7;
+            box-shadow: 0 0 20px rgba(97, 212, 179, 0.6);
+            animation: morphBlob 10s infinite alternate ease-in-out, hueRotate 18s infinite linear;
+        }
+        
+        /* Dynamic Circles */
+        .circles-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            margin: 0 auto;
+            perspective: 1000px;
+        }
+        
+        .circle-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            border: 4px solid;
+            animation: rotateRing 20s infinite linear;
+        }
+        
+        @keyframes rotateRing {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+        
+        .ring-1 {
+            width: 300px;
+            height: 300px;
+            border-color: var(--color-1);
+            animation-duration: 20s;
+        }
+        
+        .ring-2 {
+            width: 220px;
+            height: 220px;
+            border-color: var(--color-2);
+            animation-duration: 15s;
+            animation-direction: reverse;
+        }
+        
+        .ring-3 {
+            width: 140px;
+            height: 140px;
+            border-color: var(--color-3);
+            animation-duration: 10s;
+        }
+        
+        .orbit-circle {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-1), var(--color-2));
+            box-shadow: 0 0 15px rgba(250, 30, 78, 0.6);
+            animation: hueRotate 10s infinite linear;
+        }
+        
+        .orbit-circle:nth-child(1) {
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .orbit-circle:nth-child(2) {
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+        }
+        
+        .orbit-circle:nth-child(3) {
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .orbit-circle:nth-child(4) {
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+        }
+        
+        /* Data Visualization */
+        .visualizer {
+            width: 100%;
+            height: 300px;
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            position: relative;
+            perspective: 800px;
+            transform-style: preserve-3d;
+            transform: rotateX(20deg);
+        }
+        
+        .visualizer-bar {
+            flex: 1;
+            background: linear-gradient(to top, var(--color-1), var(--color-2));
+            position: relative;
+            height: 0;
+            transition: height 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 0 15px rgba(250, 30, 78, 0.4);
+            animation: hueRotate 10s infinite linear;
+            border-radius: 5px 5px 0 0;
+        }
+        
+        .visualizer-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), transparent);
+            opacity: 0.3;
+        }
+        
+        .section-active .visualizer-bar:nth-child(1) {
+            height: 40%;
+            transition-delay: 0.1s;
+        }
+        
+        .section-active .visualizer-bar:nth-child(2) {
+            height: 60%;
+            transition-delay: 0.2s;
+        }
+        
+        .section-active .visualizer-bar:nth-child(3) {
+            height: 80%;
+            transition-delay: 0.3s;
+        }
+        
+        .section-active .visualizer-bar:nth-child(4) {
+            height: 100%;
+            transition-delay: 0.4s;
+        }
+        
+        .section-active .visualizer-bar:nth-child(5) {
+            height: 90%;
+            transition-delay: 0.5s;
+        }
+        
+        .section-active .visualizer-bar:nth-child(6) {
+            height: 75%;
+            transition-delay: 0.6s;
+        }
+        
+        .section-active .visualizer-bar:nth-child(7) {
+            height: 120%;
+            transition-delay: 0.7s;
+        }
+        
+        .section-active .visualizer-bar:nth-child(8) {
+            height: 110%;
+            transition-delay: 0.8s;
+        }
+        
+        /* Spiral Art */
+        .spiral-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            margin: 0 auto;
+            perspective: 1000px;
+        }
+        
+        .spiral {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            opacity: 0.9;
+        }
+        
+        .spiral-element {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 0 solid transparent;
+            border-top-width: 5px;
+            border-left-width: 5px;
+            animation: rotateSpiral 12s infinite linear, hueRotate 8s infinite linear;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+        
+        .spiral-element:nth-child(1) {
+            border-color: var(--color-1);
+            width: 400px;
+            height: 400px;
+            transition-delay: 0.1s;
+        }
+        
+        .spiral-element:nth-child(2) {
+            border-color: var(--color-2);
+            width: 350px;
+            height: 350px;
+            transition-delay: 0.2s;
+        }
+        
+        .spiral-element:nth-child(3) {
+            border-color: var(--color-3);
+            width: 300px;
+            height: 300px;
+            transition-delay: 0.3s;
+        }
+        
+        .spiral-element:nth-child(4) {
+            border-color: var(--color-4);
+            width: 250px;
+            height: 250px;
+            transition-delay: 0.4s;
+        }
+        
+        .spiral-element:nth-child(5) {
+            border-color: var(--color-1);
+            width: 200px;
+            height: 200px;
+            transition-delay: 0.5s;
+        }
+        
+        .spiral-element:nth-child(6) {
+            border-color: var(--color-2);
+            width: 150px;
+            height: 150px;
+            transition-delay: 0.6s;
+        }
+        
+        .spiral-element:nth-child(7) {
+            border-color: var(--color-3);
+            width: 100px;
+            height: 100px;
+            transition-delay: 0.7s;
+        }
+        
+        .spiral-element:nth-child(8) {
+            border-color: var(--color-4);
+            width: 50px;
+            height: 50px;
+            transition-delay: 0.8s;
+        }
+        
+        .section-active .spiral-element {
+            opacity: 1;
+        }
+        
+        @keyframes rotateSpiral {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 991px) {
+            .section-content {
+                flex-direction: column;
+                gap: 3rem;
+            }
+            
+            .psychedelic-title {
+                font-size: 3rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .blob-container, .circles-container, .spiral-container {
+                transform: scale(0.8);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="psychedelic-bg"></div>
+    
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">PSYCHEDELIC</a>
+            <div class="nav-links">
+                <a href="#section1" class="active">未来现在</a>
+                <a href="#section2">性能突破</a>
+                <a href="#section3">智能生态</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <section id="section1">
+            <div class="section-content">
+                <div class="text-content">
+                    <div class="subtitle">THE FUTURE IS NOW</div>
+                    <h1 class="psychedelic-title">科技创新</h1>
+                    <p class="description">突破性能边界，<span class="highlight">颠覆</span>传统思维。受60-70年代迷幻艺术影响，鲜艳色彩和有机形状，INNOVATION WITHOUT LIMITS.</p>
+                    <a href="#section2" class="psychedelic-button">探索更多</a>
+                </div>
+                
+                <div class="visual-content">
+                    <div class="blob-container">
+                        <div class="blob blob-1"></div>
+                        <div class="blob blob-2"></div>
+                        <div class="blob blob-3"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="section2">
+            <div class="section-content">
+                <div class="visual-content">
+                    <div class="visualizer">
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                        <div class="visualizer-bar"></div>
+                    </div>
+                </div>
+                
+                <div class="text-content">
+                    <div class="subtitle">BREAKTHROUGH PERFORMANCE</div>
+                    <h1 class="psychedelic-title">200%性能提升</h1>
+                    <p class="description">全新架构设计，<span class="highlight-alt">REVOLUTIONARY TECHNOLOGY</span> 为您带来前所未有的体验。迷幻设计风格带来梦幻般的视觉冲击。</p>
+                    <a href="#section3" class="psychedelic-button alt">了解技术</a>
+                </div>
+            </div>
+        </section>
+        
+        <section id="section3">
+            <div class="section-content">
+                <div class="text-content">
+                    <div class="subtitle">SEAMLESS INTEGRATION</div>
+                    <h1 class="psychedelic-title">智能生态</h1>
+                    <p class="description">连接一切可能，<span class="highlight-alt">ECOSYSTEM OF THE FUTURE</span> 打造无缝体验。扭曲、有机的形状与鲜艳色彩构建和谐视觉。</p>
+                    <a href="#section1" class="psychedelic-button">立即体验</a>
+                </div>
+                
+                <div class="visual-content">
+                    <div class="spiral-container">
+                        <div class="spiral">
+                            <div class="spiral-element"></div>
+                            <div class="spiral-element"></div>
+                            <div class="spiral-element"></div>
+                            <div class="spiral-element"></div>
+                            <div class="spiral-element"></div>
+                            <div class="spiral-element"></div>
+                            <div class="spiral-element"></div>
+                            <div class="spiral-element"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <script>
+        // Intersection Observer for animations
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-links a');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('section-active');
+                    
+                    // Update active nav link
+                    navLinks.forEach(link => {
+                        if (link.getAttribute('href') === '#' + entry.target.id) {
+                            link.classList.add('active');
+                        } else {
+                            link.classList.remove('active');
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.3 });
+        
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetSection = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetSection.offsetTop,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
